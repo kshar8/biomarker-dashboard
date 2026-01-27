@@ -1,7 +1,3 @@
-# ----------------------------
-# Streamlit Biomarker Explorer v4 - Clean Overlay & Multiple Categories
-# ----------------------------
-
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -19,7 +15,7 @@ labs_df = pd.read_csv("lab_data.csv", parse_dates=["date"])
 events_df = pd.read_csv("events.csv", parse_dates=["start_date", "end_date"])
 
 # ----------------------------
-# 2️⃣ Default Reference Ranges
+# 2️⃣ Reference Ranges
 # ----------------------------
 default_ref_ranges = {
     "CRP": (0.0, 3.0),
@@ -37,9 +33,9 @@ default_ref_ranges = {
 # ----------------------------
 st.sidebar.header("Controls")
 
-# Date range slider
-min_date = labs_df["date"].min().to_pydatetime()
-max_date = labs_df["date"].max().to_pydatetime()
+# Date range
+min_date = labs_df["date"].min().date()
+max_date = labs_df["date"].max().date()
 date_range = st.sidebar.slider(
     "Select date range",
     min_value=min_date,
@@ -47,37 +43,44 @@ date_range = st.sidebar.slider(
     value=(min_date, max_date)
 )
 
-# Category selection
+# Categories and biomarkers
 all_categories = labs_df["category"].unique()
 selected_categories = st.sidebar.multiselect(
     "Select categories", all_categories, default=list(all_categories)
 )
 
-# Biomarker selection
 available_biomarkers = labs_df[labs_df["category"].isin(selected_categories)]["biomarker"].unique()
 selected_biomarkers = st.sidebar.multiselect(
     "Select biomarkers", available_biomarkers, default=available_biomarkers[:5]
 )
 
-# Overlay toggle
-overlay = st.sidebar.checkbox("Overlay biomarkers?", value=True)
+# Overlay option
+overlay_option = st.sidebar.selectbox(
+    "Overlay option",
+    options=[
+        "All biomarkers",
+        "Biomarkers within selected categories",
+        "Individual categories"
+    ]
+)
 
 # Show reference ranges
 show_ref = st.sidebar.checkbox("Show reference ranges?", value=True)
 
-# Custom reference ranges (fixed type)
-st.sidebar.subheader("Custom Reference Ranges")
+# Show annotations toggle
+show_annotations = st.sidebar.checkbox("Show annotations?", value=True)
+
+# Custom reference ranges
 custom_ref_ranges = {}
+st.sidebar.subheader("Custom Reference Ranges")
 for bm in selected_biomarkers:
     if bm in default_ref_ranges:
         min_val, max_val = default_ref_ranges[bm]
-        min_val_f = float(min_val)
-        max_val_f = float(max_val)
         user_range = st.sidebar.slider(
             f"{bm} range",
-            min_value=min_val_f * 0.5,
-            max_value=max_val_f * 2.0,
-            value=(min_val_f, max_val_f)
+            min_value=float(min_val*0.5),
+            max_value=float(max_val*2),
+            value=(float(min_val), float(max_val))
         )
         custom_ref_ranges[bm] = user_range
     else:
@@ -87,7 +90,7 @@ for bm in selected_biomarkers:
 show_out_of_range = st.sidebar.checkbox("Show only out-of-range values?", value=False)
 
 # ----------------------------
-# 4️⃣ Filter Lab Data
+# 4️⃣ Filter lab data
 # ----------------------------
 filtered_labs = labs_df[
     (labs_df["category"].isin(selected_categories)) &
@@ -108,6 +111,11 @@ if show_out_of_range:
 # 5️⃣ Event Track Plot
 # ----------------------------
 st.subheader("Symptoms / Infections Timeline")
+
+# Ensure datetime
+events_df["start_date"] = pd.to_datetime(events_df["start_date"])
+events_df["end_date"] = pd.to_datetime(events_df["end_date"])
+
 fig_event, ax_event = plt.subplots(figsize=(12, 1.5))
 ax_event.set_ylim(0, len(events_df))
 ax_event.set_yticks([])
@@ -115,10 +123,10 @@ ax_event.set_xticks([])
 ax_event.set_title("Symptoms / Infections Timeline")
 
 for i, event in enumerate(events_df.to_dict(orient="records")):
-    start = mdates.date2num(event["start_date"].to_pydatetime())
-    end = mdates.date2num(event["end_date"].to_pydatetime())
-    color = "#ff9999" if event["type"] == "infection" else "#ffe066"
-    ax_event.barh(i, width=end - start, left=start, height=0.8, color=color)
+    start = mdates.date2num(event["start_date"])
+    end = mdates.date2num(event["end_date"])
+    color = "#ff9999" if event["type"].lower() == "infection" else "#ffe066"
+    ax_event.barh(i, width=end-start, left=start, height=0.8, color=color)
     ax_event.text(start + (end-start)/2, i, event["name"], ha="center", va="center", fontsize=9)
 
 ax_event.barh([], [], color="#ffe066", label="Symptom")
@@ -128,44 +136,107 @@ plt.tight_layout()
 st.pyplot(fig_event)
 
 # ----------------------------
-# 6️⃣ Biomarker Plots (Overlay or Separate)
+# 6️⃣ Biomarker Trends
 # ----------------------------
 st.subheader("Biomarker Trends")
 
-if overlay:
-    fig, ax = plt.subplots(figsize=(12, 6))
-    for bm in selected_biomarkers:
-        bm_data = filtered_labs[filtered_labs["biomarker"] == bm]
-        ax.plot(bm_data["date"], bm_data["value"], marker="o", label=bm)  # no color assigned
-        for x, y, dt in zip(bm_data["date"], bm_data["value"], bm_data["date"]):
-            ax.annotate(f"{y}\n{dt.date()}", (x, y), textcoords="offset points", xytext=(0,10), ha='center', fontsize=7)
-        if show_ref and bm in custom_ref_ranges:
-            low, high = custom_ref_ranges[bm]
-            ax.fill_between(bm_data["date"], low, high, alpha=0.1)
-    ax.set_xlabel("Date")
-    ax.set_ylabel("Value")
-    ax.legend(fontsize=8)
-    plt.xticks(rotation=45)
-    plt.tight_layout()
-    st.pyplot(fig)
+def plot_biomarkers(df, overlay_option):
+    if overlay_option == "All biomarkers":
+        fig, ax = plt.subplots(figsize=(12,6))
+        for bm in df["biomarker"].unique():
+            bm_data = df[df["biomarker"]==bm]
+            ax.plot(bm_data["date"], bm_data["value"], marker="o", label=bm)
+            
+            # Annotate only max/min points
+            if show_annotations and len(bm_data) > 0:
+                max_idx = bm_data["value"].idxmax()
+                min_idx = bm_data["value"].idxmin()
+                for idx in [max_idx, min_idx]:
+                    row = bm_data.loc[idx]
+                    ax.annotate(f"{row['value']}\n{row['date'].date()}", 
+                                (row['date'], row['value']), 
+                                textcoords="offset points", xytext=(0,10),
+                                ha='center', fontsize=8)
+            
+            # Reference ranges
+            if show_ref and bm in custom_ref_ranges:
+                low, high = custom_ref_ranges[bm]
+                ax.fill_between(bm_data["date"], low, high, alpha=0.1)
+        ax.set_xlabel("Date")
+        ax.set_ylabel("Value")
+        ax.legend(fontsize=8)
+        ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
+        plt.xticks(rotation=45, ha='right')
+        plt.tight_layout()
+        st.pyplot(fig)
+    
+    elif overlay_option == "Biomarkers within selected categories":
+        fig, ax = plt.subplots(figsize=(12,6))
+        for cat in selected_categories:
+            cat_data = df[df["category"]==cat]
+            for bm in cat_data["biomarker"].unique():
+                bm_data = cat_data[cat_data["biomarker"]==bm]
+                ax.plot(bm_data["date"], bm_data["value"], marker="o", label=f"{bm} ({cat})")
+                
+                if show_annotations and len(bm_data) > 0:
+                    max_idx = bm_data["value"].idxmax()
+                    min_idx = bm_data["value"].idxmin()
+                    for idx in [max_idx, min_idx]:
+                        row = bm_data.loc[idx]
+                        ax.annotate(f"{row['value']}\n{row['date'].date()}", 
+                                    (row['date'], row['value']), 
+                                    textcoords="offset points", xytext=(0,10),
+                                    ha='center', fontsize=8)
+                
+                if show_ref and bm in custom_ref_ranges:
+                    low, high = custom_ref_ranges[bm]
+                    ax.fill_between(bm_data["date"], low, high, alpha=0.1)
+        ax.set_xlabel("Date")
+        ax.set_ylabel("Value")
+        ax.legend(fontsize=8)
+        ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
+        plt.xticks(rotation=45, ha='right')
+        plt.tight_layout()
+        st.pyplot(fig)
 
-else:
-    fig, axes = plt.subplots(len(selected_biomarkers), 1, figsize=(12, 2*len(selected_biomarkers)), sharex=True)
-    axes = np.atleast_1d(axes)
-    for i, bm in enumerate(selected_biomarkers):
-        ax = axes[i]
-        bm_data = filtered_labs[filtered_labs["biomarker"] == bm]
-        ax.plot(bm_data["date"], bm_data["value"], marker="o", label=bm)
-        for x, y, dt in zip(bm_data["date"], bm_data["value"], bm_data["date"]):
-            ax.annotate(f"{y}\n{dt.date()}", (x, y), textcoords="offset points", xytext=(0,10), ha='center', fontsize=7)
-        if show_ref and bm in custom_ref_ranges:
-            low, high = custom_ref_ranges[bm]
-            ax.fill_between(bm_data["date"], low, high, alpha=0.1)
-        ax.set_ylabel(f"{bm} ({bm_data['unit'].iloc[0]})")
-        ax.legend(loc="upper left", fontsize=8)
-    axes[-1].set_xlabel("Date")
-    axes[-1].xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
-    plt.xticks(rotation=45)
-    plt.tight_layout()
-    st.pyplot(fig)
+    else:  # Individual categories
+        fig, axes = plt.subplots(len(selected_categories),1, figsize=(12, 3*len(selected_categories)), sharex=True)
+        axes = np.atleast_1d(axes)
+        for i, cat in enumerate(selected_categories):
+            ax = axes[i]
+            cat_data = df[df["category"]==cat]
+            for bm in cat_data["biomarker"].unique():
+                bm_data = cat_data[cat_data["biomarker"]==bm]
+                ax.plot(bm_data["date"], bm_data["value"], marker="o", label=bm)
+                
+                if show_annotations and len(bm_data) > 0:
+                    max_idx = bm_data["value"].idxmax()
+                    min_idx = bm_data["value"].idxmin()
+                    for idx in [max_idx, min_idx]:
+                        row = bm_data.loc[idx]
+                        ax.annotate(f"{row['value']}\n{row['date'].date()}", 
+                                    (row['date'], row['value']), 
+                                    textcoords="offset points", xytext=(0,10),
+                                    ha='center', fontsize=8)
+                
+                if show_ref and bm in custom_ref_ranges:
+                    low, high = custom_ref_ranges[bm]
+                    ax.fill_between(bm_data["date"], low, high, alpha=0.1)
+            ax.set_ylabel(cat)
+            ax.legend(fontsize=8)
+        axes[-1].set_xlabel("Date")
+        axes[-1].xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
+        plt.xticks(rotation=45, ha='right')
+        plt.tight_layout()
+        st.pyplot(fig)
+
+# Call plot
+plot_biomarkers(filtered_labs, overlay_option)
+
+# ----------------------------
+# 7️⃣ Optional: Show full table for hover-like inspection
+# ----------------------------
+st.subheader("Detailed Lab Data")
+st.dataframe(filtered_labs.reset_index(drop=True))
+
 
