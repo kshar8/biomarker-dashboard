@@ -1,5 +1,5 @@
 # ----------------------------
-# Streamlit Biomarker Explorer v3 (Color-coded + Hover)
+# Streamlit Biomarker Explorer v3 - Fixed
 # ----------------------------
 
 import streamlit as st
@@ -37,7 +37,7 @@ default_ref_ranges = {
 # ----------------------------
 st.sidebar.header("Controls")
 
-# Date range
+# Date range slider
 min_date = labs_df["date"].min().to_pydatetime()
 max_date = labs_df["date"].max().to_pydatetime()
 date_range = st.sidebar.slider(
@@ -49,11 +49,15 @@ date_range = st.sidebar.slider(
 
 # Category selection
 all_categories = labs_df["category"].unique()
-selected_categories = st.sidebar.multiselect("Select categories", all_categories, default=list(all_categories))
+selected_categories = st.sidebar.multiselect(
+    "Select categories", all_categories, default=list(all_categories)
+)
 
 # Biomarker selection
 available_biomarkers = labs_df[labs_df["category"].isin(selected_categories)]["biomarker"].unique()
-selected_biomarkers = st.sidebar.multiselect("Select biomarkers", available_biomarkers, default=available_biomarkers[:5])
+selected_biomarkers = st.sidebar.multiselect(
+    "Select biomarkers", available_biomarkers, default=available_biomarkers[:5]
+)
 
 # Overlay toggle
 overlay = st.sidebar.checkbox("Overlay biomarkers?", value=True)
@@ -61,13 +65,20 @@ overlay = st.sidebar.checkbox("Overlay biomarkers?", value=True)
 # Show reference ranges
 show_ref = st.sidebar.checkbox("Show reference ranges?", value=True)
 
-# Custom reference ranges
+# Custom reference ranges (fixed type issue)
 st.sidebar.subheader("Custom Reference Ranges")
 custom_ref_ranges = {}
 for bm in selected_biomarkers:
     if bm in default_ref_ranges:
         min_val, max_val = default_ref_ranges[bm]
-        user_range = st.sidebar.slider(f"{bm} range", min_value=float(min_val*0.5), max_value=float(max_val*2), value=(min_val, max_val))
+        min_val_f = float(min_val)
+        max_val_f = float(max_val)
+        user_range = st.sidebar.slider(
+            f"{bm} range",
+            min_value=min_val_f * 0.5,
+            max_value=max_val_f * 2.0,
+            value=(min_val_f, max_val_f)
+        )
         custom_ref_ranges[bm] = user_range
     else:
         custom_ref_ranges[bm] = (None, None)
@@ -94,7 +105,7 @@ if show_out_of_range:
     filtered_labs = filtered_labs[filtered_labs.apply(out_of_range, axis=1)]
 
 # ----------------------------
-# 5️⃣ Assign colors by category
+# 5️⃣ Assign Colors by Category
 # ----------------------------
 category_colors = {
     "immune": "#1f77b4",
@@ -104,7 +115,6 @@ category_colors = {
     "cardio": "#9467bd",
 }
 
-# Fallback for any new categories
 for cat in selected_categories:
     if cat not in category_colors:
         category_colors[cat] = np.random.rand(3,)
@@ -133,7 +143,7 @@ plt.tight_layout()
 st.pyplot(fig_event)
 
 # ----------------------------
-# 7️⃣ Biomarker Plots with Hover Info
+# 7️⃣ Biomarker Plots with Colors and Hover
 # ----------------------------
 st.subheader("Biomarker Trends")
 
@@ -143,7 +153,6 @@ if overlay:
         bm_data = filtered_labs[filtered_labs["biomarker"] == bm]
         color = category_colors.get(bm_data["category"].iloc[0], "black")
         ax.plot(bm_data["date"], bm_data["value"], marker="o", label=bm, color=color)
-        # Hover text using annotations
         for x, y, dt in zip(bm_data["date"], bm_data["value"], bm_data["date"]):
             ax.annotate(f"{y}\n{dt.date()}", (x, y), textcoords="offset points", xytext=(0,10), ha='center', fontsize=7)
         if show_ref and bm in custom_ref_ranges:
