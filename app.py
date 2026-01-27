@@ -1,16 +1,15 @@
 # ----------------------------
-# Streamlit Biomarker Explorer v4 - Clean Overlay & Multiple Categories
+# Streamlit Biomarker Explorer v5 - Plotly Interactive Overlay
 # ----------------------------
 
 import streamlit as st
 import pandas as pd
-import numpy as np
+import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
-from datetime import datetime
 
 st.set_page_config(layout="wide", page_title="Biomarker Dashboard")
-st.title("Biomarker & Symptom Explorer")
+st.title("Biomarker & Symptom Explorer (Interactive)")
 
 # ----------------------------
 # 1️⃣ Load Data
@@ -37,9 +36,9 @@ default_ref_ranges = {
 # ----------------------------
 st.sidebar.header("Controls")
 
-# Date range slider
-min_date = labs_df["date"].min().to_pydatetime()
-max_date = labs_df["date"].max().to_pydatetime()
+# Date range
+min_date = labs_df["date"].min()
+max_date = labs_df["date"].max()
 date_range = st.sidebar.slider(
     "Select date range",
     min_value=min_date,
@@ -59,15 +58,12 @@ selected_biomarkers = st.sidebar.multiselect(
     "Select biomarkers", available_biomarkers, default=available_biomarkers[:5]
 )
 
-# Overlay toggle
-overlay = st.sidebar.checkbox("Overlay biomarkers?", value=True)
-
 # Show reference ranges
 show_ref = st.sidebar.checkbox("Show reference ranges?", value=True)
 
-# Custom reference ranges (fixed type)
-st.sidebar.subheader("Custom Reference Ranges")
+# Custom reference ranges
 custom_ref_ranges = {}
+st.sidebar.subheader("Custom Reference Ranges")
 for bm in selected_biomarkers:
     if bm in default_ref_ranges:
         min_val, max_val = default_ref_ranges[bm]
@@ -92,8 +88,8 @@ show_out_of_range = st.sidebar.checkbox("Show only out-of-range values?", value=
 filtered_labs = labs_df[
     (labs_df["category"].isin(selected_categories)) &
     (labs_df["biomarker"].isin(selected_biomarkers)) &
-    (labs_df["date"] >= pd.Timestamp(date_range[0])) &
-    (labs_df["date"] <= pd.Timestamp(date_range[1]))
+    (labs_df["date"] >= date_range[0]) &
+    (labs_df["date"] <= date_range[1])
 ].copy()
 
 if show_out_of_range:
@@ -105,7 +101,7 @@ if show_out_of_range:
     filtered_labs = filtered_labs[filtered_labs.apply(out_of_range, axis=1)]
 
 # ----------------------------
-# 5️⃣ Event Track Plot
+# 5️⃣ Event Track Plot (Matplotlib)
 # ----------------------------
 st.subheader("Symptoms / Infections Timeline")
 fig_event, ax_event = plt.subplots(figsize=(12, 1.5))
@@ -128,44 +124,55 @@ plt.tight_layout()
 st.pyplot(fig_event)
 
 # ----------------------------
-# 6️⃣ Biomarker Plots (Overlay or Separate)
+# 6️⃣ Interactive Biomarker Overlay (Plotly)
 # ----------------------------
-st.subheader("Biomarker Trends")
+st.subheader("Interactive Biomarker Trends")
 
-if overlay:
-    fig, ax = plt.subplots(figsize=(12, 6))
-    for bm in selected_biomarkers:
-        bm_data = filtered_labs[filtered_labs["biomarker"] == bm]
-        ax.plot(bm_data["date"], bm_data["value"], marker="o", label=bm)  # no color assigned
-        for x, y, dt in zip(bm_data["date"], bm_data["value"], bm_data["date"]):
-            ax.annotate(f"{y}\n{dt.date()}", (x, y), textcoords="offset points", xytext=(0,10), ha='center', fontsize=7)
-        if show_ref and bm in custom_ref_ranges:
-            low, high = custom_ref_ranges[bm]
-            ax.fill_between(bm_data["date"], low, high, alpha=0.1)
-    ax.set_xlabel("Date")
-    ax.set_ylabel("Value")
-    ax.legend(fontsize=8)
-    plt.xticks(rotation=45)
-    plt.tight_layout()
-    st.pyplot(fig)
+fig = go.Figure()
 
-else:
-    fig, axes = plt.subplots(len(selected_biomarkers), 1, figsize=(12, 2*len(selected_biomarkers)), sharex=True)
-    axes = np.atleast_1d(axes)
-    for i, bm in enumerate(selected_biomarkers):
-        ax = axes[i]
-        bm_data = filtered_labs[filtered_labs["biomarker"] == bm]
-        ax.plot(bm_data["date"], bm_data["value"], marker="o", label=bm)
-        for x, y, dt in zip(bm_data["date"], bm_data["value"], bm_data["date"]):
-            ax.annotate(f"{y}\n{dt.date()}", (x, y), textcoords="offset points", xytext=(0,10), ha='center', fontsize=7)
-        if show_ref and bm in custom_ref_ranges:
-            low, high = custom_ref_ranges[bm]
-            ax.fill_between(bm_data["date"], low, high, alpha=0.1)
-        ax.set_ylabel(f"{bm} ({bm_data['unit'].iloc[0]})")
-        ax.legend(loc="upper left", fontsize=8)
-    axes[-1].set_xlabel("Date")
-    axes[-1].xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
-    plt.xticks(rotation=45)
-    plt.tight_layout()
-    st.pyplot(fig)
+for bm in selected_biomarkers:
+    bm_data = filtered_labs[filtered_labs["biomarker"] == bm]
+    fig.add_trace(
+        go.Scatter(
+            x=bm_data["date"],
+            y=bm_data["value"],
+            mode="lines+markers",
+            name=bm,
+            hovertemplate='Date: %{x}<br>Value: %{y}<extra></extra>'
+        )
+    )
+    # Optional reference range shading
+    if show_ref and bm in custom_ref_ranges:
+        low, high = custom_ref_ranges[bm]
+        fig.add_trace(
+            go.Scatter(
+                x=bm_data["date"],
+                y=[high]*len(bm_data),
+                fill=None,
+                mode="lines",
+                line=dict(color='rgba(0,0,0,0)'),
+                showlegend=False
+            )
+        )
+        fig.add_trace(
+            go.Scatter(
+                x=bm_data["date"],
+                y=[low]*len(bm_data),
+                fill='tonexty',
+                mode="lines",
+                line=dict(color='rgba(0,0,0,0)'),
+                fillcolor='rgba(100,100,200,0.1)',
+                showlegend=False
+            )
+        )
 
+fig.update_layout(
+    xaxis_title="Date",
+    yaxis_title="Value",
+    legend_title="Biomarker",
+    hovermode="x unified",
+    template="plotly_white",
+    height=600
+)
+
+st.plotly_chart(fig, use_container_width=True)
