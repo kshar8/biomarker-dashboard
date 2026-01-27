@@ -1,5 +1,5 @@
 # ----------------------------
-# Streamlit Biomarker Explorer v5 - Plotly Interactive Overlay
+# Streamlit Biomarker Explorer v5.1 - Fixed Date Slider + Plotly Overlay
 # ----------------------------
 
 import streamlit as st
@@ -7,6 +7,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+from datetime import datetime
 
 st.set_page_config(layout="wide", page_title="Biomarker Dashboard")
 st.title("Biomarker & Symptom Explorer (Interactive)")
@@ -36,9 +37,9 @@ default_ref_ranges = {
 # ----------------------------
 st.sidebar.header("Controls")
 
-# Date range
-min_date = labs_df["date"].min()
-max_date = labs_df["date"].max()
+# Date range slider (convert to datetime.date)
+min_date = labs_df["date"].min().date()
+max_date = labs_df["date"].max().date()
 date_range = st.sidebar.slider(
     "Select date range",
     min_value=min_date,
@@ -88,8 +89,8 @@ show_out_of_range = st.sidebar.checkbox("Show only out-of-range values?", value=
 filtered_labs = labs_df[
     (labs_df["category"].isin(selected_categories)) &
     (labs_df["biomarker"].isin(selected_biomarkers)) &
-    (labs_df["date"] >= date_range[0]) &
-    (labs_df["date"] <= date_range[1])
+    (labs_df["date"] >= pd.to_datetime(date_range[0])) &
+    (labs_df["date"] <= pd.to_datetime(date_range[1]))
 ].copy()
 
 if show_out_of_range:
