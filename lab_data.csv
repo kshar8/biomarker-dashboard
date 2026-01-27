@@ -1,0 +1,10 @@
+draw_id,date,biomarker,category,value,unit
+D001,2024-01-01,CRP,immune,1.25,mg/L
+D001,2024-01-01,IL6,immune,3.98,pg/mL
+D001,2024-01-01,Ferritin,immune,118,ng/mL
+D001,2024-01-01,Cortisol,neuro,14.2,ug/dL
+D001,2024-01-01,BDNF,neuro,22.1,ng/mL
+D001,2024-01-01,Serotonin,neuro,142,ng/mL
+D001,2024-01-01,Glucose,metabolic,90,mg/dL
+D001,2024-01-01,Insulin,metabolic,8.1,uIU/mL
+D002,2024-02-01,CRP,immune,1.35,mg/L
