@@ -1,5 +1,5 @@
 # ----------------------------
-# Streamlit Biomarker & Symptom Explorer - Full Overlay v2
+# Streamlit Biomarker & Symptom Explorer - Full v3
 # ----------------------------
 
 import streamlit as st
@@ -52,7 +52,7 @@ with st.sidebar:
     all_categories = labs_df["category"].unique()
     selected_categories = st.multiselect("Select categories", all_categories, default=list(all_categories))
     available_biomarkers = labs_df[labs_df["category"].isin(selected_categories)]["biomarker"].unique()
-    selected_biomarkers = st.multiselect("Select biomarkers", available_biomarkers, default=available_biomarkers[:5])
+    selected_biomarkers = st.multiselect("Select biomarkers for overlay", available_biomarkers, default=available_biomarkers[:5])
 
     # Overlay option
     overlay_option = st.selectbox("Overlay option", ["All biomarkers", "Biomarkers within selected categories", "Individual categories"])
@@ -78,6 +78,10 @@ with st.sidebar:
     # Out-of-range filter
     show_out_of_range = st.checkbox("Show only out-of-range values?", value=False)
 
+    # Individual biomarker plots
+    st.subheader("Individual Biomarker Plots")
+    individual_bio_selected = st.multiselect("Select biomarkers for separate plots", options=available_biomarkers, default=[])
+
 # ----------------------------
 # 5️⃣ Filter Lab Data
 # ----------------------------
@@ -97,7 +101,7 @@ if show_out_of_range:
     filtered_labs = filtered_labs[filtered_labs.apply(out_of_range, axis=1)]
 
 # ----------------------------
-# 6️⃣ Plot: Symptoms on top, biomarkers below
+# 6️⃣ Timeline: Events + Biomarkers Overlay
 # ----------------------------
 st.subheader("🩺 Timeline Overview (Symptoms + Biomarkers)")
 
@@ -115,12 +119,12 @@ for i, event in enumerate(events_df.to_dict(orient="records")):
     ax_events.barh(i, width=end-start, left=start, height=0.8, color=color)
     ax_events.text(start + (end-start)/2, i, event["name"], ha="center", va="center", fontsize=8)
 
-# ----- Fixed Legend -----
+# ----- Legend -----
 symptom_patch = mpatches.Patch(color="#ffe066", label="Symptom")
 infection_patch = mpatches.Patch(color="#ff9999", label="Infection")
 ax_events.legend(handles=[symptom_patch, infection_patch], loc="upper right", fontsize=8, framealpha=0.7)
 
-# ----- Biomarker Track -----
+# ----- Biomarker Overlay Plot -----
 def plot_biomarkers_overlay(df, overlay_option):
     colors = plt.cm.tab10.colors
     if overlay_option == "All biomarkers":
@@ -182,7 +186,43 @@ plt.tight_layout()
 st.pyplot(fig)
 
 # ----------------------------
-# 7️⃣ Detailed Lab Table
+# 7️⃣ Individual Biomarker Plots
+# ----------------------------
+if individual_bio_selected:
+    st.subheader("📊 Individual Biomarker Plots")
+    for bm in individual_bio_selected:
+        bm_data = filtered_labs[filtered_labs["biomarker"]==bm]
+        if bm_data.empty:
+            continue
+        fig, ax = plt.subplots(figsize=(12,3))
+        ax.plot(bm_data["date"], bm_data["value"], marker="o", label=bm)
+
+        # Reference ranges
+        if show_standard_ref and bm in default_ref_ranges:
+            low, high = default_ref_ranges[bm]
+            ax.fill_between(bm_data["date"], low, high, alpha=0.1, color="blue")
+        if show_custom_ref and bm in custom_ref_ranges:
+            low, high = custom_ref_ranges[bm]
+            ax.fill_between(bm_data["date"], low, high, alpha=0.15, color="green")
+
+        # Max/min annotations
+        if show_annotations and len(bm_data) > 0:
+            for idx in [bm_data["value"].idxmax(), bm_data["value"].idxmin()]:
+                row = bm_data.loc[idx]
+                ax.annotate(f"{row['value']}\n{row['date'].date()}",
+                            (row['date'], row['value']),
+                            xytext=(0,10), textcoords="offset points",
+                            ha='center', fontsize=7)
+
+        ax.set_title(f"{bm} ({bm_data['category'].iloc[0]})", fontsize=10)
+        ax.set_ylabel(f"{bm_data['unit'].iloc[0]}")
+        ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
+        plt.xticks(rotation=45, ha='right')
+        plt.tight_layout()
+        st.pyplot(fig)
+
+# ----------------------------
+# 8️⃣ Detailed Lab Table
 # ----------------------------
 st.subheader("Detailed Lab Data")
 def highlight_out_of_range(row):
@@ -192,4 +232,5 @@ def highlight_out_of_range(row):
     return [""]*len(row)
 
 st.dataframe(filtered_labs.style.apply(highlight_out_of_range, axis=1))
+
 
