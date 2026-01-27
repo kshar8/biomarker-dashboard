@@ -1,3 +1,7 @@
+# ----------------------------
+# Streamlit Biomarker Explorer v6 - Matplotlib, Slider Fixed
+# ----------------------------
+
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -8,13 +12,13 @@ st.set_page_config(layout="wide", page_title="Biomarker Dashboard")
 st.title("Biomarker & Symptom Explorer (Matplotlib)")
 
 # ----------------------------
-# Load Data
+# 1️⃣ Load Data
 # ----------------------------
 labs_df = pd.read_csv("lab_data.csv", parse_dates=["date"])
 events_df = pd.read_csv("events.csv", parse_dates=["start_date", "end_date"])
 
 # ----------------------------
-# Default reference ranges
+# 2️⃣ Default Reference Ranges
 # ----------------------------
 default_ref_ranges = {
     "CRP": (0.0, 3.0),
@@ -28,7 +32,7 @@ default_ref_ranges = {
 }
 
 # ----------------------------
-# Sidebar Controls
+# 3️⃣ Sidebar Controls
 # ----------------------------
 st.sidebar.header("Controls")
 
@@ -64,15 +68,17 @@ for bm in selected_biomarkers:
     if bm in default_ref_ranges:
         min_val, max_val = default_ref_ranges[bm]
         user_range = st.sidebar.slider(
-            f"{bm} range", min_value=float(min_val*0.5), max_value=float(max_val*2),
-            value=(min_val, max_val)
+            f"{bm} range",
+            min_value=float(min_val*0.5),
+            max_value=float(max_val*2),
+            value=(float(min_val), float(max_val))
         )
         custom_ref_ranges[bm] = user_range
     else:
         custom_ref_ranges[bm] = (None, None)
 
 # ----------------------------
-# Filter lab data
+# 4️⃣ Filter lab data
 # ----------------------------
 filtered_labs = labs_df[
     (labs_df["category"].isin(selected_categories)) &
@@ -82,7 +88,7 @@ filtered_labs = labs_df[
 ].copy()
 
 # ----------------------------
-# Event track plot
+# 5️⃣ Event track plot
 # ----------------------------
 st.subheader("Symptoms / Infections Timeline")
 fig_event, ax_event = plt.subplots(figsize=(12, 1.5))
@@ -105,14 +111,16 @@ plt.tight_layout()
 st.pyplot(fig_event)
 
 # ----------------------------
-# Biomarker overlay plot
+# 6️⃣ Biomarker overlay plot
 # ----------------------------
 st.subheader("Biomarker Trends")
-
 fig, ax = plt.subplots(figsize=(12,6))
 
 for bm in selected_biomarkers:
     bm_data = filtered_labs[filtered_labs["biomarker"]==bm]
+    if len(bm_data) == 0:
+        continue
+
     ax.plot(bm_data["date"], bm_data["value"], marker='o', label=bm)
     
     # Reference range shading
@@ -126,6 +134,3 @@ ax.legend()
 ax.grid(True)
 plt.tight_layout()
 st.pyplot(fig)
-
-
-
