@@ -1,5 +1,5 @@
 # ----------------------------
-# Streamlit Biomarker Explorer v5.1 - Fixed Date Slider + Plotly Overlay
+# Streamlit Biomarker Explorer v5.3 - Fully Fixed
 # ----------------------------
 
 import streamlit as st
@@ -37,7 +37,7 @@ default_ref_ranges = {
 # ----------------------------
 st.sidebar.header("Controls")
 
-# Date range slider (convert to datetime.date)
+# Date range slider (datetime.date)
 min_date = labs_df["date"].min().date()
 max_date = labs_df["date"].max().date()
 date_range = st.sidebar.slider(
@@ -86,11 +86,14 @@ show_out_of_range = st.sidebar.checkbox("Show only out-of-range values?", value=
 # ----------------------------
 # 4️⃣ Filter Lab Data
 # ----------------------------
+start_date = pd.to_datetime(date_range[0])
+end_date   = pd.to_datetime(date_range[1])
+
 filtered_labs = labs_df[
     (labs_df["category"].isin(selected_categories)) &
     (labs_df["biomarker"].isin(selected_biomarkers)) &
-    (labs_df["date"] >= pd.to_datetime(date_range[0])) &
-    (labs_df["date"] <= pd.to_datetime(date_range[1]))
+    (labs_df["date"] >= start_date) &
+    (labs_df["date"] <= end_date)
 ].copy()
 
 if show_out_of_range:
@@ -100,6 +103,9 @@ if show_out_of_range:
             return row["value"] < low or row["value"] > high
         return True
     filtered_labs = filtered_labs[filtered_labs.apply(out_of_range, axis=1)]
+
+if filtered_labs.empty:
+    st.warning("No data points match your filters. Adjust date range or reference ranges.")
 
 # ----------------------------
 # 5️⃣ Event Track Plot (Matplotlib)
@@ -128,11 +134,14 @@ st.pyplot(fig_event)
 # 6️⃣ Interactive Biomarker Overlay (Plotly)
 # ----------------------------
 st.subheader("Interactive Biomarker Trends")
-
 fig = go.Figure()
 
 for bm in selected_biomarkers:
     bm_data = filtered_labs[filtered_labs["biomarker"] == bm]
+    if len(bm_data) == 0:
+        continue
+
+    # Plot biomarker line
     fig.add_trace(
         go.Scatter(
             x=bm_data["date"],
@@ -142,30 +151,22 @@ for bm in selected_biomarkers:
             hovertemplate='Date: %{x}<br>Value: %{y}<extra></extra>'
         )
     )
-    # Optional reference range shading
+
+    # Reference range shading
     if show_ref and bm in custom_ref_ranges:
         low, high = custom_ref_ranges[bm]
-        fig.add_trace(
-            go.Scatter(
-                x=bm_data["date"],
-                y=[high]*len(bm_data),
-                fill=None,
-                mode="lines",
-                line=dict(color='rgba(0,0,0,0)'),
-                showlegend=False
+        if low is not None and high is not None and len(bm_data) > 1:
+            fig.add_trace(
+                go.Scatter(
+                    x=list(bm_data["date"]) + list(bm_data["date"][::-1]),
+                    y=[high]*len(bm_data) + [low]*len(bm_data),
+                    fill='toself',
+                    fillcolor='rgba(100,100,200,0.1)',
+                    line=dict(color='rgba(0,0,0,0)'),
+                    hoverinfo='skip',
+                    showlegend=False
+                )
             )
-        )
-        fig.add_trace(
-            go.Scatter(
-                x=bm_data["date"],
-                y=[low]*len(bm_data),
-                fill='tonexty',
-                mode="lines",
-                line=dict(color='rgba(0,0,0,0)'),
-                fillcolor='rgba(100,100,200,0.1)',
-                showlegend=False
-            )
-        )
 
 fig.update_layout(
     xaxis_title="Date",
@@ -177,3 +178,5 @@ fig.update_layout(
 )
 
 st.plotly_chart(fig, use_container_width=True)
+
+
