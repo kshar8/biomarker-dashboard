@@ -1,3 +1,7 @@
+# ----------------------------
+# Streamlit Biomarker Explorer v5 - Standard & Custom Reference Ranges
+# ----------------------------
+
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -15,7 +19,7 @@ labs_df = pd.read_csv("lab_data.csv", parse_dates=["date"])
 events_df = pd.read_csv("events.csv", parse_dates=["start_date", "end_date"])
 
 # ----------------------------
-# 2️⃣ Reference Ranges
+# 2️⃣ Standard Reference Ranges
 # ----------------------------
 default_ref_ranges = {
     "CRP": (0.0, 3.0),
@@ -64,20 +68,25 @@ overlay_option = st.sidebar.selectbox(
     ]
 )
 
-# Show reference ranges
-show_ref = st.sidebar.checkbox("Show reference ranges?", value=True)
+# Reference ranges toggles
+st.sidebar.subheader("Reference Ranges")
+show_standard_ref = st.sidebar.checkbox("Show standard reference ranges?", value=True)
+show_custom_ref = st.sidebar.checkbox("Show custom reference ranges?", value=True)
 
 # Show annotations toggle
-show_annotations = st.sidebar.checkbox("Show annotations?", value=True)
+show_annotations = st.sidebar.checkbox("Show annotations for max/min?", value=True)
 
-# Custom reference ranges
+# Out-of-range filter
+show_out_of_range = st.sidebar.checkbox("Show only out-of-range values?", value=False)
+
+# Custom ranges
 custom_ref_ranges = {}
 st.sidebar.subheader("Custom Reference Ranges")
 for bm in selected_biomarkers:
     if bm in default_ref_ranges:
         min_val, max_val = default_ref_ranges[bm]
         user_range = st.sidebar.slider(
-            f"{bm} range",
+            f"{bm} custom range",
             min_value=float(min_val*0.5),
             max_value=float(max_val*2),
             value=(float(min_val), float(max_val))
@@ -86,11 +95,8 @@ for bm in selected_biomarkers:
     else:
         custom_ref_ranges[bm] = (None, None)
 
-# Out-of-range filter
-show_out_of_range = st.sidebar.checkbox("Show only out-of-range values?", value=False)
-
 # ----------------------------
-# 4️⃣ Filter lab data
+# 4️⃣ Filter Lab Data
 # ----------------------------
 filtered_labs = labs_df[
     (labs_df["category"].isin(selected_categories)) &
@@ -108,7 +114,7 @@ if show_out_of_range:
     filtered_labs = filtered_labs[filtered_labs.apply(out_of_range, axis=1)]
 
 # ----------------------------
-# 5️⃣ Event Track Plot
+# 5️⃣ Event Track
 # ----------------------------
 st.subheader("Symptoms / Infections Timeline")
 
@@ -147,21 +153,25 @@ def plot_biomarkers(df, overlay_option):
             bm_data = df[df["biomarker"]==bm]
             ax.plot(bm_data["date"], bm_data["value"], marker="o", label=bm)
             
-            # Annotate only max/min points
+            # Annotations for max/min
             if show_annotations and len(bm_data) > 0:
                 max_idx = bm_data["value"].idxmax()
                 min_idx = bm_data["value"].idxmin()
                 for idx in [max_idx, min_idx]:
                     row = bm_data.loc[idx]
-                    ax.annotate(f"{row['value']}\n{row['date'].date()}", 
-                                (row['date'], row['value']), 
+                    ax.annotate(f"{row['value']}\n{row['date'].date()}",
+                                (row['date'], row['value']),
                                 textcoords="offset points", xytext=(0,10),
                                 ha='center', fontsize=8)
             
             # Reference ranges
-            if show_ref and bm in custom_ref_ranges:
+            if show_standard_ref and bm in default_ref_ranges:
+                low, high = default_ref_ranges[bm]
+                ax.fill_between(bm_data["date"], low, high, alpha=0.1, color="blue", label="Standard range")
+            if show_custom_ref and bm in custom_ref_ranges:
                 low, high = custom_ref_ranges[bm]
-                ax.fill_between(bm_data["date"], low, high, alpha=0.1)
+                ax.fill_between(bm_data["date"], low, high, alpha=0.15, color="green", label="Custom range")
+        
         ax.set_xlabel("Date")
         ax.set_ylabel("Value")
         ax.legend(fontsize=8)
@@ -169,7 +179,7 @@ def plot_biomarkers(df, overlay_option):
         plt.xticks(rotation=45, ha='right')
         plt.tight_layout()
         st.pyplot(fig)
-    
+
     elif overlay_option == "Biomarkers within selected categories":
         fig, ax = plt.subplots(figsize=(12,6))
         for cat in selected_categories:
@@ -183,14 +193,18 @@ def plot_biomarkers(df, overlay_option):
                     min_idx = bm_data["value"].idxmin()
                     for idx in [max_idx, min_idx]:
                         row = bm_data.loc[idx]
-                        ax.annotate(f"{row['value']}\n{row['date'].date()}", 
-                                    (row['date'], row['value']), 
+                        ax.annotate(f"{row['value']}\n{row['date'].date()}",
+                                    (row['date'], row['value']),
                                     textcoords="offset points", xytext=(0,10),
                                     ha='center', fontsize=8)
                 
-                if show_ref and bm in custom_ref_ranges:
+                if show_standard_ref and bm in default_ref_ranges:
+                    low, high = default_ref_ranges[bm]
+                    ax.fill_between(bm_data["date"], low, high, alpha=0.1, color="blue")
+                if show_custom_ref and bm in custom_ref_ranges:
                     low, high = custom_ref_ranges[bm]
-                    ax.fill_between(bm_data["date"], low, high, alpha=0.1)
+                    ax.fill_between(bm_data["date"], low, high, alpha=0.15, color="green")
+        
         ax.set_xlabel("Date")
         ax.set_ylabel("Value")
         ax.legend(fontsize=8)
@@ -198,7 +212,7 @@ def plot_biomarkers(df, overlay_option):
         plt.xticks(rotation=45, ha='right')
         plt.tight_layout()
         st.pyplot(fig)
-
+    
     else:  # Individual categories
         fig, axes = plt.subplots(len(selected_categories),1, figsize=(12, 3*len(selected_categories)), sharex=True)
         axes = np.atleast_1d(axes)
@@ -214,29 +228,32 @@ def plot_biomarkers(df, overlay_option):
                     min_idx = bm_data["value"].idxmin()
                     for idx in [max_idx, min_idx]:
                         row = bm_data.loc[idx]
-                        ax.annotate(f"{row['value']}\n{row['date'].date()}", 
-                                    (row['date'], row['value']), 
+                        ax.annotate(f"{row['value']}\n{row['date'].date()}",
+                                    (row['date'], row['value']),
                                     textcoords="offset points", xytext=(0,10),
                                     ha='center', fontsize=8)
                 
-                if show_ref and bm in custom_ref_ranges:
+                if show_standard_ref and bm in default_ref_ranges:
+                    low, high = default_ref_ranges[bm]
+                    ax.fill_between(bm_data["date"], low, high, alpha=0.1, color="blue")
+                if show_custom_ref and bm in custom_ref_ranges:
                     low, high = custom_ref_ranges[bm]
-                    ax.fill_between(bm_data["date"], low, high, alpha=0.1)
+                    ax.fill_between(bm_data["date"], low, high, alpha=0.15, color="green")
+            
             ax.set_ylabel(cat)
             ax.legend(fontsize=8)
+        
         axes[-1].set_xlabel("Date")
         axes[-1].xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
         plt.xticks(rotation=45, ha='right')
         plt.tight_layout()
         st.pyplot(fig)
 
-# Call plot
+# Call the plotting function
 plot_biomarkers(filtered_labs, overlay_option)
 
 # ----------------------------
-# 7️⃣ Optional: Show full table for hover-like inspection
+# 7️⃣ Detailed Table for Hover-like inspection
 # ----------------------------
 st.subheader("Detailed Lab Data")
 st.dataframe(filtered_labs.reset_index(drop=True))
-
-
