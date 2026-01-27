@@ -1,5 +1,5 @@
 # ----------------------------
-# Streamlit Biomarker Explorer v3 - Fixed
+# Streamlit Biomarker Explorer v4 - Clean Overlay & Multiple Categories
 # ----------------------------
 
 import streamlit as st
@@ -65,7 +65,7 @@ overlay = st.sidebar.checkbox("Overlay biomarkers?", value=True)
 # Show reference ranges
 show_ref = st.sidebar.checkbox("Show reference ranges?", value=True)
 
-# Custom reference ranges (fixed type issue)
+# Custom reference ranges (fixed type)
 st.sidebar.subheader("Custom Reference Ranges")
 custom_ref_ranges = {}
 for bm in selected_biomarkers:
@@ -105,22 +105,7 @@ if show_out_of_range:
     filtered_labs = filtered_labs[filtered_labs.apply(out_of_range, axis=1)]
 
 # ----------------------------
-# 5️⃣ Assign Colors by Category
-# ----------------------------
-category_colors = {
-    "immune": "#1f77b4",
-    "neuro": "#ff7f0e",
-    "metabolic": "#2ca02c",
-    "respiratory": "#d62728",
-    "cardio": "#9467bd",
-}
-
-for cat in selected_categories:
-    if cat not in category_colors:
-        category_colors[cat] = np.random.rand(3,)
-
-# ----------------------------
-# 6️⃣ Event Track Plot
+# 5️⃣ Event Track Plot
 # ----------------------------
 st.subheader("Symptoms / Infections Timeline")
 fig_event, ax_event = plt.subplots(figsize=(12, 1.5))
@@ -143,7 +128,7 @@ plt.tight_layout()
 st.pyplot(fig_event)
 
 # ----------------------------
-# 7️⃣ Biomarker Plots with Colors and Hover
+# 6️⃣ Biomarker Plots (Overlay or Separate)
 # ----------------------------
 st.subheader("Biomarker Trends")
 
@@ -151,32 +136,31 @@ if overlay:
     fig, ax = plt.subplots(figsize=(12, 6))
     for bm in selected_biomarkers:
         bm_data = filtered_labs[filtered_labs["biomarker"] == bm]
-        color = category_colors.get(bm_data["category"].iloc[0], "black")
-        ax.plot(bm_data["date"], bm_data["value"], marker="o", label=bm, color=color)
+        ax.plot(bm_data["date"], bm_data["value"], marker="o", label=bm)  # no color assigned
         for x, y, dt in zip(bm_data["date"], bm_data["value"], bm_data["date"]):
             ax.annotate(f"{y}\n{dt.date()}", (x, y), textcoords="offset points", xytext=(0,10), ha='center', fontsize=7)
         if show_ref and bm in custom_ref_ranges:
             low, high = custom_ref_ranges[bm]
-            ax.fill_between(bm_data["date"], low, high, color=color, alpha=0.1)
+            ax.fill_between(bm_data["date"], low, high, alpha=0.1)
     ax.set_xlabel("Date")
     ax.set_ylabel("Value")
-    ax.legend()
+    ax.legend(fontsize=8)
     plt.xticks(rotation=45)
     plt.tight_layout()
     st.pyplot(fig)
+
 else:
     fig, axes = plt.subplots(len(selected_biomarkers), 1, figsize=(12, 2*len(selected_biomarkers)), sharex=True)
     axes = np.atleast_1d(axes)
     for i, bm in enumerate(selected_biomarkers):
         ax = axes[i]
         bm_data = filtered_labs[filtered_labs["biomarker"] == bm]
-        color = category_colors.get(bm_data["category"].iloc[0], "black")
-        ax.plot(bm_data["date"], bm_data["value"], marker="o", label=bm, color=color)
+        ax.plot(bm_data["date"], bm_data["value"], marker="o", label=bm)
         for x, y, dt in zip(bm_data["date"], bm_data["value"], bm_data["date"]):
             ax.annotate(f"{y}\n{dt.date()}", (x, y), textcoords="offset points", xytext=(0,10), ha='center', fontsize=7)
         if show_ref and bm in custom_ref_ranges:
             low, high = custom_ref_ranges[bm]
-            ax.fill_between(bm_data["date"], low, high, color=color, alpha=0.1)
+            ax.fill_between(bm_data["date"], low, high, alpha=0.1)
         ax.set_ylabel(f"{bm} ({bm_data['unit'].iloc[0]})")
         ax.legend(loc="upper left", fontsize=8)
     axes[-1].set_xlabel("Date")
@@ -184,3 +168,4 @@ else:
     plt.xticks(rotation=45)
     plt.tight_layout()
     st.pyplot(fig)
+
