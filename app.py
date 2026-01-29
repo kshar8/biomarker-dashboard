@@ -232,6 +232,7 @@ if individual_bio_selected:
         plt.xticks(rotation=45, ha='right')
         plt.tight_layout()
         st.pyplot(fig)
+        
 
 
 
