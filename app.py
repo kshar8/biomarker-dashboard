@@ -341,6 +341,7 @@ else:
         legend_title_text="",
         font=dict(color=brand_colors["primary"]),
     )
+fig_evt = style_plotly(fig_evt)
 
     st.plotly_chart(fig_evt, use_container_width=True)
 
