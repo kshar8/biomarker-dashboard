@@ -1,9 +1,133 @@
 biomarker,low,high,unit,source
-CRP,0,3,mg/L,example
-IL6,0,5,pg/mL,example
-Ferritin,20,300,ng/mL,example
-Cortisol,5,20,ug/dL,example
-BDNF,15,30,ng/mL,example
-Serotonin,100,200,ng/mL,example
-Glucose,70,100,mg/dL,example
-Insulin,2,15,uIU/mL,example
+Abeta38 (aβ38),10.0,50.0,pg/mL,synthetic_placeholder
+Abeta40 (aβ40),150.0,350.0,pg/mL,synthetic_placeholder
+Abeta42 (aβ42),10.0,35.0,pg/mL,synthetic_placeholder
+ACHE,0.7,1.3,NPQ,synthetic_placeholder
+APOE,0.7,1.3,NPQ,synthetic_placeholder
+APOE4,0.7,1.3,NPQ,synthetic_placeholder
+BACE1,0.7,1.3,NPQ,synthetic_placeholder
+BASP1,0.7,1.3,NPQ,synthetic_placeholder
+CD63,0.7,1.3,NPQ,synthetic_placeholder
+CST3,0.7,1.3,NPQ,synthetic_placeholder
+IGFBP7,0.7,1.3,NPQ,synthetic_placeholder
+KLK6,0.7,1.3,NPQ,synthetic_placeholder
+PSEN1,0.7,1.3,NPQ,synthetic_placeholder
+SFRP1,0.7,1.3,NPQ,synthetic_placeholder
+pTau181,0.0,6.0,pg/mL,synthetic_placeholder
+pTau181-BD,0.0,6.0,pg/mL,synthetic_placeholder
+pTau217,0.0,6.0,pg/mL,synthetic_placeholder
+pTau217-BD,0.0,6.0,pg/mL,synthetic_placeholder
+pTau231,0.0,6.0,pg/mL,synthetic_placeholder
+pTau231-BD,0.0,6.0,pg/mL,synthetic_placeholder
+totalTau,0.0,20.0,pg/mL,synthetic_placeholder
+totalTau-BD,0.0,20.0,pg/mL,synthetic_placeholder
+AGRN,0.7,1.3,NPQ,synthetic_placeholder
+ARSA,0.7,1.3,NPQ,synthetic_placeholder
+BDNF,0.7,1.3,NPQ,synthetic_placeholder
+DDC,0.7,1.3,NPQ,synthetic_placeholder
+FABP3,0.7,1.3,NPQ,synthetic_placeholder
+FOLR1,0.7,1.3,NPQ,synthetic_placeholder
+HTT,0.7,1.3,NPQ,synthetic_placeholder
+IL6R (IL6Ra),0.7,1.3,NPQ,synthetic_placeholder
+MDH1,0.7,1.3,NPQ,synthetic_placeholder
+NGF,0.7,1.3,NPQ,synthetic_placeholder
+Oligo-SNCA (Oligo-α-Syn),0.7,1.3,NPQ,synthetic_placeholder
+PARK7,0.7,1.3,NPQ,synthetic_placeholder
+pSNCA-129,0.7,1.3,NPQ,synthetic_placeholder
+SNCA (α-Syn),0.7,1.3,NPQ,synthetic_placeholder
+SNCB (β-Syn),0.7,1.3,NPQ,synthetic_placeholder
+SOD1,0.7,1.3,NPQ,synthetic_placeholder
+TDP43,0.7,1.3,NPQ,synthetic_placeholder
+pTDP43-409,0.7,1.3,NPQ,synthetic_placeholder
+UCHL1,0.7,1.3,NPQ,synthetic_placeholder
+VGF,0.7,1.3,NPQ,synthetic_placeholder
+VSNL1 (VILIP-1),0.7,1.3,NPQ,synthetic_placeholder
+FLT1 (VEGF R1),0.7,1.3,NPQ,synthetic_placeholder
+HBA1,0.7,1.3,NPQ,synthetic_placeholder
+HBA2,0.7,1.3,NPQ,synthetic_placeholder
+KDR (VEGF R2),0.7,1.3,NPQ,synthetic_placeholder
+MME,0.7,1.3,NPQ,synthetic_placeholder
+PDGFRB,0.7,1.3,NPQ,synthetic_placeholder
+PGF (PLGF),0.7,1.3,NPQ,synthetic_placeholder
+PGK1,0.7,1.3,NPQ,synthetic_placeholder
+POSTN,0.7,1.3,NPQ,synthetic_placeholder
+PTN,0.7,1.3,NPQ,synthetic_placeholder
+SAA1,0.7,1.3,NPQ,synthetic_placeholder
+VEGF-A,0.7,1.3,NPQ,synthetic_placeholder
+VEGF-D,0.7,1.3,NPQ,synthetic_placeholder
+ANXA5,0.7,1.3,NPQ,synthetic_placeholder
+CALB2,0.7,1.3,NPQ,synthetic_placeholder
+CNTN2,0.7,1.3,NPQ,synthetic_placeholder
+ENO2,0.7,1.3,NPQ,synthetic_placeholder
+FGF2 (FGF basic),0.7,1.3,NPQ,synthetic_placeholder
+GDI1,0.7,1.3,NPQ,synthetic_placeholder
+GDNF,0.7,1.3,NPQ,synthetic_placeholder
+GOT1,0.7,1.3,NPQ,synthetic_placeholder
+MSLN,0.7,1.3,NPQ,synthetic_placeholder
+NEFH,0.7,1.3,NPQ,synthetic_placeholder
+NFL,0.0,30.0,pg/mL,synthetic_placeholder
+NPTX1,0.7,1.3,NPQ,synthetic_placeholder
+NPTX2,0.7,1.3,NPQ,synthetic_placeholder
+NPTXR,0.7,1.3,NPQ,synthetic_placeholder
+NPY,0.7,1.3,NPQ,synthetic_placeholder
+NRGN,0.7,1.3,NPQ,synthetic_placeholder
+PDLIM5,0.7,1.3,NPQ,synthetic_placeholder
+REST,0.7,1.3,NPQ,synthetic_placeholder
+SMOC1,0.7,1.3,NPQ,synthetic_placeholder
+SNAP25,0.7,1.3,NPQ,synthetic_placeholder
+SQSTM1,0.7,1.3,NPQ,synthetic_placeholder
+UBB,0.7,1.3,NPQ,synthetic_placeholder
+YWHAG,0.7,1.3,NPQ,synthetic_placeholder
+YWHAZ,0.7,1.3,NPQ,synthetic_placeholder
+CCL2 (MCP1),0.7,1.3,NPQ,synthetic_placeholder
+CCL3 (MIP1a/CCL3),0.7,1.3,NPQ,synthetic_placeholder
+CCL4 (Mip1b/CCL4),0.7,1.3,NPQ,synthetic_placeholder
+CCL11 (Eotaxin),0.7,1.3,NPQ,synthetic_placeholder
+CCL13 (MCP4),0.7,1.3,NPQ,synthetic_placeholder
+CCL17 (TARC/CCL17),0.7,1.3,NPQ,synthetic_placeholder
+CCL22 (MDC),0.7,1.3,NPQ,synthetic_placeholder
+CCL26 (Eotaxin-3),0.7,1.3,NPQ,synthetic_placeholder
+CD40LG (CD40L/TNFSF5),0.7,1.3,NPQ,synthetic_placeholder
+CHI3L1 (YKL-40),0.7,1.3,NPQ,synthetic_placeholder
+CHIT1,0.7,1.3,NPQ,synthetic_placeholder
+CRH,0.7,1.3,NPQ,synthetic_placeholder
+CRP,0.0,3.0,mg/L,synthetic_placeholder
+CSF2 (GM-CSF),0.7,1.3,NPQ,synthetic_placeholder
+CX3CL1 (Fractalkine),0.7,1.3,NPQ,synthetic_placeholder
+CXCL1 (GROa),0.7,1.3,NPQ,synthetic_placeholder
+CXCL8 (IL8),0.7,1.3,NPQ,synthetic_placeholder
+CXCL10 (IP-10),0.7,1.3,NPQ,synthetic_placeholder
+FCN2,0.7,1.3,NPQ,synthetic_placeholder
+GDF15,0.7,1.3,NPQ,synthetic_placeholder
+GFAP,0.0,120.0,pg/mL,synthetic_placeholder
+ICAM1,0.7,1.3,NPQ,synthetic_placeholder
+IFNG (IFN-gamma),0.7,1.3,NPQ,synthetic_placeholder
+IGF1R,0.7,1.3,NPQ,synthetic_placeholder
+IL1B (IL-1 beta),0.7,1.3,NPQ,synthetic_placeholder
+IL2,0.7,1.3,NPQ,synthetic_placeholder
+IL4,0.7,1.3,NPQ,synthetic_placeholder
+IL5,0.7,1.3,NPQ,synthetic_placeholder
+IL6,0.7,1.3,NPQ,synthetic_placeholder
+IL7,0.7,1.3,NPQ,synthetic_placeholder
+IL9,0.7,1.3,NPQ,synthetic_placeholder
+IL10,0.7,1.3,NPQ,synthetic_placeholder
+IL12p70 (IL12A/IL12B),0.7,1.3,NPQ,synthetic_placeholder
+IL13,0.7,1.3,NPQ,synthetic_placeholder
+IL15,0.7,1.3,NPQ,synthetic_placeholder
+IL16,0.7,1.3,NPQ,synthetic_placeholder
+IL17A,0.7,1.3,NPQ,synthetic_placeholder
+IL18,0.7,1.3,NPQ,synthetic_placeholder
+IL33,0.7,1.3,NPQ,synthetic_placeholder
+PRDX6,0.7,1.3,NPQ,synthetic_placeholder
+RUVBL2,0.7,1.3,NPQ,synthetic_placeholder
+S100A12,0.7,1.3,NPQ,synthetic_placeholder
+S100B,0.7,1.3,NPQ,synthetic_placeholder
+SFTPD,0.7,1.3,NPQ,synthetic_placeholder
+SLIT2,0.7,1.3,NPQ,synthetic_placeholder
+TAFA5,0.7,1.3,NPQ,synthetic_placeholder
+TEK (Tie-2/TEK),0.7,1.3,NPQ,synthetic_placeholder
+TIMP3,0.7,1.3,NPQ,synthetic_placeholder
+TNF (TNF-a),0.7,1.3,NPQ,synthetic_placeholder
+TREM1 (sTREM1),0.7,1.3,NPQ,synthetic_placeholder
+TREM2,0.7,1.3,NPQ,synthetic_placeholder
+VCAM1 (CD106),0.7,1.3,NPQ,synthetic_placeholder
