@@ -41,47 +41,58 @@ st.markdown("---")
 st.markdown(
     f"""
     <style>
-
-    /* Main app background */
+    /* ---------- APP BACKGROUND ---------- */
     .stApp {{
         background-color: {brand_colors['background']};
     }}
 
-    /* Sidebar background */
+    /* ---------- MAIN PAGE HEADERS (this fixes your white titles) ---------- */
+    /* Targets all h1/h2/h3 inside the main app container */
+    div[data-testid="stAppViewContainer"] h1,
+    div[data-testid="stAppViewContainer"] h2,
+    div[data-testid="stAppViewContainer"] h3 {{
+        color: {brand_colors['primary']} !important;
+        font-weight: 650;
+    }}
+
+    /* Also catch Streamlit markdown headings */
+    div[data-testid="stAppViewContainer"] p,
+    div[data-testid="stAppViewContainer"] span {{
+        color: {brand_colors['primary']};
+    }}
+
+    /* ---------- SIDEBAR BACKGROUND ---------- */
     section[data-testid="stSidebar"] {{
         background-color: {brand_colors['primary']};
     }}
 
-    /* Sidebar section headers */
+    /* ---------- SIDEBAR HEADER COLORS ---------- */
     section[data-testid="stSidebar"] h1,
     section[data-testid="stSidebar"] h2,
     section[data-testid="stSidebar"] h3 {{
         color: {brand_colors['background']} !important;
-        font-weight: 600;
+        font-weight: 650;
     }}
 
-    /* Sidebar widget labels */
-    section[data-testid="stSidebar"] label {{
+    /* ---------- SIDEBAR LABELS / TEXT ---------- */
+    section[data-testid="stSidebar"] label,
+    section[data-testid="stSidebar"] p,
+    section[data-testid="stSidebar"] span,
+    section[data-testid="stSidebar"] div {{
         color: #FFFFFF !important;
     }}
 
-    /* Sidebar expander headers */
+    /* Expander titles */
     section[data-testid="stSidebar"] summary {{
         color: {brand_colors['background']} !important;
-        font-weight: 600;
-    }}
-
-    /* 🔥 Main page section headers */
-    section.main h2,
-    section.main h3 {{
-        color: {brand_colors['primary']} !important;
-        font-weight: 600;
+        font-weight: 650;
     }}
 
     </style>
     """,
     unsafe_allow_html=True
 )
+
 
 
 # ----------------------------
