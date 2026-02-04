@@ -1,0 +1,9 @@
+biomarker,low,high,unit,source
+CRP,0,3,mg/L,example
+IL6,0,5,pg/mL,example
+Ferritin,20,300,ng/mL,example
+Cortisol,5,20,ug/dL,example
+BDNF,15,30,ng/mL,example
+Serotonin,100,200,ng/mL,example
+Glucose,70,100,mg/dL,example
+Insulin,2,15,uIU/mL,example
