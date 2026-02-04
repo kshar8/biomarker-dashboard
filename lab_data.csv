@@ -1,10 +1,141 @@
 draw_id,date,biomarker,category,value,unit
-D001,2024-01-01,CRP,immune,1.25,mg/L
-D001,2024-01-01,IL6,immune,3.98,pg/mL
-D001,2024-01-01,Ferritin,immune,118,ng/mL
-D001,2024-01-01,Cortisol,neuro,14.2,ug/dL
-D001,2024-01-01,BDNF,neuro,22.1,ng/mL
-D001,2024-01-01,Serotonin,neuro,142,ng/mL
-D001,2024-01-01,Glucose,metabolic,90,mg/dL
-D001,2024-01-01,Insulin,metabolic,8.1,uIU/mL
-D002,2024-02-01,CRP,immune,1.35,mg/L
+D001,2024-01-05,CRP,immune,1.2,mg/L
+D001,2024-01-05,IL6,immune,3.8,pg/mL
+D001,2024-01-05,Ferritin,immune,110,ng/mL
+D001,2024-01-05,NEFL,neuro,16,pg/mL
+D001,2024-01-05,GFAP,neuro,88,pg/mL
+D001,2024-01-05,pTau181,neuro,1.2,pg/mL
+D001,2024-01-05,pTau217,neuro,0.28,pg/mL
+D001,2024-01-05,AB40,neuro,265,pg/mL
+D001,2024-01-05,AB42,neuro,19,pg/mL
+D001,2024-01-05,AB42/40 Ratio,neuro,0.072,ratio
+D001,2024-01-05,Cortisol,neuro,14.8,ug/dL
+D001,2024-01-05,BDNF,neuro,21,ng/mL
+D001,2024-01-05,Serotonin,neuro,145,ng/mL
+D001,2024-01-05,Glucose,metabolic,92,mg/dL
+D001,2024-01-05,Insulin,metabolic,8.2,uIU/mL
+D001,2024-01-05,HbA1c,metabolic,5.2,%
+D001,2024-01-05,D_dimer,coagulation,0.38,mg/L FEU
+D001,2024-01-05,Fibrinogen,coagulation,310,mg/dL
+D001,2024-01-05,ALT,liver,22,U/L
+D001,2024-01-05,AST,liver,19,U/L
+D002,2024-02-09,CRP,immune,2.8,mg/L
+D002,2024-02-09,IL6,immune,5.6,pg/mL
+D002,2024-02-09,Ferritin,immune,140,ng/mL
+D002,2024-02-09,NEFL,neuro,22,pg/mL
+D002,2024-02-09,GFAP,neuro,120,pg/mL
+D002,2024-02-09,pTau181,neuro,1.9,pg/mL
+D002,2024-02-09,pTau217,neuro,0.42,pg/mL
+D002,2024-02-09,AB40,neuro,250,pg/mL
+D002,2024-02-09,AB42,neuro,16,pg/mL
+D002,2024-02-09,AB42/40 Ratio,neuro,0.064,ratio
+D002,2024-02-09,Cortisol,neuro,11.3,ug/dL
+D002,2024-02-09,BDNF,neuro,18,ng/mL
+D002,2024-02-09,Serotonin,neuro,112,ng/mL
+D002,2024-02-09,Glucose,metabolic,101,mg/dL
+D002,2024-02-09,Insulin,metabolic,12.5,uIU/mL
+D002,2024-02-09,HbA1c,metabolic,5.6,%
+D002,2024-02-09,D_dimer,coagulation,0.62,mg/L FEU
+D002,2024-02-09,Fibrinogen,coagulation,410,mg/dL
+D002,2024-02-09,ALT,liver,41,U/L
+D002,2024-02-09,AST,liver,33,U/L
+D003,2024-03-15,CRP,immune,4.9,mg/L
+D003,2024-03-15,IL6,immune,9.2,pg/mL
+D003,2024-03-15,Ferritin,immune,210,ng/mL
+D003,2024-03-15,NEFL,neuro,30,pg/mL
+D003,2024-03-15,GFAP,neuro,165,pg/mL
+D003,2024-03-15,pTau181,neuro,2.6,pg/mL
+D003,2024-03-15,pTau217,neuro,0.55,pg/mL
+D003,2024-03-15,AB40,neuro,278,pg/mL
+D003,2024-03-15,AB42,neuro,14,pg/mL
+D003,2024-03-15,AB42/40 Ratio,neuro,0.050,ratio
+D003,2024-03-15,Cortisol,neuro,9.8,ug/dL
+D003,2024-03-15,BDNF,neuro,16,ng/mL
+D003,2024-03-15,Serotonin,neuro,98,ng/mL
+D003,2024-03-15,Glucose,metabolic,108,mg/dL
+D003,2024-03-15,Insulin,metabolic,16.4,uIU/mL
+D003,2024-03-15,HbA1c,metabolic,5.9,%
+D003,2024-03-15,D_dimer,coagulation,0.88,mg/L FEU
+D003,2024-03-15,Fibrinogen,coagulation,520,mg/dL
+D003,2024-03-15,ALT,liver,68,U/L
+D003,2024-03-15,AST,liver,52,U/L
+D004,2024-05-03,CRP,immune,2.2,mg/L
+D004,2024-05-03,IL6,immune,4.7,pg/mL
+D004,2024-05-03,Ferritin,immune,155,ng/mL
+D004,2024-05-03,NEFL,neuro,24,pg/mL
+D004,2024-05-03,GFAP,neuro,130,pg/mL
+D004,2024-05-03,pTau181,neuro,1.7,pg/mL
+D004,2024-05-03,pTau217,neuro,0.39,pg/mL
+D004,2024-05-03,AB40,neuro,262,pg/mL
+D004,2024-05-03,AB42,neuro,18,pg/mL
+D004,2024-05-03,AB42/40 Ratio,neuro,0.069,ratio
+D004,2024-05-03,Cortisol,neuro,12.6,ug/dL
+D004,2024-05-03,BDNF,neuro,22,ng/mL
+D004,2024-05-03,Serotonin,neuro,124,ng/mL
+D004,2024-05-03,Glucose,metabolic,96,mg/dL
+D004,2024-05-03,Insulin,metabolic,10.2,uIU/mL
+D004,2024-05-03,HbA1c,metabolic,5.5,%
+D004,2024-05-03,D_dimer,coagulation,0.54,mg/L FEU
+D004,2024-05-03,Fibrinogen,coagulation,390,mg/dL
+D004,2024-05-03,ALT,liver,34,U/L
+D004,2024-05-03,AST,liver,26,U/L
+D005,2024-07-12,CRP,immune,1.0,mg/L
+D005,2024-07-12,IL6,immune,3.1,pg/mL
+D005,2024-07-12,Ferritin,immune,125,ng/mL
+D005,2024-07-12,NEFL,neuro,18,pg/mL
+D005,2024-07-12,GFAP,neuro,98,pg/mL
+D005,2024-07-12,pTau181,neuro,1.3,pg/mL
+D005,2024-07-12,pTau217,neuro,0.30,pg/mL
+D005,2024-07-12,AB40,neuro,255,pg/mL
+D005,2024-07-12,AB42,neuro,20,pg/mL
+D005,2024-07-12,AB42/40 Ratio,neuro,0.078,ratio
+D005,2024-07-12,Cortisol,neuro,15.6,ug/dL
+D005,2024-07-12,BDNF,neuro,26,ng/mL
+D005,2024-07-12,Serotonin,neuro,152,ng/mL
+D005,2024-07-12,Glucose,metabolic,88,mg/dL
+D005,2024-07-12,Insulin,metabolic,7.1,uIU/mL
+D005,2024-07-12,HbA1c,metabolic,5.2,%
+D005,2024-07-12,D_dimer,coagulation,0.41,mg/L FEU
+D005,2024-07-12,Fibrinogen,coagulation,320,mg/dL
+D005,2024-07-12,ALT,liver,23,U/L
+D005,2024-07-12,AST,liver,18,U/L
+D006,2024-10-18,CRP,immune,3.6,mg/L
+D006,2024-10-18,IL6,immune,6.8,pg/mL
+D006,2024-10-18,Ferritin,immune,190,ng/mL
+D006,2024-10-18,NEFL,neuro,28,pg/mL
+D006,2024-10-18,GFAP,neuro,150,pg/mL
+D006,2024-10-18,pTau181,neuro,2.2,pg/mL
+D006,2024-10-18,pTau217,neuro,0.49,pg/mL
+D006,2024-10-18,AB40,neuro,270,pg/mL
+D006,2024-10-18,AB42,neuro,15,pg/mL
+D006,2024-10-18,AB42/40 Ratio,neuro,0.056,ratio
+D006,2024-10-18,Cortisol,neuro,10.9,ug/dL
+D006,2024-10-18,BDNF,neuro,17,ng/mL
+D006,2024-10-18,Serotonin,neuro,105,ng/mL
+D006,2024-10-18,Glucose,metabolic,104,mg/dL
+D006,2024-10-18,Insulin,metabolic,14.8,uIU/mL
+D006,2024-10-18,HbA1c,metabolic,5.8,%
+D006,2024-10-18,D_dimer,coagulation,0.79,mg/L FEU
+D006,2024-10-18,Fibrinogen,coagulation,470,mg/dL
+D006,2024-10-18,ALT,liver,55,U/L
+D006,2024-10-18,AST,liver,44,U/L
+D007,2024-12-06,CRP,immune,1.5,mg/L
+D007,2024-12-06,IL6,immune,3.9,pg/mL
+D007,2024-12-06,Ferritin,immune,135,ng/mL
+D007,2024-12-06,NEFL,neuro,20,pg/mL
+D007,2024-12-06,GFAP,neuro,105,pg/mL
+D007,2024-12-06,pTau181,neuro,1.4,pg/mL
+D007,2024-12-06,pTau217,neuro,0.32,pg/mL
+D007,2024-12-06,AB40,neuro,258,pg/mL
+D007,2024-12-06,AB42,neuro,19,pg/mL
+D007,2024-12-06,AB42/40 Ratio,neuro,0.074,ratio
+D007,2024-12-06,Cortisol,neuro,13.9,ug/dL
+D007,2024-12-06,BDNF,neuro,23,ng/mL
+D007,2024-12-06,Serotonin,neuro,138,ng/mL
+D007,2024-12-06,Glucose,metabolic,94,mg/dL
+D007,2024-12-06,Insulin,metabolic,9.3,uIU/mL
+D007,2024-12-06,HbA1c,metabolic,5.4,%
+D007,2024-12-06,D_dimer,coagulation,0.46,mg/L FEU
+D007,2024-12-06,Fibrinogen,coagulation,350,mg/dL
+D007,2024-12-06,ALT,liver,28,U/L
+D007,2024-12-06,AST,liver,21,U/L
