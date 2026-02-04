@@ -97,15 +97,28 @@ def style_plotly(fig):
         paper_bgcolor=brand_colors["background"],
         plot_bgcolor=brand_colors["background"],
         font=dict(color=brand_colors["primary"]),
-        title=dict(font=dict(color=brand_colors["primary"])),
-        legend=dict(font=dict(color=brand_colors["primary"])),
+        title=dict(
+            font=dict(color=brand_colors["primary"], size=16),
+            y=0.93,              # ⬅ moves title down
+            x=0.01,
+            xanchor="left"
+        ),
+        legend=dict(
+            font=dict(color=brand_colors["primary"]),
+            orientation="h",
+            yanchor="bottom",
+            y=1.05,              # ⬅ moves legend up
+            xanchor="left",
+            x=0
+        ),
         hoverlabel=dict(
             bgcolor=brand_colors["background"],
             font=dict(color=brand_colors["primary"]),
             bordercolor=brand_colors["secondary"],
         ),
-        margin=dict(l=20, r=20, t=55, b=45),
+        margin=dict(l=20, r=20, t=80, b=50),  # ⬅ extra top margin
     )
+
     fig.update_xaxes(
         tickfont=dict(color=brand_colors["primary"]),
         title_font=dict(color=brand_colors["primary"]),
