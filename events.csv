@@ -1,8 +1,15 @@
-name,type,start_date,end_date
-Brain Fog,symptom,2024-01-15,2024-02-10
-Fatigue,symptom,2024-01-25,2024-02-20
-EBV Infection,infection,2024-02-05,2024-03-05
-Anxiety,symptom,2024-04-25,2024-05-05
-Joint Pain,symptom,2024-04-28,2024-05-10
-Memory Fog,symptom,2024-03-10,2024-03-25
-Lyme Infection,infection,2024-05-01,2024-05-20
+start_date,end_date,name,type
+2024-01-20,2024-02-10,Fatigue flare,symptom
+2024-01-28,2024-02-14,Brain fog,symptom
+2024-02-01,2024-02-06,URI (suspected),infection
+2024-02-18,2024-03-05,Insomnia,symptom
+2024-03-02,2024-03-18,GI symptoms,symptom
+2024-03-08,2024-03-12,COVID reinfection (self-report),infection
+2024-03-20,2024-04-20,Post-exertional malaise,symptom
+2024-04-10,2024-04-25,Antibiotics course,medication_change
+2024-05-01,2024-05-20,Headache cluster,symptom
+2024-06-25,2024-07-10,Allergy flare,symptom
+2024-07-05,2024-07-08,Travel stressor,stress_event
+2024-10-01,2024-10-10,Flu-like illness,infection
+2024-10-12,2024-10-28,Medication titration,medication_change
+2024-11-15,2024-11-30,SOB / chest tightness,symptom
