@@ -1,8 +1,16 @@
 # ============================================================
-# Streamlit Biomarker & Symptom Explorer (Plotly Hover + FIXED COLORS)
-# - Interactive hover tooltips for events + biomarker datapoints
-# - Stone main background + dark sidebar contrast
-# - Shared date window across ALL plots
+# Streamlit Biomarker & Symptom Explorer (Plotly Hover + Brand)
+# UPDATE:
+#   - Standard reference ranges now come from reference_ranges.csv
+#   - Custom ranges remain editable via sliders in the dashboard
+#   - Custom range sliders can apply to:
+#       * Overlay biomarkers only, OR
+#       * All biomarkers in selected categories (use with care)
+#
+# Files expected in repo:
+#   - lab_data.csv
+#   - events.csv
+#   - reference_ranges.csv   <-- NEW (standard ranges)
 #
 # requirements.txt must include:
 #   streamlit
@@ -28,7 +36,6 @@ brand_colors = {
     "background": "#F2EEE2", # Stone / neutral
 }
 
-# Optional category colors (extend as you add categories)
 category_colors = {
     "immune": brand_colors["accent"],
     "neuro": brand_colors["primary"],
@@ -36,7 +43,7 @@ category_colors = {
 }
 
 # ----------------------------
-# 2) Page Config + Styling
+# 2) Page Config + Minimal Styling
 # ----------------------------
 st.set_page_config(layout="wide", page_title="Biomarker Dashboard")
 
@@ -46,7 +53,6 @@ st.markdown(
 )
 st.markdown("---")
 
-# Keep CSS minimal; we control chart colors in Plotly layouts
 st.markdown(
     f"""
     <style>
@@ -81,10 +87,9 @@ st.markdown(
 )
 
 # ----------------------------
-# 3) Plotly Styling Helper (FIXES WHITE TEXT PROBLEM)
+# 3) Plotly Styling Helper
 # ----------------------------
 def style_plotly(fig):
-    """Force light theme + brand colors for Plotly (prevents white-on-stone)."""
     fig.update_layout(
         template="plotly_white",
         paper_bgcolor=brand_colors["background"],
@@ -99,8 +104,6 @@ def style_plotly(fig):
         ),
         margin=dict(l=20, r=20, t=50, b=45),
     )
-
-    # NOTE: Plotly uses title_font, not titlefont
     fig.update_xaxes(
         tickfont=dict(color=brand_colors["primary"]),
         title_font=dict(color=brand_colors["primary"]),
@@ -121,22 +124,19 @@ def style_plotly(fig):
 labs_df = pd.read_csv("lab_data.csv", parse_dates=["date"])
 events_df = pd.read_csv("events.csv", parse_dates=["start_date", "end_date"])
 
-# ----------------------------
-# 5) Standard Reference Ranges (team-set defaults)
-# ----------------------------
-default_ref_ranges = {
-    "CRP": (0.0, 3.0),
-    "IL6": (0.0, 5.0),
-    "Ferritin": (20, 300),
-    "Cortisol": (5, 20),
-    "BDNF": (15, 30),
-    "Serotonin": (100, 200),
-    "Glucose": (70, 100),
-    "Insulin": (2, 15),
-}
+# NEW: Standard reference ranges from CSV
+# Expected columns: biomarker, low, high, (optional) unit, (optional) source
+ref_df = pd.read_csv("reference_ranges.csv")
+ref_df["biomarker"] = ref_df["biomarker"].astype(str).str.strip()
+ref_df["low"] = pd.to_numeric(ref_df["low"], errors="coerce")
+ref_df["high"] = pd.to_numeric(ref_df["high"], errors="coerce")
+
+default_ref_ranges = dict(
+    zip(ref_df["biomarker"], list(zip(ref_df["low"], ref_df["high"])))
+)
 
 # ----------------------------
-# 6) Sidebar Controls
+# 5) Sidebar Controls
 # ----------------------------
 with st.sidebar:
     st.header("⚙️ Controls")
@@ -151,7 +151,7 @@ with st.sidebar:
         value=(min_date, max_date)
     )
 
-    # Category selection
+    # Categories
     all_categories = sorted(labs_df["category"].dropna().unique())
     selected_categories = st.multiselect(
         "Select categories",
@@ -159,7 +159,7 @@ with st.sidebar:
         default=list(all_categories)
     )
 
-    # Biomarker selection based on categories
+    # Available biomarkers based on categories
     available_biomarker_df = labs_df[labs_df["category"].isin(selected_categories)]
     available_biomarkers = sorted(available_biomarker_df["biomarker"].dropna().unique())
 
@@ -174,26 +174,64 @@ with st.sidebar:
         ["All biomarkers", "Biomarkers within selected categories", "Individual categories"]
     )
 
+    # Reference ranges
     with st.expander("Reference Ranges"):
-        show_standard_ref = st.checkbox("Show standard ranges (when possible)", value=True)
-        show_custom_ref = st.checkbox("Enable custom ranges", value=False)
+        show_standard_ref = st.checkbox("Show standard ranges (from reference_ranges.csv)", value=True)
+        show_custom_ref = st.checkbox("Enable custom ranges (sliders)", value=False)
+
+        custom_scope = st.radio(
+            "Custom ranges apply to:",
+            ["Overlay biomarkers only", "All biomarkers in selected categories"],
+            index=0
+        )
+
+        if custom_scope == "Overlay biomarkers only":
+            custom_biomarker_list = selected_biomarkers
+        else:
+            # Warning: can be huge (131+)
+            custom_biomarker_list = available_biomarkers
 
         custom_ref_ranges = {}
         if show_custom_ref:
-            for bm in selected_biomarkers:
-                if bm in default_ref_ranges:
-                    low, high = default_ref_ranges[bm]
-                    custom_ref_ranges[bm] = st.slider(
-                        f"{bm} custom range",
-                        min_value=float(low * 0.5),
-                        max_value=float(high * 2.0),
-                        value=(float(low), float(high))
-                    )
-                else:
-                    custom_ref_ranges[bm] = (None, None)
-        else:
-            for bm in selected_biomarkers:
-                custom_ref_ranges[bm] = (None, None)
+            st.caption(f"Custom sliders shown for: {len(custom_biomarker_list)} biomarkers")
+
+            # To prevent 200 sliders from instantly nuking the UI,
+            # we optionally gate with a multiselect when the list is big
+            if len(custom_biomarker_list) > 40:
+                st.warning("Large panel detected. Select a subset for custom sliders to keep the UI fast.")
+                slider_subset = st.multiselect(
+                    "Choose biomarkers to show sliders for",
+                    options=custom_biomarker_list,
+                    default=custom_biomarker_list[:15]
+                )
+                slider_biomarkers = slider_subset
+            else:
+                slider_biomarkers = custom_biomarker_list
+
+            for bm in slider_biomarkers:
+                low_high = default_ref_ranges.get(bm, (None, None))
+                low, high = low_high
+
+                # If we don't have a standard range, create a reasonable slider from data
+                if low is None or high is None or pd.isna(low) or pd.isna(high):
+                    bm_vals = labs_df[labs_df["biomarker"] == bm]["value"]
+                    if bm_vals.notna().any():
+                        vmin, vmax = float(bm_vals.min()), float(bm_vals.max())
+                        pad = (vmax - vmin) * 0.25 if vmax > vmin else max(1.0, abs(vmin) * 0.25)
+                        low = vmin - pad
+                        high = vmax + pad
+                    else:
+                        low, high = 0.0, 1.0
+
+                custom_ref_ranges[bm] = st.slider(
+                    f"{bm} custom range",
+                    min_value=float(low) * 0.5 if float(low) != 0 else -1.0,
+                    max_value=float(high) * 2.0 if float(high) != 0 else 2.0,
+                    value=(float(low), float(high))
+                )
+
+        # If custom is off, keep dict empty
+        # (we'll fall back to standard ranges when needed)
 
     show_out_of_range = st.checkbox("Show only out-of-range values?", value=False)
 
@@ -205,18 +243,26 @@ with st.sidebar:
     )
 
 # ----------------------------
-# 7) Filter Data + Compute Out-of-Range
+# 6) Date window + range helpers
 # ----------------------------
 start_win = pd.Timestamp(date_range[0])
 end_win = pd.Timestamp(date_range[1])
 
 def range_for_biomarker(bm: str):
-    if show_custom_ref:
+    """
+    If custom ranges are enabled AND a slider exists for that biomarker, use it.
+    Else use standard range from reference_ranges.csv (if present).
+    """
+    if show_custom_ref and (bm in custom_ref_ranges):
         low, high = custom_ref_ranges.get(bm, (None, None))
         if low is not None and high is not None:
             return (low, high)
-    if bm in default_ref_ranges:
-        return default_ref_ranges[bm]
+
+    if show_standard_ref and (bm in default_ref_ranges):
+        low, high = default_ref_ranges.get(bm, (None, None))
+        if pd.notna(low) and pd.notna(high):
+            return (low, high)
+
     return (None, None)
 
 def is_out_of_range(row):
@@ -225,6 +271,9 @@ def is_out_of_range(row):
         return False
     return (row["value"] < low) or (row["value"] > high)
 
+# ----------------------------
+# 7) Filter labs
+# ----------------------------
 filtered_labs = labs_df[
     (labs_df["date"] >= start_win) &
     (labs_df["date"] <= end_win) &
@@ -237,7 +286,7 @@ if show_out_of_range:
     filtered_labs = filtered_labs[filtered_labs["out_of_range"]].copy()
 
 filtered_labs["date_str"] = filtered_labs["date"].dt.strftime("%Y-%m-%d")
-filtered_labs["value_str"] = filtered_labs["value"].astype(float).map(lambda x: f"{x:.4g}")
+filtered_labs["value_str"] = pd.to_numeric(filtered_labs["value"], errors="coerce").map(lambda x: f"{x:.4g}")
 
 # ----------------------------
 # 8) Events Timeline (Plotly hover)
@@ -290,6 +339,7 @@ if filtered_labs.empty:
 else:
     plot_df = filtered_labs.sort_values(["date", "biomarker"]).copy()
 
+    # Color behavior per overlay option
     color_col = "biomarker" if overlay_option == "All biomarkers" else "category"
 
     fig_bio = px.line(
@@ -379,7 +429,7 @@ else:
         )
 
 # ----------------------------
-# 10) Individual Biomarker Plots (Plotly hover)
+# 10) Individual Biomarker Plots (Plotly hover + per-marker ref band)
 # ----------------------------
 if individual_bio_selected:
     st.subheader("📊 Individual Biomarker Plots")
@@ -397,7 +447,7 @@ if individual_bio_selected:
 
         bm_df = bm_df.sort_values("date")
         bm_df["date_str"] = bm_df["date"].dt.strftime("%Y-%m-%d")
-        bm_df["value_str"] = bm_df["value"].astype(float).map(lambda x: f"{x:.4g}")
+        bm_df["value_str"] = pd.to_numeric(bm_df["value"], errors="coerce").map(lambda x: f"{x:.4g}")
         bm_df["out_of_range"] = bm_df.apply(is_out_of_range, axis=1)
 
         fig_one = px.line(
@@ -418,7 +468,6 @@ if individual_bio_selected:
 
         fig_one.update_xaxes(range=[start_win, end_win], tickformat="%Y-%m-%d")
         fig_one.update_layout(height=340, showlegend=False, title=dict(text=bm, x=0.01))
-
         fig_one.update_traces(line=dict(color=brand_colors["primary"]), marker=dict(color=brand_colors["primary"]))
 
         # Out-of-range X markers
@@ -465,6 +514,3 @@ if individual_bio_selected:
 
         fig_one = style_plotly(fig_one)
         st.plotly_chart(fig_one, use_container_width=True)
-
-
-
