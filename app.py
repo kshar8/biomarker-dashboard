@@ -43,17 +43,23 @@ category_colors = {
 st.set_page_config(layout="wide", page_title="Biomarker Dashboard")
 
 st.markdown(
-    f"<h1 style='font-family:sans-serif; color:{brand_colors['primary']};'>🧬 Biomarker & Symptom Explorer</h1>",
-    unsafe_allow_html=True
-)
-st.markdown("---")
-
-st.markdown(
     f"""
     <style>
-      /* Main app background */
+      /* ---------- MAIN APP (stone background + dark text) ---------- */
       .stApp {{
         background-color: {brand_colors['background']};
+        color: {brand_colors['primary']};
+      }}
+
+      /* Make main-page text readable (Streamlit can default to white) */
+      div[data-testid="stAppViewContainer"] {{
+        color: {brand_colors['primary']} !important;
+      }}
+      div[data-testid="stAppViewContainer"] p,
+      div[data-testid="stAppViewContainer"] span,
+      div[data-testid="stAppViewContainer"] li,
+      div[data-testid="stAppViewContainer"] label {{
+        color: {brand_colors['primary']} !important;
       }}
 
       /* Main headers */
@@ -64,7 +70,7 @@ st.markdown(
         font-weight: 650;
       }}
 
-      /* Sidebar background */
+      /* ---------- SIDEBAR (dark background + readable controls) ---------- */
       section[data-testid="stSidebar"] {{
         background-color: {brand_colors['primary']};
       }}
@@ -77,23 +83,43 @@ st.markdown(
         font-weight: 650;
       }}
 
-      /* Sidebar text */
+      /* Sidebar labels (keep white) */
       section[data-testid="stSidebar"] label,
       section[data-testid="stSidebar"] p,
-      section[data-testid="stSidebar"] span,
-      section[data-testid="stSidebar"] div {{
+      section[data-testid="stSidebar"] span {{
         color: #FFFFFF !important;
       }}
 
-      /* Expander titles */
+      /* Sidebar expander titles */
       section[data-testid="stSidebar"] summary {{
         color: {brand_colors['background']} !important;
         font-weight: 650;
+      }}
+
+      /* Sidebar input boxes: make them light so white text doesn't disappear */
+      section[data-testid="stSidebar"] input,
+      section[data-testid="stSidebar"] textarea {{
+        background-color: {brand_colors['background']} !important;
+        color: {brand_colors['primary']} !important;
+      }}
+
+      /* Dropdown / multiselect selected text */
+      section[data-testid="stSidebar"] [data-baseweb="select"] * {{
+        color: {brand_colors['primary']} !important;
+      }}
+      section[data-testid="stSidebar"] [data-baseweb="select"] {{
+        background-color: {brand_colors['background']} !important;
+      }}
+
+      /* ---------- PLOTLY: force readable text + stone background ---------- */
+      .js-plotly-plot, .plotly, .plot-container {{
+        color: {brand_colors['primary']} !important;
       }}
     </style>
     """,
     unsafe_allow_html=True
 )
+
 
 # ----------------------------
 # 3) Load Data
