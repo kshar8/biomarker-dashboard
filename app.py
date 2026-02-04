@@ -1,5 +1,5 @@
 # ----------------------------
-# Streamlit Biomarker & Symptom Explorer - Brand Colors (vNext)
+# Streamlit Biomarker & Symptom Explorer - Brand Colors (Aligned X-Axis + Better Timeline)
 # ----------------------------
 
 import streamlit as st
@@ -19,7 +19,7 @@ brand_colors = {
     "background": "#F2EEE2", # Light neutral background
 }
 
-# Optional category colors (extend later as you add categories)
+# Optional category colors (extend later)
 category_colors = {
     "immune": brand_colors["accent"],
     "neuro": brand_colors["primary"],
@@ -27,7 +27,7 @@ category_colors = {
 }
 
 # ----------------------------
-# 2️⃣ Page Config + Styling
+# 2️⃣ Page Config + Styling (Stone main, dark sidebar)
 # ----------------------------
 st.set_page_config(layout="wide", page_title="Biomarker Dashboard")
 
@@ -37,17 +37,15 @@ st.markdown(
 )
 st.markdown("---")
 
-# --------- GLOBAL STYLING ---------
 st.markdown(
     f"""
     <style>
-    /* ---------- APP BACKGROUND ---------- */
+    /* Main app background */
     .stApp {{
         background-color: {brand_colors['background']};
     }}
 
-    /* ---------- MAIN PAGE HEADERS (this fixes your white titles) ---------- */
-    /* Targets all h1/h2/h3 inside the main app container */
+    /* Main page headers */
     div[data-testid="stAppViewContainer"] h1,
     div[data-testid="stAppViewContainer"] h2,
     div[data-testid="stAppViewContainer"] h3 {{
@@ -55,18 +53,12 @@ st.markdown(
         font-weight: 650;
     }}
 
-    /* Also catch Streamlit markdown headings */
-    div[data-testid="stAppViewContainer"] p,
-    div[data-testid="stAppViewContainer"] span {{
-        color: {brand_colors['primary']};
-    }}
-
-    /* ---------- SIDEBAR BACKGROUND ---------- */
+    /* Sidebar background */
     section[data-testid="stSidebar"] {{
         background-color: {brand_colors['primary']};
     }}
 
-    /* ---------- SIDEBAR HEADER COLORS ---------- */
+    /* Sidebar headers */
     section[data-testid="stSidebar"] h1,
     section[data-testid="stSidebar"] h2,
     section[data-testid="stSidebar"] h3 {{
@@ -74,7 +66,7 @@ st.markdown(
         font-weight: 650;
     }}
 
-    /* ---------- SIDEBAR LABELS / TEXT ---------- */
+    /* Sidebar labels / text */
     section[data-testid="stSidebar"] label,
     section[data-testid="stSidebar"] p,
     section[data-testid="stSidebar"] span,
@@ -87,13 +79,10 @@ st.markdown(
         color: {brand_colors['background']} !important;
         font-weight: 650;
     }}
-
     </style>
     """,
     unsafe_allow_html=True
 )
-
-
 
 # ----------------------------
 # 3️⃣ Load Data
@@ -121,7 +110,7 @@ default_ref_ranges = {
 with st.sidebar:
     st.header("⚙️ Controls")
 
-    # Date range
+    # Date range (global x-axis window)
     min_date = labs_df["date"].min().date()
     max_date = labs_df["date"].max().date()
     date_range = st.slider(
@@ -149,7 +138,6 @@ with st.sidebar:
         default=available_biomarkers[:5]
     )
 
-    # Overlay option
     overlay_option = st.selectbox(
         "Overlay option",
         ["All biomarkers", "Biomarkers within selected categories", "Individual categories"]
@@ -158,35 +146,30 @@ with st.sidebar:
     # Reference range controls
     with st.expander("Reference Ranges"):
         show_standard_ref = st.checkbox("Show standard ranges", value=True)
-        show_custom_ref = st.checkbox("Show custom ranges", value=False)
+        show_custom_ref = st.checkbox("Enable custom ranges", value=False)
 
         custom_ref_ranges = {}
         if show_custom_ref:
             for bm in selected_biomarkers:
                 if bm in default_ref_ranges:
                     min_val, max_val = default_ref_ranges[bm]
-                    user_range = st.slider(
+                    custom_ref_ranges[bm] = st.slider(
                         f"{bm} custom range",
                         min_value=float(min_val * 0.5),
                         max_value=float(max_val * 2.0),
                         value=(float(min_val), float(max_val))
                     )
-                    custom_ref_ranges[bm] = user_range
                 else:
                     custom_ref_ranges[bm] = (None, None)
         else:
-            # still populate keys for downstream code
             for bm in selected_biomarkers:
                 custom_ref_ranges[bm] = (None, None)
 
-    # Annotations
     with st.expander("Annotations"):
         show_annotations = st.checkbox("Show min/max annotations only", value=False)
 
-    # Out-of-range filter (based on custom if enabled, else standard)
     show_out_of_range = st.checkbox("Show only out-of-range values?", value=False)
 
-    # Individual biomarker plots
     st.subheader("Individual Biomarker Plots")
     individual_bio_selected = st.multiselect(
         "Select biomarkers for separate plots",
@@ -195,16 +178,27 @@ with st.sidebar:
     )
 
 # ----------------------------
+# 5.5️⃣ Shared X-axis window helper (FORCE ALIGNMENT)
+# ----------------------------
+start_win = pd.Timestamp(date_range[0])
+end_win = pd.Timestamp(date_range[1])
+
+def enforce_shared_time_axis(ax):
+    ax.set_xlim(start_win, end_win)
+    ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
+    ax.xaxis.set_major_locator(mdates.AutoDateLocator(minticks=4, maxticks=8))
+    ax.tick_params(axis="x", rotation=45)
+
+# ----------------------------
 # 6️⃣ Filter Lab Data
 # ----------------------------
 filtered_labs = labs_df[
     (labs_df["category"].isin(selected_categories)) &
     (labs_df["biomarker"].isin(selected_biomarkers)) &
-    (labs_df["date"] >= pd.Timestamp(date_range[0])) &
-    (labs_df["date"] <= pd.Timestamp(date_range[1]))
+    (labs_df["date"] >= start_win) &
+    (labs_df["date"] <= end_win)
 ].copy()
 
-# Choose which ranges define out-of-range filtering
 def get_range_for_biomarker(bm: str):
     if show_custom_ref and bm in custom_ref_ranges and custom_ref_ranges[bm] != (None, None):
         return custom_ref_ranges[bm]
@@ -222,24 +216,17 @@ if show_out_of_range:
     filtered_labs = filtered_labs[filtered_labs.apply(out_of_range, axis=1)]
 
 # ----------------------------
-# ----------------------------
-# 7️⃣ Timeline: Symptoms / Infections (Improved Layout)
+# 7️⃣ Timeline: Symptoms / Infections (Improved layout + aligned x-axis)
 # ----------------------------
 st.subheader("🩺 Symptoms / Infections Timeline")
 
-# ---- Filter events to match selected date range ----
 events_clean = events_df.copy()
-
 events_clean["start_date"] = pd.to_datetime(events_clean["start_date"], errors="coerce")
 events_clean["end_date"] = pd.to_datetime(events_clean["end_date"], errors="coerce")
 events_clean["end_date"] = events_clean["end_date"].fillna(events_clean["start_date"])
 
-# normalize type
 events_clean["type_norm"] = (
-    events_clean["type"]
-    .astype(str)
-    .str.strip()
-    .str.lower()
+    events_clean["type"].astype(str).str.strip().str.lower()
 )
 
 infection_keywords = ["infection", "covid", "flu", "uri", "viral", "bacterial", "virus"]
@@ -247,27 +234,20 @@ events_clean["is_infection"] = events_clean["type_norm"].apply(
     lambda t: any(k in t for k in infection_keywords)
 )
 
-start_win = pd.Timestamp(date_range[0])
-end_win = pd.Timestamp(date_range[1])
-
 events_filtered = events_clean[
     (events_clean["end_date"] >= start_win) &
     (events_clean["start_date"] <= end_win)
 ].dropna(subset=["start_date", "end_date"]).copy()
 
-# ---- Dynamic figure size so it isn't squished ----
 n_events = len(events_filtered)
-fig_height = max(2.5, n_events * 0.55)
+fig_height = max(2.8, n_events * 0.55)
 
 fig_event, ax_event = plt.subplots(figsize=(14, fig_height))
 ax_event.set_facecolor(brand_colors["background"])
-
-# y axis: one row per event
 ax_event.set_yticks(range(n_events))
 ax_event.set_yticklabels([""] * n_events)
 ax_event.set_title("Symptoms / Infections Timeline", fontsize=12, color=brand_colors["primary"])
 
-# ---- Draw bars + labels ----
 for i, event in enumerate(events_filtered.to_dict(orient="records")):
     color = brand_colors["accent"] if event["is_infection"] else brand_colors["secondary"]
 
@@ -279,7 +259,6 @@ for i, event in enumerate(events_filtered.to_dict(orient="records")):
         color=color
     )
 
-    # Left-aligned label for readability
     ax_event.text(
         event["start_date"],
         i,
@@ -290,17 +269,13 @@ for i, event in enumerate(events_filtered.to_dict(orient="records")):
         color=brand_colors["primary"]
     )
 
-# ---- X-axis formatting ----
-ax_event.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
-plt.xticks(rotation=45, ha="right")
+enforce_shared_time_axis(ax_event)
 
-# Clean axes
 ax_event.spines["top"].set_visible(False)
 ax_event.spines["right"].set_visible(False)
 ax_event.spines["left"].set_visible(False)
 ax_event.tick_params(axis="y", length=0)
 
-# Legend (always correct)
 symptom_patch = mpatches.Patch(color=brand_colors["secondary"], label="Symptom")
 infection_patch = mpatches.Patch(color=brand_colors["accent"], label="Infection")
 ax_event.legend(handles=[symptom_patch, infection_patch], loc="upper right", fontsize=8, framealpha=0.85)
@@ -308,9 +283,8 @@ ax_event.legend(handles=[symptom_patch, infection_patch], loc="upper right", fon
 plt.tight_layout()
 st.pyplot(fig_event, use_container_width=True)
 
-
 # ----------------------------
-# 8️⃣ Biomarker Overlay Plot (ALL overlay modes implemented)
+# 8️⃣ Biomarker Overlay Plot (aligned x-axis)
 # ----------------------------
 st.subheader("🧪 Biomarker Trends")
 
@@ -319,27 +293,25 @@ ax_bio.set_facecolor(brand_colors["background"])
 
 fallback_colors = [brand_colors["primary"], brand_colors["secondary"], brand_colors["accent"]]
 
-def add_ref_band(bm_data: pd.DataFrame, bm: str):
+def add_ref_band(ax, bm_data, bm):
     if bm_data.empty:
         return
 
-    # standard reference range
     if show_standard_ref and bm in default_ref_ranges:
         low, high = default_ref_ranges[bm]
-        ax_bio.fill_between(bm_data["date"], low, high, alpha=0.08, color=brand_colors["primary"])
+        ax.fill_between(bm_data["date"], low, high, alpha=0.08, color=brand_colors["primary"])
 
-    # custom reference range
     if show_custom_ref:
         low, high = custom_ref_ranges.get(bm, (None, None))
         if low is not None and high is not None:
-            ax_bio.fill_between(bm_data["date"], low, high, alpha=0.12, color=brand_colors["secondary"])
+            ax.fill_between(bm_data["date"], low, high, alpha=0.12, color=brand_colors["secondary"])
 
-def add_minmax_annotations(bm_data: pd.DataFrame):
+def add_minmax_annotations(ax, bm_data):
     if not show_annotations or bm_data.empty:
         return
     for idx in [bm_data["value"].idxmin(), bm_data["value"].idxmax()]:
         row = bm_data.loc[idx]
-        ax_bio.annotate(
+        ax.annotate(
             f"{row['value']}",
             (row["date"], row["value"]),
             xytext=(0, 10),
@@ -349,19 +321,18 @@ def add_minmax_annotations(bm_data: pd.DataFrame):
             color=brand_colors["primary"]
         )
 
-def plot_series(bm: str, bm_data: pd.DataFrame, color: str, label: str):
+def plot_series(ax, bm, bm_data, color, label):
     if bm_data.empty:
         return
     bm_data = bm_data.sort_values("date")
-    add_ref_band(bm_data, bm)
-    ax_bio.plot(bm_data["date"], bm_data["value"], marker="o", label=label, color=color)
-    add_minmax_annotations(bm_data)
+    add_ref_band(ax, bm_data, bm)
+    ax.plot(bm_data["date"], bm_data["value"], marker="o", label=label, color=color)
+    add_minmax_annotations(ax, bm_data)
 
 if overlay_option == "All biomarkers":
     for i, bm in enumerate(sorted(filtered_labs["biomarker"].unique())):
         bm_data = filtered_labs[filtered_labs["biomarker"] == bm]
-        color = fallback_colors[i % len(fallback_colors)]
-        plot_series(bm, bm_data, color=color, label=bm)
+        plot_series(ax_bio, bm, bm_data, fallback_colors[i % len(fallback_colors)], bm)
 
 elif overlay_option == "Biomarkers within selected categories":
     for i, cat in enumerate(selected_categories):
@@ -371,7 +342,7 @@ elif overlay_option == "Biomarkers within selected categories":
         cat_color = category_colors.get(cat, fallback_colors[i % len(fallback_colors)])
         for bm in sorted(cat_df["biomarker"].unique()):
             bm_data = cat_df[cat_df["biomarker"] == bm]
-            plot_series(bm, bm_data, color=cat_color, label=f"{bm} ({cat})")
+            plot_series(ax_bio, bm, bm_data, cat_color, f"{bm} ({cat})")
 
 elif overlay_option == "Individual categories":
     for i, cat in enumerate(selected_categories):
@@ -381,18 +352,17 @@ elif overlay_option == "Individual categories":
         cat_color = category_colors.get(cat, fallback_colors[i % len(fallback_colors)])
         for bm in sorted(cat_df["biomarker"].unique()):
             bm_data = cat_df[cat_df["biomarker"] == bm]
-            plot_series(bm, bm_data, color=cat_color, label=f"{bm} [{cat}]")
+            plot_series(ax_bio, bm, bm_data, cat_color, f"{bm} [{cat}]")
 
 ax_bio.set_ylabel("Value", color=brand_colors["primary"])
 ax_bio.legend(fontsize=7, ncols=2)
-ax_bio.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
-plt.xticks(rotation=45, ha="right")
-plt.tight_layout()
+enforce_shared_time_axis(ax_bio)
 
+plt.tight_layout()
 st.pyplot(fig_bio, use_container_width=True)
 
 # ----------------------------
-# 9️⃣ Individual Biomarker Plots
+# 9️⃣ Individual Biomarker Plots (aligned x-axis)
 # ----------------------------
 if individual_bio_selected:
     st.subheader("📊 Individual Biomarker Plots")
@@ -401,20 +371,19 @@ if individual_bio_selected:
         bm_data = labs_df[
             (labs_df["biomarker"] == bm) &
             (labs_df["category"].isin(selected_categories)) &
-            (labs_df["date"] >= pd.Timestamp(date_range[0])) &
-            (labs_df["date"] <= pd.Timestamp(date_range[1]))
+            (labs_df["date"] >= start_win) &
+            (labs_df["date"] <= end_win)
         ].copy()
 
         if bm_data.empty:
             continue
 
+        bm_data = bm_data.sort_values("date")
+
         fig, ax = plt.subplots(figsize=(12, 3))
         ax.set_facecolor(brand_colors["background"])
-
-        bm_data = bm_data.sort_values("date")
         ax.plot(bm_data["date"], bm_data["value"], marker="o", color=brand_colors["primary"])
 
-        # Reference ranges
         if show_standard_ref and bm in default_ref_ranges:
             low, high = default_ref_ranges[bm]
             ax.fill_between(bm_data["date"], low, high, alpha=0.08, color=brand_colors["primary"])
@@ -424,7 +393,6 @@ if individual_bio_selected:
             if low is not None and high is not None:
                 ax.fill_between(bm_data["date"], low, high, alpha=0.12, color=brand_colors["secondary"])
 
-        # Min/Max annotations
         if show_annotations and not bm_data.empty:
             for idx in [bm_data["value"].idxmin(), bm_data["value"].idxmax()]:
                 row = bm_data.loc[idx]
@@ -442,8 +410,6 @@ if individual_bio_selected:
         ax.set_title(f"{bm}", fontsize=11, color=brand_colors["primary"])
         ax.set_ylabel(unit, color=brand_colors["primary"])
 
-        ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
-        plt.xticks(rotation=45, ha="right")
+        enforce_shared_time_axis(ax)
         plt.tight_layout()
-
         st.pyplot(fig, use_container_width=True)
