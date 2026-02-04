@@ -52,33 +52,35 @@ st.markdown(
         background-color: {brand_colors['primary']};
     }}
 
-    /* Sidebar text */
-    section[data-testid="stSidebar"] * {{
-        color: {brand_colors['background']} !important;
-    }}
-
-    /* Sidebar headers */
+    /* Sidebar section headers (Controls, Reference Ranges, etc.) */
     section[data-testid="stSidebar"] h1,
     section[data-testid="stSidebar"] h2,
     section[data-testid="stSidebar"] h3 {{
-        color: #FFFFFF !important;
+        color: {brand_colors['background']} !important;
+        font-weight: 600;
     }}
 
-    /* Sliders, dropdowns, checkboxes labels */
+    /* Widget labels (sliders, multiselects, checkboxes) */
     section[data-testid="stSidebar"] label {{
         color: #FFFFFF !important;
     }}
 
     /* Expander headers */
     section[data-testid="stSidebar"] summary {{
-        color: #FFFFFF !important;
+        color: {brand_colors['background']} !important;
         font-weight: 600;
+    }}
+
+    /* Help text / small text */
+    section[data-testid="stSidebar"] small {{
+        color: #E6E3DC !important;
     }}
 
     </style>
     """,
     unsafe_allow_html=True
 )
+
 
 
 # ----------------------------
