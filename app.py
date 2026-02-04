@@ -1,5 +1,6 @@
 # ----------------------------
-# Streamlit Biomarker & Symptom Explorer - Brand Colors (Aligned X-Axis + Better Timeline)
+# Streamlit Biomarker & Symptom Explorer - Brand Colors
+# FIXED: aligned x-axes visually across plots (consistent margins)
 # ----------------------------
 
 import streamlit as st
@@ -178,7 +179,7 @@ with st.sidebar:
     )
 
 # ----------------------------
-# 5.5️⃣ Shared X-axis window helper (FORCE ALIGNMENT)
+# 5.5️⃣ Shared axis + shared layout helpers (FORCE ALIGNMENT)
 # ----------------------------
 start_win = pd.Timestamp(date_range[0])
 end_win = pd.Timestamp(date_range[1])
@@ -188,6 +189,15 @@ def enforce_shared_time_axis(ax):
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
     ax.xaxis.set_major_locator(mdates.AutoDateLocator(minticks=4, maxticks=8))
     ax.tick_params(axis="x", rotation=45)
+
+LEFT_MARGIN = 0.12
+RIGHT_MARGIN = 0.98
+TOP_MARGIN = 0.92
+BOTTOM_MARGIN = 0.28
+
+def enforce_shared_layout(fig, ax):
+    enforce_shared_time_axis(ax)
+    fig.subplots_adjust(left=LEFT_MARGIN, right=RIGHT_MARGIN, top=TOP_MARGIN, bottom=BOTTOM_MARGIN)
 
 # ----------------------------
 # 6️⃣ Filter Lab Data
@@ -216,7 +226,7 @@ if show_out_of_range:
     filtered_labs = filtered_labs[filtered_labs.apply(out_of_range, axis=1)]
 
 # ----------------------------
-# 7️⃣ Timeline: Symptoms / Infections (Improved layout + aligned x-axis)
+# 7️⃣ Timeline: Symptoms / Infections (Improved + aligned x-axis + not squished)
 # ----------------------------
 st.subheader("🩺 Symptoms / Infections Timeline")
 
@@ -225,14 +235,9 @@ events_clean["start_date"] = pd.to_datetime(events_clean["start_date"], errors="
 events_clean["end_date"] = pd.to_datetime(events_clean["end_date"], errors="coerce")
 events_clean["end_date"] = events_clean["end_date"].fillna(events_clean["start_date"])
 
-events_clean["type_norm"] = (
-    events_clean["type"].astype(str).str.strip().str.lower()
-)
-
+events_clean["type_norm"] = events_clean["type"].astype(str).str.strip().str.lower()
 infection_keywords = ["infection", "covid", "flu", "uri", "viral", "bacterial", "virus"]
-events_clean["is_infection"] = events_clean["type_norm"].apply(
-    lambda t: any(k in t for k in infection_keywords)
-)
+events_clean["is_infection"] = events_clean["type_norm"].apply(lambda t: any(k in t for k in infection_keywords))
 
 events_filtered = events_clean[
     (events_clean["end_date"] >= start_win) &
@@ -250,7 +255,6 @@ ax_event.set_title("Symptoms / Infections Timeline", fontsize=12, color=brand_co
 
 for i, event in enumerate(events_filtered.to_dict(orient="records")):
     color = brand_colors["accent"] if event["is_infection"] else brand_colors["secondary"]
-
     ax_event.barh(
         y=i,
         width=event["end_date"] - event["start_date"],
@@ -258,7 +262,6 @@ for i, event in enumerate(events_filtered.to_dict(orient="records")):
         height=0.65,
         color=color
     )
-
     ax_event.text(
         event["start_date"],
         i,
@@ -269,8 +272,6 @@ for i, event in enumerate(events_filtered.to_dict(orient="records")):
         color=brand_colors["primary"]
     )
 
-enforce_shared_time_axis(ax_event)
-
 ax_event.spines["top"].set_visible(False)
 ax_event.spines["right"].set_visible(False)
 ax_event.spines["left"].set_visible(False)
@@ -280,11 +281,11 @@ symptom_patch = mpatches.Patch(color=brand_colors["secondary"], label="Symptom")
 infection_patch = mpatches.Patch(color=brand_colors["accent"], label="Infection")
 ax_event.legend(handles=[symptom_patch, infection_patch], loc="upper right", fontsize=8, framealpha=0.85)
 
-plt.tight_layout()
+enforce_shared_layout(fig_event, ax_event)
 st.pyplot(fig_event, use_container_width=True)
 
 # ----------------------------
-# 8️⃣ Biomarker Overlay Plot (aligned x-axis)
+# 8️⃣ Biomarker Overlay Plot (aligned x-axis + aligned margins)
 # ----------------------------
 st.subheader("🧪 Biomarker Trends")
 
@@ -356,13 +357,12 @@ elif overlay_option == "Individual categories":
 
 ax_bio.set_ylabel("Value", color=brand_colors["primary"])
 ax_bio.legend(fontsize=7, ncols=2)
-enforce_shared_time_axis(ax_bio)
 
-plt.tight_layout()
+enforce_shared_layout(fig_bio, ax_bio)
 st.pyplot(fig_bio, use_container_width=True)
 
 # ----------------------------
-# 9️⃣ Individual Biomarker Plots (aligned x-axis)
+# 9️⃣ Individual Biomarker Plots (aligned x-axis + aligned margins)
 # ----------------------------
 if individual_bio_selected:
     st.subheader("📊 Individual Biomarker Plots")
@@ -410,6 +410,5 @@ if individual_bio_selected:
         ax.set_title(f"{bm}", fontsize=11, color=brand_colors["primary"])
         ax.set_ylabel(unit, color=brand_colors["primary"])
 
-        enforce_shared_time_axis(ax)
-        plt.tight_layout()
+        enforce_shared_layout(fig, ax)
         st.pyplot(fig, use_container_width=True)
