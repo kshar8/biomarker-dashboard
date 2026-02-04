@@ -37,19 +37,49 @@ st.markdown(
 )
 st.markdown("---")
 
+# --------- GLOBAL STYLING ---------
 st.markdown(
     f"""
     <style>
+
+    /* Main app background */
     .stApp {{
         background-color: {brand_colors['background']};
     }}
+
+    /* Sidebar background */
     section[data-testid="stSidebar"] {{
-        background-color: {brand_colors['background']};
+        background-color: {brand_colors['primary']};
     }}
+
+    /* Sidebar text */
+    section[data-testid="stSidebar"] * {{
+        color: {brand_colors['background']} !important;
+    }}
+
+    /* Sidebar headers */
+    section[data-testid="stSidebar"] h1,
+    section[data-testid="stSidebar"] h2,
+    section[data-testid="stSidebar"] h3 {{
+        color: #FFFFFF !important;
+    }}
+
+    /* Sliders, dropdowns, checkboxes labels */
+    section[data-testid="stSidebar"] label {{
+        color: #FFFFFF !important;
+    }}
+
+    /* Expander headers */
+    section[data-testid="stSidebar"] summary {{
+        color: #FFFFFF !important;
+        font-weight: 600;
+    }}
+
     </style>
     """,
     unsafe_allow_html=True
 )
+
 
 # ----------------------------
 # 3️⃣ Load Data
