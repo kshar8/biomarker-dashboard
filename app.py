@@ -221,82 +221,82 @@ if show_out_of_range:
 
     filtered_labs = filtered_labs[filtered_labs.apply(out_of_range, axis=1)]
 
-## ----------------------------
-# 7️⃣ Timeline: Symptoms / Infections
+# ----------------------------
+# 7️⃣ Timeline: Symptoms / Infections (Improved Layout)
 # ----------------------------
 st.subheader("🩺 Symptoms / Infections Timeline")
 
-# --- Clean + normalize events ---
-events_clean = events_df.copy()
+# Dynamic height based on number of events
+n_events = len(events_filtered)
+fig_height = max(2.5, n_events * 0.5)
 
-# Ensure dates parse cleanly
-events_clean["start_date"] = pd.to_datetime(events_clean["start_date"], errors="coerce")
-events_clean["end_date"] = pd.to_datetime(events_clean["end_date"], errors="coerce")
-
-# If end_date missing, treat as 1-day event
-events_clean["end_date"] = events_clean["end_date"].fillna(events_clean["start_date"])
-
-# Normalize type text
-events_clean["type_norm"] = (
-    events_clean["type"]
-    .astype(str)
-    .str.strip()
-    .str.lower()
-)
-
-# Map common infection-like labels to infection
-infection_keywords = ["infection", "covid", "flu", "uri", "virus", "viral", "bacterial"]
-events_clean["is_infection"] = events_clean["type_norm"].apply(
-    lambda t: any(k in t for k in infection_keywords)
-)
-
-# --- Filter events to visible date window ---
-start_win = pd.Timestamp(date_range[0])
-end_win = pd.Timestamp(date_range[1])
-
-events_filtered = events_clean[
-    (events_clean["end_date"] >= start_win) &
-    (events_clean["start_date"] <= end_win)
-].dropna(subset=["start_date", "end_date"])
-
-# --- Plot ---
-fig_event, ax_event = plt.subplots(figsize=(14, 1.7))
+fig_event, ax_event = plt.subplots(figsize=(14, fig_height))
 ax_event.set_facecolor(brand_colors["background"])
-ax_event.set_yticks([])
-ax_event.set_title("Symptoms / Infections Timeline", fontsize=12, color=brand_colors["primary"])
+
+# Y positioning with spacing
+y_positions = range(n_events)
+ax_event.set_yticks(y_positions)
+ax_event.set_yticklabels([""] * n_events)
+
+ax_event.set_title(
+    "Symptoms / Infections Timeline",
+    fontsize=12,
+    color=brand_colors["primary"]
+)
 
 for i, event in enumerate(events_filtered.to_dict(orient="records")):
-    color = brand_colors["accent"] if event["is_infection"] else brand_colors["secondary"]
+    color = (
+        brand_colors["accent"]
+        if event["is_infection"]
+        else brand_colors["secondary"]
+    )
 
     ax_event.barh(
         y=i,
         width=event["end_date"] - event["start_date"],
         left=event["start_date"],
-        height=0.7,
+        height=0.6,
         color=color
     )
 
+    # Left-aligned labels (easier to read)
     ax_event.text(
-        event["start_date"] + (event["end_date"] - event["start_date"]) / 2,
+        event["start_date"],
         i,
-        str(event["name"]),
-        ha="center",
+        f"  {event['name']}",
         va="center",
-        fontsize=8,
+        ha="left",
+        fontsize=9,
         color=brand_colors["primary"]
     )
 
-# show date ticks
+# X-axis formatting
 ax_event.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
 plt.xticks(rotation=45, ha="right")
 
+# Clean axes
+ax_event.spines["top"].set_visible(False)
+ax_event.spines["right"].set_visible(False)
+ax_event.spines["left"].set_visible(False)
+ax_event.tick_params(axis="y", length=0)
+
 # Legend
-symptom_patch = mpatches.Patch(color=brand_colors["secondary"], label="Symptom")
-infection_patch = mpatches.Patch(color=brand_colors["accent"], label="Infection")
-ax_event.legend(handles=[symptom_patch, infection_patch], loc="upper right", fontsize=8, framealpha=0.8)
+symptom_patch = mpatches.Patch(
+    color=brand_colors["secondary"], label="Symptom"
+)
+infection_patch = mpatches.Patch(
+    color=brand_colors["accent"], label="Infection"
+)
+ax_event.legend(
+    handles=[symptom_patch, infection_patch],
+    loc="upper right",
+    fontsize=8,
+    framealpha=0.8
+)
 
 plt.tight_layout()
 st.pyplot(fig_event, use_container_width=True)
+
 
 # ----------------------------
 # 8️⃣ Biomarker Overlay Plot (ALL overlay modes implemented)
