@@ -1,10 +1,10 @@
 # ============================================================
-# Streamlit Biomarker & Symptom Explorer (Plotly Hover + FIXED colors)
+# Streamlit Biomarker & Symptom Explorer (Plotly Hover + FIXED COLORS)
 # - Interactive hover tooltips for events + biomarker datapoints
 # - Stone main background + dark sidebar contrast
 # - Shared date window across ALL plots
 #
-# IMPORTANT: requirements.txt must include:
+# requirements.txt must include:
 #   streamlit
 #   pandas
 #   numpy
@@ -28,7 +28,7 @@ brand_colors = {
     "background": "#F2EEE2", # Stone / neutral
 }
 
-# Optional: category -> brand-ish colors (extend as you add categories)
+# Optional category colors (extend as you add categories)
 category_colors = {
     "immune": brand_colors["accent"],
     "neuro": brand_colors["primary"],
@@ -46,7 +46,7 @@ st.markdown(
 )
 st.markdown("---")
 
-# Minimal CSS for layout; Plotly colors are controlled in style_plotly()
+# Keep CSS minimal; we control chart colors in Plotly layouts
 st.markdown(
     f"""
     <style>
@@ -54,12 +54,10 @@ st.markdown(
         background-color: {brand_colors['background']};
       }}
 
-      /* Sidebar background */
       section[data-testid="stSidebar"] {{
         background-color: {brand_colors['primary']};
       }}
 
-      /* Sidebar headers */
       section[data-testid="stSidebar"] h1,
       section[data-testid="stSidebar"] h2,
       section[data-testid="stSidebar"] h3 {{
@@ -67,14 +65,12 @@ st.markdown(
         font-weight: 650;
       }}
 
-      /* Sidebar labels/text */
       section[data-testid="stSidebar"] label,
       section[data-testid="stSidebar"] p,
       section[data-testid="stSidebar"] span {{
         color: #FFFFFF !important;
       }}
 
-      /* Expander titles */
       section[data-testid="stSidebar"] summary {{
         color: {brand_colors['background']} !important;
         font-weight: 650;
@@ -88,6 +84,7 @@ st.markdown(
 # 3) Plotly Styling Helper (FIXES WHITE TEXT PROBLEM)
 # ----------------------------
 def style_plotly(fig):
+    """Force light theme + brand colors for Plotly (prevents white-on-stone)."""
     fig.update_layout(
         template="plotly_white",
         paper_bgcolor=brand_colors["background"],
@@ -100,17 +97,19 @@ def style_plotly(fig):
             font=dict(color=brand_colors["primary"]),
             bordercolor=brand_colors["secondary"],
         ),
-        margin=dict(l=20, r=20, t=40, b=40),
+        margin=dict(l=20, r=20, t=50, b=45),
     )
+
+    # NOTE: Plotly uses title_font, not titlefont
     fig.update_xaxes(
         tickfont=dict(color=brand_colors["primary"]),
-        titlefont=dict(color=brand_colors["primary"]),
+        title_font=dict(color=brand_colors["primary"]),
         gridcolor="rgba(64,90,81,0.12)",
         zerolinecolor="rgba(64,90,81,0.12)",
     )
     fig.update_yaxes(
         tickfont=dict(color=brand_colors["primary"]),
-        titlefont=dict(color=brand_colors["primary"]),
+        title_font=dict(color=brand_colors["primary"]),
         gridcolor="rgba(64,90,81,0.12)",
         zerolinecolor="rgba(64,90,81,0.12)",
     )
@@ -175,7 +174,6 @@ with st.sidebar:
         ["All biomarkers", "Biomarkers within selected categories", "Individual categories"]
     )
 
-    # Reference ranges
     with st.expander("Reference Ranges"):
         show_standard_ref = st.checkbox("Show standard ranges (when possible)", value=True)
         show_custom_ref = st.checkbox("Enable custom ranges", value=False)
@@ -197,10 +195,8 @@ with st.sidebar:
             for bm in selected_biomarkers:
                 custom_ref_ranges[bm] = (None, None)
 
-    # Out-of-range filter
     show_out_of_range = st.checkbox("Show only out-of-range values?", value=False)
 
-    # Individual plots selection
     st.subheader("Individual Biomarker Plots")
     individual_bio_selected = st.multiselect(
         "Select biomarkers for separate plots",
@@ -215,7 +211,6 @@ start_win = pd.Timestamp(date_range[0])
 end_win = pd.Timestamp(date_range[1])
 
 def range_for_biomarker(bm: str):
-    """Prefer custom range (if enabled and set), else standard range (if present)."""
     if show_custom_ref:
         low, high = custom_ref_ranges.get(bm, (None, None))
         if low is not None and high is not None:
@@ -254,10 +249,7 @@ events_clean["start_date"] = pd.to_datetime(events_clean["start_date"], errors="
 events_clean["end_date"] = pd.to_datetime(events_clean["end_date"], errors="coerce")
 events_clean["end_date"] = events_clean["end_date"].fillna(events_clean["start_date"])
 
-events_clean["type_norm"] = (
-    events_clean["type"].astype(str).str.strip().str.lower()
-)
-
+events_clean["type_norm"] = events_clean["type"].astype(str).str.strip().str.lower()
 infection_keywords = ["infection", "covid", "flu", "uri", "viral", "bacterial", "virus"]
 events_clean["is_infection"] = events_clean["type_norm"].apply(lambda t: any(k in t for k in infection_keywords))
 events_clean["type_label"] = np.where(events_clean["is_infection"], "Infection", "Symptom")
@@ -280,20 +272,11 @@ else:
             "Symptom": brand_colors["secondary"],
             "Infection": brand_colors["accent"],
         },
-        hover_data={
-            "start_date": True,
-            "end_date": True,
-            "type": True,
-        },
+        hover_data={"start_date": True, "end_date": True, "type": True},
     )
-
     fig_evt.update_yaxes(autorange="reversed", title=None)
     fig_evt.update_xaxes(range=[start_win, end_win], tickformat="%Y-%m-%d")
-    fig_evt.update_layout(
-        height=max(340, 36 * len(events_filtered)),
-        legend_title_text="",
-    )
-
+    fig_evt.update_layout(height=max(340, 36 * len(events_filtered)), legend_title_text="")
     fig_evt = style_plotly(fig_evt)
     st.plotly_chart(fig_evt, use_container_width=True)
 
@@ -307,10 +290,7 @@ if filtered_labs.empty:
 else:
     plot_df = filtered_labs.sort_values(["date", "biomarker"]).copy()
 
-    if overlay_option == "All biomarkers":
-        color_col = "biomarker"
-    else:
-        color_col = "category"
+    color_col = "biomarker" if overlay_option == "All biomarkers" else "category"
 
     fig_bio = px.line(
         plot_df,
@@ -333,7 +313,7 @@ else:
     fig_bio.update_xaxes(range=[start_win, end_win], tickformat="%Y-%m-%d")
     fig_bio.update_layout(height=580, legend_title_text="")
 
-    # Apply category colors when coloring by category
+    # Apply category colors only when coloring by category
     if color_col == "category":
         fig_bio.for_each_trace(
             lambda tr: tr.update(
@@ -437,9 +417,8 @@ if individual_bio_selected:
         )
 
         fig_one.update_xaxes(range=[start_win, end_win], tickformat="%Y-%m-%d")
-        fig_one.update_layout(height=340, showlegend=False, title=dict(text=f"{bm}", x=0.01))
+        fig_one.update_layout(height=340, showlegend=False, title=dict(text=bm, x=0.01))
 
-        # Brand line color
         fig_one.update_traces(line=dict(color=brand_colors["primary"]), marker=dict(color=brand_colors["primary"]))
 
         # Out-of-range X markers
@@ -486,5 +465,6 @@ if individual_bio_selected:
 
         fig_one = style_plotly(fig_one)
         st.plotly_chart(fig_one, use_container_width=True)
+
 
 
