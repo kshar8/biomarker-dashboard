@@ -222,44 +222,64 @@ if show_out_of_range:
     filtered_labs = filtered_labs[filtered_labs.apply(out_of_range, axis=1)]
 
 # ----------------------------
+# ----------------------------
 # 7️⃣ Timeline: Symptoms / Infections (Improved Layout)
 # ----------------------------
 st.subheader("🩺 Symptoms / Infections Timeline")
 
-# Dynamic height based on number of events
+# ---- Filter events to match selected date range ----
+events_clean = events_df.copy()
+
+events_clean["start_date"] = pd.to_datetime(events_clean["start_date"], errors="coerce")
+events_clean["end_date"] = pd.to_datetime(events_clean["end_date"], errors="coerce")
+events_clean["end_date"] = events_clean["end_date"].fillna(events_clean["start_date"])
+
+# normalize type
+events_clean["type_norm"] = (
+    events_clean["type"]
+    .astype(str)
+    .str.strip()
+    .str.lower()
+)
+
+infection_keywords = ["infection", "covid", "flu", "uri", "viral", "bacterial", "virus"]
+events_clean["is_infection"] = events_clean["type_norm"].apply(
+    lambda t: any(k in t for k in infection_keywords)
+)
+
+start_win = pd.Timestamp(date_range[0])
+end_win = pd.Timestamp(date_range[1])
+
+events_filtered = events_clean[
+    (events_clean["end_date"] >= start_win) &
+    (events_clean["start_date"] <= end_win)
+].dropna(subset=["start_date", "end_date"]).copy()
+
+# ---- Dynamic figure size so it isn't squished ----
 n_events = len(events_filtered)
-fig_height = max(2.5, n_events * 0.5)
+fig_height = max(2.5, n_events * 0.55)
 
 fig_event, ax_event = plt.subplots(figsize=(14, fig_height))
 ax_event.set_facecolor(brand_colors["background"])
 
-# Y positioning with spacing
-y_positions = range(n_events)
-ax_event.set_yticks(y_positions)
+# y axis: one row per event
+ax_event.set_yticks(range(n_events))
 ax_event.set_yticklabels([""] * n_events)
+ax_event.set_title("Symptoms / Infections Timeline", fontsize=12, color=brand_colors["primary"])
 
-ax_event.set_title(
-    "Symptoms / Infections Timeline",
-    fontsize=12,
-    color=brand_colors["primary"]
-)
-
+# ---- Draw bars + labels ----
 for i, event in enumerate(events_filtered.to_dict(orient="records")):
-    color = (
-        brand_colors["accent"]
-        if event["is_infection"]
-        else brand_colors["secondary"]
-    )
+    color = brand_colors["accent"] if event["is_infection"] else brand_colors["secondary"]
 
     ax_event.barh(
         y=i,
         width=event["end_date"] - event["start_date"],
         left=event["start_date"],
-        height=0.6,
+        height=0.65,
         color=color
     )
 
-    # Left-aligned labels (easier to read)
+    # Left-aligned label for readability
     ax_event.text(
         event["start_date"],
         i,
@@ -270,7 +290,7 @@ for i, event in enumerate(events_filtered.to_dict(orient="records")):
         color=brand_colors["primary"]
     )
 
-# X-axis formatting
+# ---- X-axis formatting ----
 ax_event.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
 plt.xticks(rotation=45, ha="right")
 
@@ -280,19 +300,10 @@ ax_event.spines["right"].set_visible(False)
 ax_event.spines["left"].set_visible(False)
 ax_event.tick_params(axis="y", length=0)
 
-# Legend
-symptom_patch = mpatches.Patch(
-    color=brand_colors["secondary"], label="Symptom"
-)
-infection_patch = mpatches.Patch(
-    color=brand_colors["accent"], label="Infection"
-)
-ax_event.legend(
-    handles=[symptom_patch, infection_patch],
-    loc="upper right",
-    fontsize=8,
-    framealpha=0.8
-)
+# Legend (always correct)
+symptom_patch = mpatches.Patch(color=brand_colors["secondary"], label="Symptom")
+infection_patch = mpatches.Patch(color=brand_colors["accent"], label="Infection")
+ax_event.legend(handles=[symptom_patch, infection_patch], loc="upper right", fontsize=8, framealpha=0.85)
 
 plt.tight_layout()
 st.pyplot(fig_event, use_container_width=True)
