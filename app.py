@@ -3,8 +3,10 @@
 # UPDATE:
 #   - Standard reference ranges from reference_ranges.csv
 #   - Custom ranges via sliders (overlay-only OR all biomarkers in selected categories)
-#   - Biomarker Trends: ALWAYS 1 line per biomarker (legend = biomarker)
-#   - NEW: Separate category plots (each category gets its own plot with its biomarkers)
+#   - Hover tooltips for events + biomarker points
+#   - ✅ Unit-split plots: NEVER mix units on the same y-axis
+#       * Overlay plot is split into one plot per unit
+#       * Each category plot is split into one plot per unit
 #
 # Files expected in repo:
 #   - lab_data.csv
@@ -35,6 +37,7 @@ brand_colors = {
     "background": "#F2EEE2",
 }
 
+# Optional category colors (extend as you add categories)
 category_colors = {
     "immune": brand_colors["accent"],
     "neuro": brand_colors["primary"],
@@ -101,7 +104,7 @@ def style_plotly(fig):
             font=dict(color=brand_colors["primary"]),
             bordercolor=brand_colors["secondary"],
         ),
-        margin=dict(l=20, r=20, t=50, b=45),
+        margin=dict(l=20, r=20, t=55, b=45),
     )
     fig.update_xaxes(
         tickfont=dict(color=brand_colors["primary"]),
@@ -123,7 +126,38 @@ def style_plotly(fig):
 labs_df = pd.read_csv("lab_data.csv", parse_dates=["date"])
 events_df = pd.read_csv("events.csv", parse_dates=["start_date", "end_date"])
 
-# Standard reference ranges from CSV
+# ----------------------------
+# 5) Clean / Normalize Units (important for unit-split)
+# ----------------------------
+# Normalize common unit variations so "pg/ml" and "pg/mL" behave the same.
+unit_map = {
+    "pg/ml": "pg/mL",
+    "pg/ ml": "pg/mL",
+    "pg per ml": "pg/mL",
+    "ng/ml": "ng/mL",
+    "ng/ ml": "ng/mL",
+    "mg/dl": "mg/dL",
+    "ug/dl": "ug/dL",
+    "µg/dl": "ug/dL",
+    "uiu/ml": "uIU/mL",
+    "miu/l": "mIU/L",
+    "ratio": "ratio",
+    "npq": "NPQ",
+}
+
+def normalize_unit(u):
+    if pd.isna(u) or str(u).strip() == "":
+        return "Unknown"
+    key = str(u).strip()
+    key_l = key.lower()
+    return unit_map.get(key_l, key)
+
+labs_df["unit"] = labs_df.get("unit", pd.Series(["Unknown"] * len(labs_df))).apply(normalize_unit)
+
+# ----------------------------
+# 6) Standard reference ranges from reference_ranges.csv
+# ----------------------------
+# Expected columns: biomarker, low, high, (optional) unit, (optional) source
 ref_df = pd.read_csv("reference_ranges.csv")
 ref_df["biomarker"] = ref_df["biomarker"].astype(str).str.strip()
 ref_df["low"] = pd.to_numeric(ref_df["low"], errors="coerce")
@@ -131,7 +165,7 @@ ref_df["high"] = pd.to_numeric(ref_df["high"], errors="coerce")
 default_ref_ranges = dict(zip(ref_df["biomarker"], list(zip(ref_df["low"], ref_df["high"]))))
 
 # ----------------------------
-# 5) Sidebar Controls
+# 7) Sidebar Controls
 # ----------------------------
 with st.sidebar:
     st.header("⚙️ Controls")
@@ -159,6 +193,14 @@ with st.sidebar:
         "Select biomarkers (overlay)",
         available_biomarkers,
         default=available_biomarkers[:10] if len(available_biomarkers) >= 10 else available_biomarkers
+    )
+
+    # Optional unit filter (helpful when there are many units)
+    available_units = sorted(available_biomarker_df["unit"].dropna().unique())
+    selected_units = st.multiselect(
+        "Units to display",
+        options=available_units,
+        default=list(available_units)
     )
 
     with st.expander("Reference Ranges"):
@@ -191,15 +233,16 @@ with st.sidebar:
                 low, high = default_ref_ranges.get(bm, (None, None))
 
                 if low is None or high is None or pd.isna(low) or pd.isna(high):
-                    bm_vals = labs_df[labs_df["biomarker"] == bm]["value"]
-                    if bm_vals.notna().any():
+                    bm_vals = pd.to_numeric(labs_df[labs_df["biomarker"] == bm]["value"], errors="coerce")
+                    bm_vals = bm_vals.dropna()
+                    if len(bm_vals) > 0:
                         vmin, vmax = float(bm_vals.min()), float(bm_vals.max())
                         pad = (vmax - vmin) * 0.25 if vmax > vmin else max(1.0, abs(vmin) * 0.25)
                         low, high = vmin - pad, vmax + pad
                     else:
                         low, high = 0.0, 1.0
 
-                # safer bounds
+                # Safer bounds (avoid negative-only weirdness)
                 min_bound = float(low) - abs(float(low)) * 1.0 - 1.0
                 max_bound = float(high) + abs(float(high)) * 1.0 + 1.0
 
@@ -212,6 +255,9 @@ with st.sidebar:
 
     show_out_of_range = st.checkbox("Show only out-of-range values?", value=False)
 
+    st.subheader("Category Plots")
+    show_category_plots = st.checkbox("Show separate plots for each selected category (unit-split)", value=True)
+
     st.subheader("Individual Biomarker Plots")
     individual_bio_selected = st.multiselect(
         "Select biomarkers for separate plots",
@@ -219,21 +265,20 @@ with st.sidebar:
         default=[]
     )
 
-    st.subheader("Category Plots")
-    show_category_plots = st.checkbox("Show separate plots for each selected category", value=True)
-
 # ----------------------------
-# 6) Date window + range helpers
+# 8) Date window + range helpers
 # ----------------------------
 start_win = pd.Timestamp(date_range[0])
 end_win = pd.Timestamp(date_range[1])
 
 def range_for_biomarker(bm: str):
+    # Custom overrides first (if slider exists for that biomarker)
     if show_custom_ref and (bm in custom_ref_ranges):
         low, high = custom_ref_ranges.get(bm, (None, None))
         if low is not None and high is not None:
             return (low, high)
 
+    # Standard from CSV
     if show_standard_ref and (bm in default_ref_ranges):
         low, high = default_ref_ranges.get(bm, (None, None))
         if pd.notna(low) and pd.notna(high):
@@ -245,27 +290,35 @@ def is_out_of_range(row):
     low, high = range_for_biomarker(row["biomarker"])
     if low is None or high is None:
         return False
-    return (row["value"] < low) or (row["value"] > high)
+    try:
+        v = float(row["value"])
+    except Exception:
+        return False
+    return (v < low) or (v > high)
 
 # ----------------------------
-# 7) Filter labs (overlay selection)
+# 9) Filter labs (overlay selection) + apply unit filter
 # ----------------------------
 filtered_labs = labs_df[
     (labs_df["date"] >= start_win) &
     (labs_df["date"] <= end_win) &
     (labs_df["category"].isin(selected_categories)) &
-    (labs_df["biomarker"].isin(selected_biomarkers))
+    (labs_df["biomarker"].isin(selected_biomarkers)) &
+    (labs_df["unit"].isin(selected_units))
 ].copy()
+
+filtered_labs["value"] = pd.to_numeric(filtered_labs["value"], errors="coerce")
+filtered_labs = filtered_labs.dropna(subset=["value"])
 
 filtered_labs["out_of_range"] = filtered_labs.apply(is_out_of_range, axis=1)
 if show_out_of_range:
     filtered_labs = filtered_labs[filtered_labs["out_of_range"]].copy()
 
 filtered_labs["date_str"] = filtered_labs["date"].dt.strftime("%Y-%m-%d")
-filtered_labs["value_str"] = pd.to_numeric(filtered_labs["value"], errors="coerce").map(lambda x: f"{x:.4g}")
+filtered_labs["value_str"] = filtered_labs["value"].map(lambda x: f"{x:.4g}")
 
 # ----------------------------
-# 8) Events Timeline (Plotly hover)
+# 10) Events Timeline (Plotly hover)
 # ----------------------------
 st.subheader("🩺 Symptoms / Infections Timeline")
 
@@ -306,166 +359,165 @@ else:
     st.plotly_chart(fig_evt, use_container_width=True)
 
 # ----------------------------
-# 9) Biomarker Trends (1 line per biomarker, legend = biomarker)
+# 11) Biomarker Trends (Overlay) — unit-split, 1 line per biomarker
 # ----------------------------
-st.subheader("🧪 Biomarker Trends (Overlay)")
+st.subheader("🧪 Biomarker Trends (Overlay — split by unit)")
 
 if filtered_labs.empty:
     st.warning("No lab data in the selected window / filters.")
 else:
     plot_df = filtered_labs.sort_values(["date", "biomarker"]).copy()
+    units_in_view = sorted(plot_df["unit"].unique())
 
-    fig_bio = px.line(
-        plot_df,
-        x="date",
-        y="value",
-        color="biomarker",          # IMPORTANT: 1 line per biomarker
-        line_group="biomarker",
-        markers=True,
-        hover_data={
-            "biomarker": True,
-            "category": True,
-            "unit": True,
-            "draw_id": True,
-            "date_str": True,
-            "value_str": True,
-            "out_of_range": True,
-        },
-    )
+    for u in units_in_view:
+        df_u = plot_df[plot_df["unit"] == u].copy()
+        if df_u.empty:
+            continue
 
-    fig_bio.update_xaxes(range=[start_win, end_win], tickformat="%Y-%m-%d")
-    fig_bio.update_layout(
-        height=580,
-        legend_title_text="",
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0),
-    )
-
-    # Out-of-range highlight layer
-    oor = plot_df[plot_df["out_of_range"]].copy()
-    if not oor.empty:
-        fig_bio.add_trace(
-            go.Scatter(
-                x=oor["date"],
-                y=oor["value"],
-                mode="markers",
-                name="Out of range",
-                marker=dict(symbol="x", size=10, color=brand_colors["accent"]),
-                hovertemplate=(
-                    "<b>%{customdata[0]}</b><br>"
-                    "Category: %{customdata[1]}<br>"
-                    "Value: %{customdata[2]} %{customdata[3]}<br>"
-                    "Date: %{customdata[4]}<br>"
-                    "Draw: %{customdata[5]}<br>"
-                    "<extra></extra>"
-                ),
-                customdata=np.stack(
-                    [
-                        oor["biomarker"].astype(str),
-                        oor["category"].astype(str),
-                        oor["value_str"].astype(str),
-                        oor["unit"].astype(str),
-                        oor["date_str"].astype(str),
-                        oor.get("draw_id", pd.Series([""] * len(oor))).astype(str),
-                    ],
-                    axis=1,
-                ),
-            )
+        fig_bio = px.line(
+            df_u,
+            x="date",
+            y="value",
+            color="biomarker",          # 1 line per biomarker
+            line_group="biomarker",
+            markers=True,
+            hover_data={
+                "biomarker": True,
+                "category": True,
+                "unit": True,
+                "draw_id": True,
+                "date_str": True,
+                "value_str": True,
+                "out_of_range": True,
+            },
+            title=f"Unit: {u}",
         )
 
-    fig_bio = style_plotly(fig_bio)
-    st.plotly_chart(fig_bio, use_container_width=True)
+        fig_bio.update_xaxes(range=[start_win, end_win], tickformat="%Y-%m-%d")
+        fig_bio.update_layout(
+            height=560,
+            legend_title_text="",
+            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0),
+            yaxis_title=f"Value ({u})",
+        )
+
+        # Out-of-range highlight layer for this unit
+        oor = df_u[df_u["out_of_range"]].copy()
+        if not oor.empty:
+            fig_bio.add_trace(
+                go.Scatter(
+                    x=oor["date"],
+                    y=oor["value"],
+                    mode="markers",
+                    name="Out of range",
+                    marker=dict(symbol="x", size=10, color=brand_colors["accent"]),
+                    hovertemplate=(
+                        "<b>%{customdata[0]}</b><br>"
+                        "Category: %{customdata[1]}<br>"
+                        "Value: %{customdata[2]} %{customdata[3]}<br>"
+                        "Date: %{customdata[4]}<br>"
+                        "Draw: %{customdata[5]}<br>"
+                        "<extra></extra>"
+                    ),
+                    customdata=np.stack(
+                        [
+                            oor["biomarker"].astype(str),
+                            oor["category"].astype(str),
+                            oor["value_str"].astype(str),
+                            oor["unit"].astype(str),
+                            oor["date_str"].astype(str),
+                            oor.get("draw_id", pd.Series([""] * len(oor))).astype(str),
+                        ],
+                        axis=1,
+                    ),
+                )
+            )
+
+        fig_bio = style_plotly(fig_bio)
+        st.plotly_chart(fig_bio, use_container_width=True)
 
 # ----------------------------
-# 9B) NEW: Separate plots per category (biomarkers within that category)
+# 12) Category plots — unit-split, biomarkers within each category
 # ----------------------------
 if show_category_plots:
-    st.subheader("🧩 Category Plots (Biomarkers within each category)")
+    st.subheader("🧩 Category Plots (Unit-split)")
 
-    # Use the full lab dataset for those selected categories, but keep the date window
     cat_df_all = labs_df[
         (labs_df["date"] >= start_win) &
         (labs_df["date"] <= end_win) &
-        (labs_df["category"].isin(selected_categories))
+        (labs_df["category"].isin(selected_categories)) &
+        (labs_df["unit"].isin(selected_units))
     ].copy()
 
+    cat_df_all["value"] = pd.to_numeric(cat_df_all["value"], errors="coerce")
+    cat_df_all = cat_df_all.dropna(subset=["value"])
+    cat_df_all["date_str"] = cat_df_all["date"].dt.strftime("%Y-%m-%d")
+    cat_df_all["value_str"] = cat_df_all["value"].map(lambda x: f"{x:.4g}")
+    cat_df_all["out_of_range"] = cat_df_all.apply(is_out_of_range, axis=1)
+
+    if show_out_of_range:
+        cat_df_all = cat_df_all[cat_df_all["out_of_range"]].copy()
+
     if cat_df_all.empty:
-        st.info("No lab data for selected categories in the date window.")
+        st.info("No category data in the selected window / filters.")
     else:
-        # Build one plot per category
         for cat in selected_categories:
             cat_df = cat_df_all[cat_df_all["category"] == cat].copy()
             if cat_df.empty:
                 continue
 
-            # Optional: limit to selected biomarkers only? (currently shows ALL in that category)
-            # If you want it limited, uncomment the next line:
-            # cat_df = cat_df[cat_df["biomarker"].isin(selected_biomarkers)]
+            st.markdown(f"### {cat}")
 
-            cat_df["date_str"] = cat_df["date"].dt.strftime("%Y-%m-%d")
-            cat_df["value_str"] = pd.to_numeric(cat_df["value"], errors="coerce").map(lambda x: f"{x:.4g}")
-            cat_df["out_of_range"] = cat_df.apply(is_out_of_range, axis=1)
+            for u in sorted(cat_df["unit"].unique()):
+                df_u = cat_df[cat_df["unit"] == u].copy()
+                if df_u.empty:
+                    continue
 
-            fig_cat = px.line(
-                cat_df.sort_values(["date", "biomarker"]),
-                x="date",
-                y="value",
-                color="biomarker",
-                line_group="biomarker",
-                markers=True,
-                hover_data={
-                    "biomarker": True,
-                    "category": True,
-                    "unit": True,
-                    "draw_id": True,
-                    "date_str": True,
-                    "value_str": True,
-                    "out_of_range": True,
-                },
-                title=f"{cat} biomarkers",
-            )
-
-            fig_cat.update_xaxes(range=[start_win, end_win], tickformat="%Y-%m-%d")
-            fig_cat.update_layout(
-                height=460,
-                legend_title_text="",
-                legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0),
-            )
-
-            # Out-of-range highlight for this category
-            oor_cat = cat_df[cat_df["out_of_range"]].copy()
-            if not oor_cat.empty:
-                fig_cat.add_trace(
-                    go.Scatter(
-                        x=oor_cat["date"],
-                        y=oor_cat["value"],
-                        mode="markers",
-                        name="Out of range",
-                        marker=dict(symbol="x", size=10, color=brand_colors["accent"]),
-                        hovertemplate=(
-                            "<b>%{customdata[0]}</b><br>"
-                            "Value: %{customdata[1]} %{customdata[2]}<br>"
-                            "Date: %{customdata[3]}<br>"
-                            "Draw: %{customdata[4]}<br>"
-                            "<extra></extra>"
-                        ),
-                        customdata=np.stack(
-                            [
-                                oor_cat["biomarker"].astype(str),
-                                oor_cat["value_str"].astype(str),
-                                oor_cat["unit"].astype(str),
-                                oor_cat["date_str"].astype(str),
-                                oor_cat.get("draw_id", pd.Series([""] * len(oor_cat))).astype(str),
-                            ],
-                            axis=1,
-                        ),
-                    )
+                fig_cat = px.line(
+                    df_u.sort_values(["date", "biomarker"]),
+                    x="date",
+                    y="value",
+                    color="biomarker",
+                    line_group="biomarker",
+                    markers=True,
+                    hover_data={
+                        "biomarker": True,
+                        "category": True,
+                        "unit": True,
+                        "draw_id": True,
+                        "date_str": True,
+                        "value_str": True,
+                        "out_of_range": True,
+                    },
+                    title=f"{cat} — Unit: {u}",
                 )
 
-            fig_cat = style_plotly(fig_cat)
-            st.plotly_chart(fig_cat, use_container_width=True)
+                fig_cat.update_xaxes(range=[start_win, end_win], tickformat="%Y-%m-%d")
+                fig_cat.update_layout(
+                    height=480,
+                    legend_title_text="",
+                    legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0),
+                    yaxis_title=f"Value ({u})",
+                )
+
+                # Out-of-range X markers for this category+unit
+                oor = df_u[df_u["out_of_range"]].copy()
+                if not oor.empty:
+                    fig_cat.add_trace(
+                        go.Scatter(
+                            x=oor["date"],
+                            y=oor["value"],
+                            mode="markers",
+                            name="Out of range",
+                            marker=dict(symbol="x", size=10, color=brand_colors["accent"]),
+                        )
+                    )
+
+                fig_cat = style_plotly(fig_cat)
+                st.plotly_chart(fig_cat, use_container_width=True)
 
 # ----------------------------
-# 10) Individual Biomarker Plots
+# 13) Individual biomarker plots (already single-unit by definition)
 # ----------------------------
 if individual_bio_selected:
     st.subheader("📊 Individual Biomarker Plots")
@@ -475,16 +527,22 @@ if individual_bio_selected:
             (labs_df["biomarker"] == bm) &
             (labs_df["category"].isin(selected_categories)) &
             (labs_df["date"] >= start_win) &
-            (labs_df["date"] <= end_win)
+            (labs_df["date"] <= end_win) &
+            (labs_df["unit"].isin(selected_units))
         ].copy()
+
+        bm_df["value"] = pd.to_numeric(bm_df["value"], errors="coerce")
+        bm_df = bm_df.dropna(subset=["value"])
 
         if bm_df.empty:
             continue
 
         bm_df = bm_df.sort_values("date")
         bm_df["date_str"] = bm_df["date"].dt.strftime("%Y-%m-%d")
-        bm_df["value_str"] = pd.to_numeric(bm_df["value"], errors="coerce").map(lambda x: f"{x:.4g}")
+        bm_df["value_str"] = bm_df["value"].map(lambda x: f"{x:.4g}")
         bm_df["out_of_range"] = bm_df.apply(is_out_of_range, axis=1)
+
+        unit_here = bm_df["unit"].iloc[0] if "unit" in bm_df.columns else "Unknown"
 
         fig_one = px.line(
             bm_df,
@@ -500,15 +558,14 @@ if individual_bio_selected:
                 "value_str": True,
                 "out_of_range": True,
             },
-            title=bm
+            title=f"{bm} ({unit_here})",
         )
 
         fig_one.update_xaxes(range=[start_win, end_win], tickformat="%Y-%m-%d")
-        fig_one.update_layout(height=340, showlegend=False)
-
+        fig_one.update_layout(height=340, showlegend=False, yaxis_title=f"Value ({unit_here})")
         fig_one.update_traces(line=dict(color=brand_colors["primary"]), marker=dict(color=brand_colors["primary"]))
 
-        # Reference range band (per biomarker) if available
+        # Reference band for this biomarker (only if we have a range)
         low, high = range_for_biomarker(bm)
         if low is not None and high is not None:
             fig_one.add_hrect(
@@ -534,3 +591,4 @@ if individual_bio_selected:
 
         fig_one = style_plotly(fig_one)
         st.plotly_chart(fig_one, use_container_width=True)
+
