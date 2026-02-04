@@ -1,18 +1,17 @@
 # ============================================================
 # Streamlit Biomarker & Symptom Explorer (Plotly Hover + Brand)
 # UPDATE:
-#   - Standard reference ranges now come from reference_ranges.csv
-#   - Custom ranges remain editable via sliders in the dashboard
-#   - Custom range sliders can apply to:
-#       * Overlay biomarkers only, OR
-#       * All biomarkers in selected categories (use with care)
+#   - Standard reference ranges from reference_ranges.csv
+#   - Custom ranges via sliders (overlay-only OR all biomarkers in selected categories)
+#   - Biomarker Trends: ALWAYS 1 line per biomarker (legend = biomarker)
+#   - NEW: Separate category plots (each category gets its own plot with its biomarkers)
 #
 # Files expected in repo:
 #   - lab_data.csv
 #   - events.csv
-#   - reference_ranges.csv   <-- NEW (standard ranges)
+#   - reference_ranges.csv
 #
-# requirements.txt must include:
+# requirements.txt:
 #   streamlit
 #   pandas
 #   numpy
@@ -30,10 +29,10 @@ import plotly.graph_objects as go
 # 1) Brand Colors
 # ----------------------------
 brand_colors = {
-    "primary": "#405A51",    # Dark green
-    "secondary": "#607663",  # Medium green
-    "accent": "#A25B4C",     # Reddish accent
-    "background": "#F2EEE2", # Stone / neutral
+    "primary": "#405A51",
+    "secondary": "#607663",
+    "accent": "#A25B4C",
+    "background": "#F2EEE2",
 }
 
 category_colors = {
@@ -124,16 +123,12 @@ def style_plotly(fig):
 labs_df = pd.read_csv("lab_data.csv", parse_dates=["date"])
 events_df = pd.read_csv("events.csv", parse_dates=["start_date", "end_date"])
 
-# NEW: Standard reference ranges from CSV
-# Expected columns: biomarker, low, high, (optional) unit, (optional) source
+# Standard reference ranges from CSV
 ref_df = pd.read_csv("reference_ranges.csv")
 ref_df["biomarker"] = ref_df["biomarker"].astype(str).str.strip()
 ref_df["low"] = pd.to_numeric(ref_df["low"], errors="coerce")
 ref_df["high"] = pd.to_numeric(ref_df["high"], errors="coerce")
-
-default_ref_ranges = dict(
-    zip(ref_df["biomarker"], list(zip(ref_df["low"], ref_df["high"])))
-)
+default_ref_ranges = dict(zip(ref_df["biomarker"], list(zip(ref_df["low"], ref_df["high"]))))
 
 # ----------------------------
 # 5) Sidebar Controls
@@ -141,7 +136,6 @@ default_ref_ranges = dict(
 with st.sidebar:
     st.header("⚙️ Controls")
 
-    # Date window (global)
     min_date = labs_df["date"].min().date()
     max_date = labs_df["date"].max().date()
     date_range = st.slider(
@@ -151,7 +145,6 @@ with st.sidebar:
         value=(min_date, max_date)
     )
 
-    # Categories
     all_categories = sorted(labs_df["category"].dropna().unique())
     selected_categories = st.multiselect(
         "Select categories",
@@ -159,24 +152,17 @@ with st.sidebar:
         default=list(all_categories)
     )
 
-    # Available biomarkers based on categories
     available_biomarker_df = labs_df[labs_df["category"].isin(selected_categories)]
     available_biomarkers = sorted(available_biomarker_df["biomarker"].dropna().unique())
 
     selected_biomarkers = st.multiselect(
         "Select biomarkers (overlay)",
         available_biomarkers,
-        default=available_biomarkers[:6] if len(available_biomarkers) >= 6 else available_biomarkers
+        default=available_biomarkers[:10] if len(available_biomarkers) >= 10 else available_biomarkers
     )
 
-    overlay_option = st.selectbox(
-        "Overlay option",
-        ["All biomarkers", "Biomarkers within selected categories", "Individual categories"]
-    )
-
-    # Reference ranges
     with st.expander("Reference Ranges"):
-        show_standard_ref = st.checkbox("Show standard ranges (from reference_ranges.csv)", value=True)
+        show_standard_ref = st.checkbox("Show standard ranges (reference_ranges.csv)", value=True)
         show_custom_ref = st.checkbox("Enable custom ranges (sliders)", value=False)
 
         custom_scope = st.radio(
@@ -185,53 +171,44 @@ with st.sidebar:
             index=0
         )
 
-        if custom_scope == "Overlay biomarkers only":
-            custom_biomarker_list = selected_biomarkers
-        else:
-            # Warning: can be huge (131+)
-            custom_biomarker_list = available_biomarkers
+        custom_biomarker_list = selected_biomarkers if custom_scope == "Overlay biomarkers only" else available_biomarkers
 
         custom_ref_ranges = {}
         if show_custom_ref:
-            st.caption(f"Custom sliders shown for: {len(custom_biomarker_list)} biomarkers")
+            st.caption(f"Custom sliders available for: {len(custom_biomarker_list)} biomarkers")
 
-            # To prevent 200 sliders from instantly nuking the UI,
-            # we optionally gate with a multiselect when the list is big
             if len(custom_biomarker_list) > 40:
-                st.warning("Large panel detected. Select a subset for custom sliders to keep the UI fast.")
-                slider_subset = st.multiselect(
+                st.warning("Large panel detected. Choose a subset for custom sliders to keep the UI fast.")
+                slider_biomarkers = st.multiselect(
                     "Choose biomarkers to show sliders for",
                     options=custom_biomarker_list,
                     default=custom_biomarker_list[:15]
                 )
-                slider_biomarkers = slider_subset
             else:
                 slider_biomarkers = custom_biomarker_list
 
             for bm in slider_biomarkers:
-                low_high = default_ref_ranges.get(bm, (None, None))
-                low, high = low_high
+                low, high = default_ref_ranges.get(bm, (None, None))
 
-                # If we don't have a standard range, create a reasonable slider from data
                 if low is None or high is None or pd.isna(low) or pd.isna(high):
                     bm_vals = labs_df[labs_df["biomarker"] == bm]["value"]
                     if bm_vals.notna().any():
                         vmin, vmax = float(bm_vals.min()), float(bm_vals.max())
                         pad = (vmax - vmin) * 0.25 if vmax > vmin else max(1.0, abs(vmin) * 0.25)
-                        low = vmin - pad
-                        high = vmax + pad
+                        low, high = vmin - pad, vmax + pad
                     else:
                         low, high = 0.0, 1.0
 
+                # safer bounds
+                min_bound = float(low) - abs(float(low)) * 1.0 - 1.0
+                max_bound = float(high) + abs(float(high)) * 1.0 + 1.0
+
                 custom_ref_ranges[bm] = st.slider(
                     f"{bm} custom range",
-                    min_value=float(low) * 0.5 if float(low) != 0 else -1.0,
-                    max_value=float(high) * 2.0 if float(high) != 0 else 2.0,
+                    min_value=min_bound,
+                    max_value=max_bound,
                     value=(float(low), float(high))
                 )
-
-        # If custom is off, keep dict empty
-        # (we'll fall back to standard ranges when needed)
 
     show_out_of_range = st.checkbox("Show only out-of-range values?", value=False)
 
@@ -242,6 +219,9 @@ with st.sidebar:
         default=[]
     )
 
+    st.subheader("Category Plots")
+    show_category_plots = st.checkbox("Show separate plots for each selected category", value=True)
+
 # ----------------------------
 # 6) Date window + range helpers
 # ----------------------------
@@ -249,10 +229,6 @@ start_win = pd.Timestamp(date_range[0])
 end_win = pd.Timestamp(date_range[1])
 
 def range_for_biomarker(bm: str):
-    """
-    If custom ranges are enabled AND a slider exists for that biomarker, use it.
-    Else use standard range from reference_ranges.csv (if present).
-    """
     if show_custom_ref and (bm in custom_ref_ranges):
         low, high = custom_ref_ranges.get(bm, (None, None))
         if low is not None and high is not None:
@@ -261,7 +237,7 @@ def range_for_biomarker(bm: str):
     if show_standard_ref and (bm in default_ref_ranges):
         low, high = default_ref_ranges.get(bm, (None, None))
         if pd.notna(low) and pd.notna(high):
-            return (low, high)
+            return (float(low), float(high))
 
     return (None, None)
 
@@ -272,7 +248,7 @@ def is_out_of_range(row):
     return (row["value"] < low) or (row["value"] > high)
 
 # ----------------------------
-# 7) Filter labs
+# 7) Filter labs (overlay selection)
 # ----------------------------
 filtered_labs = labs_df[
     (labs_df["date"] >= start_win) &
@@ -330,23 +306,20 @@ else:
     st.plotly_chart(fig_evt, use_container_width=True)
 
 # ----------------------------
-# 9) Biomarker Trends (Plotly hover)
+# 9) Biomarker Trends (1 line per biomarker, legend = biomarker)
 # ----------------------------
-st.subheader("🧪 Biomarker Trends")
+st.subheader("🧪 Biomarker Trends (Overlay)")
 
 if filtered_labs.empty:
     st.warning("No lab data in the selected window / filters.")
 else:
     plot_df = filtered_labs.sort_values(["date", "biomarker"]).copy()
 
-    # Color behavior per overlay option
-    color_col = "biomarker" if overlay_option == "All biomarkers" else "category"
-
     fig_bio = px.line(
         plot_df,
         x="date",
         y="value",
-        color=color_col,
+        color="biomarker",          # IMPORTANT: 1 line per biomarker
         line_group="biomarker",
         markers=True,
         hover_data={
@@ -361,16 +334,11 @@ else:
     )
 
     fig_bio.update_xaxes(range=[start_win, end_win], tickformat="%Y-%m-%d")
-    fig_bio.update_layout(height=580, legend_title_text="")
-
-    # Apply category colors only when coloring by category
-    if color_col == "category":
-        fig_bio.for_each_trace(
-            lambda tr: tr.update(
-                line=dict(color=category_colors.get(tr.name, None)),
-                marker=dict(color=category_colors.get(tr.name, None))
-            ) if tr.name in category_colors else None
-        )
+    fig_bio.update_layout(
+        height=580,
+        legend_title_text="",
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0),
+    )
 
     # Out-of-range highlight layer
     oor = plot_df[plot_df["out_of_range"]].copy()
@@ -404,32 +372,100 @@ else:
             )
         )
 
-    # Reference range band only when ONE biomarker selected
-    if show_standard_ref and plot_df["biomarker"].nunique() == 1:
-        bm = plot_df["biomarker"].iloc[0]
-        low, high = range_for_biomarker(bm)
-        if low is not None and high is not None:
-            fig_bio.add_hrect(
-                y0=low,
-                y1=high,
-                fillcolor=brand_colors["secondary"],
-                opacity=0.12,
-                line_width=0,
-                annotation_text="Reference range",
-                annotation_position="top left",
-            )
-
     fig_bio = style_plotly(fig_bio)
     st.plotly_chart(fig_bio, use_container_width=True)
 
-    if show_standard_ref and plot_df["biomarker"].nunique() > 1:
-        st.caption(
-            "Reference range shading is shown only when a single biomarker is selected "
-            "(ranges differ across biomarkers, so a single shared band would be misleading)."
-        )
+# ----------------------------
+# 9B) NEW: Separate plots per category (biomarkers within that category)
+# ----------------------------
+if show_category_plots:
+    st.subheader("🧩 Category Plots (Biomarkers within each category)")
+
+    # Use the full lab dataset for those selected categories, but keep the date window
+    cat_df_all = labs_df[
+        (labs_df["date"] >= start_win) &
+        (labs_df["date"] <= end_win) &
+        (labs_df["category"].isin(selected_categories))
+    ].copy()
+
+    if cat_df_all.empty:
+        st.info("No lab data for selected categories in the date window.")
+    else:
+        # Build one plot per category
+        for cat in selected_categories:
+            cat_df = cat_df_all[cat_df_all["category"] == cat].copy()
+            if cat_df.empty:
+                continue
+
+            # Optional: limit to selected biomarkers only? (currently shows ALL in that category)
+            # If you want it limited, uncomment the next line:
+            # cat_df = cat_df[cat_df["biomarker"].isin(selected_biomarkers)]
+
+            cat_df["date_str"] = cat_df["date"].dt.strftime("%Y-%m-%d")
+            cat_df["value_str"] = pd.to_numeric(cat_df["value"], errors="coerce").map(lambda x: f"{x:.4g}")
+            cat_df["out_of_range"] = cat_df.apply(is_out_of_range, axis=1)
+
+            fig_cat = px.line(
+                cat_df.sort_values(["date", "biomarker"]),
+                x="date",
+                y="value",
+                color="biomarker",
+                line_group="biomarker",
+                markers=True,
+                hover_data={
+                    "biomarker": True,
+                    "category": True,
+                    "unit": True,
+                    "draw_id": True,
+                    "date_str": True,
+                    "value_str": True,
+                    "out_of_range": True,
+                },
+                title=f"{cat} biomarkers",
+            )
+
+            fig_cat.update_xaxes(range=[start_win, end_win], tickformat="%Y-%m-%d")
+            fig_cat.update_layout(
+                height=460,
+                legend_title_text="",
+                legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0),
+            )
+
+            # Out-of-range highlight for this category
+            oor_cat = cat_df[cat_df["out_of_range"]].copy()
+            if not oor_cat.empty:
+                fig_cat.add_trace(
+                    go.Scatter(
+                        x=oor_cat["date"],
+                        y=oor_cat["value"],
+                        mode="markers",
+                        name="Out of range",
+                        marker=dict(symbol="x", size=10, color=brand_colors["accent"]),
+                        hovertemplate=(
+                            "<b>%{customdata[0]}</b><br>"
+                            "Value: %{customdata[1]} %{customdata[2]}<br>"
+                            "Date: %{customdata[3]}<br>"
+                            "Draw: %{customdata[4]}<br>"
+                            "<extra></extra>"
+                        ),
+                        customdata=np.stack(
+                            [
+                                oor_cat["biomarker"].astype(str),
+                                oor_cat["value_str"].astype(str),
+                                oor_cat["unit"].astype(str),
+                                oor_cat["date_str"].astype(str),
+                                oor_cat.get("draw_id", pd.Series([""] * len(oor_cat))).astype(str),
+                            ],
+                            axis=1,
+                        ),
+                    )
+                )
+
+            fig_cat = style_plotly(fig_cat)
+            st.plotly_chart(fig_cat, use_container_width=True)
 
 # ----------------------------
-# 10) Individual Biomarker Plots (Plotly hover + per-marker ref band)
+# 10) Individual Biomarker Plots
 # ----------------------------
 if individual_bio_selected:
     st.subheader("📊 Individual Biomarker Plots")
@@ -464,11 +500,24 @@ if individual_bio_selected:
                 "value_str": True,
                 "out_of_range": True,
             },
+            title=bm
         )
 
         fig_one.update_xaxes(range=[start_win, end_win], tickformat="%Y-%m-%d")
-        fig_one.update_layout(height=340, showlegend=False, title=dict(text=bm, x=0.01))
+        fig_one.update_layout(height=340, showlegend=False)
+
         fig_one.update_traces(line=dict(color=brand_colors["primary"]), marker=dict(color=brand_colors["primary"]))
+
+        # Reference range band (per biomarker) if available
+        low, high = range_for_biomarker(bm)
+        if low is not None and high is not None:
+            fig_one.add_hrect(
+                y0=low,
+                y1=high,
+                fillcolor=brand_colors["secondary"],
+                opacity=0.12,
+                line_width=0
+            )
 
         # Out-of-range X markers
         oor_one = bm_df[bm_df["out_of_range"]]
@@ -480,37 +529,8 @@ if individual_bio_selected:
                     mode="markers",
                     name="Out of range",
                     marker=dict(symbol="x", size=10, color=brand_colors["accent"]),
-                    hovertemplate=(
-                        "<b>%{customdata[0]}</b><br>"
-                        "Value: %{customdata[1]} %{customdata[2]}<br>"
-                        "Date: %{customdata[3]}<br>"
-                        "Draw: %{customdata[4]}<br>"
-                        "<extra></extra>"
-                    ),
-                    customdata=np.stack(
-                        [
-                            oor_one["biomarker"].astype(str),
-                            oor_one["value_str"].astype(str),
-                            oor_one["unit"].astype(str),
-                            oor_one["date_str"].astype(str),
-                            oor_one.get("draw_id", pd.Series([""] * len(oor_one))).astype(str),
-                        ],
-                        axis=1,
-                    ),
                 )
             )
-
-        # Reference range band (per biomarker)
-        if show_standard_ref:
-            low, high = range_for_biomarker(bm)
-            if low is not None and high is not None:
-                fig_one.add_hrect(
-                    y0=low,
-                    y1=high,
-                    fillcolor=brand_colors["secondary"],
-                    opacity=0.12,
-                    line_width=0
-                )
 
         fig_one = style_plotly(fig_one)
         st.plotly_chart(fig_one, use_container_width=True)
