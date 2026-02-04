@@ -52,7 +52,7 @@ st.markdown(
         background-color: {brand_colors['primary']};
     }}
 
-    /* Sidebar section headers (Controls, Reference Ranges, etc.) */
+    /* Sidebar section headers */
     section[data-testid="stSidebar"] h1,
     section[data-testid="stSidebar"] h2,
     section[data-testid="stSidebar"] h3 {{
@@ -60,27 +60,28 @@ st.markdown(
         font-weight: 600;
     }}
 
-    /* Widget labels (sliders, multiselects, checkboxes) */
+    /* Sidebar widget labels */
     section[data-testid="stSidebar"] label {{
         color: #FFFFFF !important;
     }}
 
-    /* Expander headers */
+    /* Sidebar expander headers */
     section[data-testid="stSidebar"] summary {{
         color: {brand_colors['background']} !important;
         font-weight: 600;
     }}
 
-    /* Help text / small text */
-    section[data-testid="stSidebar"] small {{
-        color: #E6E3DC !important;
+    /* 🔥 Main page section headers */
+    section.main h2,
+    section.main h3 {{
+        color: {brand_colors['primary']} !important;
+        font-weight: 600;
     }}
 
     </style>
     """,
     unsafe_allow_html=True
 )
-
 
 
 # ----------------------------
