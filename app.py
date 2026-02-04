@@ -37,6 +37,36 @@ category_colors = {
     "metabolic": brand_colors["secondary"],
 }
 
+def style_plotly(fig):
+    fig.update_layout(
+        template="plotly_white",  # <-- key: stops dark-mode Plotly defaults
+        paper_bgcolor=brand_colors["background"],
+        plot_bgcolor=brand_colors["background"],
+        font=dict(color=brand_colors["primary"]),
+        title=dict(font=dict(color=brand_colors["primary"])),
+        legend=dict(font=dict(color=brand_colors["primary"])),
+        hoverlabel=dict(
+            bgcolor=brand_colors["background"],
+            font=dict(color=brand_colors["primary"]),
+            bordercolor=brand_colors["secondary"],
+        ),
+        margin=dict(l=20, r=20, t=40, b=40),
+    )
+    fig.update_xaxes(
+        tickfont=dict(color=brand_colors["primary"]),
+        titlefont=dict(color=brand_colors["primary"]),
+        gridcolor="rgba(64,90,81,0.12)",
+        zerolinecolor="rgba(64,90,81,0.12)",
+    )
+    fig.update_yaxes(
+        tickfont=dict(color=brand_colors["primary"]),
+        titlefont=dict(color=brand_colors["primary"]),
+        gridcolor="rgba(64,90,81,0.12)",
+        zerolinecolor="rgba(64,90,81,0.12)",
+    )
+    return fig
+
+
 # ----------------------------
 # 2) Page Config + Styling
 # ----------------------------
