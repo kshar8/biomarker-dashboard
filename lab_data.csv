@@ -1,141 +1,1849 @@
 draw_id,date,biomarker,category,value,unit
-D001,2024-01-05,CRP,immune,1.2,mg/L
-D001,2024-01-05,IL6,immune,3.8,pg/mL
-D001,2024-01-05,Ferritin,immune,110,ng/mL
-D001,2024-01-05,NEFL,neuro,16,pg/mL
-D001,2024-01-05,GFAP,neuro,88,pg/mL
-D001,2024-01-05,pTau181,neuro,1.2,pg/mL
-D001,2024-01-05,pTau217,neuro,0.28,pg/mL
-D001,2024-01-05,AB40,neuro,265,pg/mL
-D001,2024-01-05,AB42,neuro,19,pg/mL
-D001,2024-01-05,AB42/40 Ratio,neuro,0.072,ratio
-D001,2024-01-05,Cortisol,neuro,14.8,ug/dL
-D001,2024-01-05,BDNF,neuro,21,ng/mL
-D001,2024-01-05,Serotonin,neuro,145,ng/mL
-D001,2024-01-05,Glucose,metabolic,92,mg/dL
-D001,2024-01-05,Insulin,metabolic,8.2,uIU/mL
-D001,2024-01-05,HbA1c,metabolic,5.2,%
-D001,2024-01-05,D_dimer,coagulation,0.38,mg/L FEU
-D001,2024-01-05,Fibrinogen,coagulation,310,mg/dL
-D001,2024-01-05,ALT,liver,22,U/L
-D001,2024-01-05,AST,liver,19,U/L
-D002,2024-02-09,CRP,immune,2.8,mg/L
-D002,2024-02-09,IL6,immune,5.6,pg/mL
-D002,2024-02-09,Ferritin,immune,140,ng/mL
-D002,2024-02-09,NEFL,neuro,22,pg/mL
-D002,2024-02-09,GFAP,neuro,120,pg/mL
-D002,2024-02-09,pTau181,neuro,1.9,pg/mL
-D002,2024-02-09,pTau217,neuro,0.42,pg/mL
-D002,2024-02-09,AB40,neuro,250,pg/mL
-D002,2024-02-09,AB42,neuro,16,pg/mL
-D002,2024-02-09,AB42/40 Ratio,neuro,0.064,ratio
-D002,2024-02-09,Cortisol,neuro,11.3,ug/dL
-D002,2024-02-09,BDNF,neuro,18,ng/mL
-D002,2024-02-09,Serotonin,neuro,112,ng/mL
-D002,2024-02-09,Glucose,metabolic,101,mg/dL
-D002,2024-02-09,Insulin,metabolic,12.5,uIU/mL
-D002,2024-02-09,HbA1c,metabolic,5.6,%
-D002,2024-02-09,D_dimer,coagulation,0.62,mg/L FEU
-D002,2024-02-09,Fibrinogen,coagulation,410,mg/dL
-D002,2024-02-09,ALT,liver,41,U/L
-D002,2024-02-09,AST,liver,33,U/L
-D003,2024-03-15,CRP,immune,4.9,mg/L
-D003,2024-03-15,IL6,immune,9.2,pg/mL
-D003,2024-03-15,Ferritin,immune,210,ng/mL
-D003,2024-03-15,NEFL,neuro,30,pg/mL
-D003,2024-03-15,GFAP,neuro,165,pg/mL
-D003,2024-03-15,pTau181,neuro,2.6,pg/mL
-D003,2024-03-15,pTau217,neuro,0.55,pg/mL
-D003,2024-03-15,AB40,neuro,278,pg/mL
-D003,2024-03-15,AB42,neuro,14,pg/mL
-D003,2024-03-15,AB42/40 Ratio,neuro,0.050,ratio
-D003,2024-03-15,Cortisol,neuro,9.8,ug/dL
-D003,2024-03-15,BDNF,neuro,16,ng/mL
-D003,2024-03-15,Serotonin,neuro,98,ng/mL
-D003,2024-03-15,Glucose,metabolic,108,mg/dL
-D003,2024-03-15,Insulin,metabolic,16.4,uIU/mL
-D003,2024-03-15,HbA1c,metabolic,5.9,%
-D003,2024-03-15,D_dimer,coagulation,0.88,mg/L FEU
-D003,2024-03-15,Fibrinogen,coagulation,520,mg/dL
-D003,2024-03-15,ALT,liver,68,U/L
-D003,2024-03-15,AST,liver,52,U/L
-D004,2024-05-03,CRP,immune,2.2,mg/L
-D004,2024-05-03,IL6,immune,4.7,pg/mL
-D004,2024-05-03,Ferritin,immune,155,ng/mL
-D004,2024-05-03,NEFL,neuro,24,pg/mL
-D004,2024-05-03,GFAP,neuro,130,pg/mL
-D004,2024-05-03,pTau181,neuro,1.7,pg/mL
-D004,2024-05-03,pTau217,neuro,0.39,pg/mL
-D004,2024-05-03,AB40,neuro,262,pg/mL
-D004,2024-05-03,AB42,neuro,18,pg/mL
-D004,2024-05-03,AB42/40 Ratio,neuro,0.069,ratio
-D004,2024-05-03,Cortisol,neuro,12.6,ug/dL
-D004,2024-05-03,BDNF,neuro,22,ng/mL
-D004,2024-05-03,Serotonin,neuro,124,ng/mL
-D004,2024-05-03,Glucose,metabolic,96,mg/dL
-D004,2024-05-03,Insulin,metabolic,10.2,uIU/mL
-D004,2024-05-03,HbA1c,metabolic,5.5,%
-D004,2024-05-03,D_dimer,coagulation,0.54,mg/L FEU
-D004,2024-05-03,Fibrinogen,coagulation,390,mg/dL
-D004,2024-05-03,ALT,liver,34,U/L
-D004,2024-05-03,AST,liver,26,U/L
-D005,2024-07-12,CRP,immune,1.0,mg/L
-D005,2024-07-12,IL6,immune,3.1,pg/mL
-D005,2024-07-12,Ferritin,immune,125,ng/mL
-D005,2024-07-12,NEFL,neuro,18,pg/mL
-D005,2024-07-12,GFAP,neuro,98,pg/mL
-D005,2024-07-12,pTau181,neuro,1.3,pg/mL
-D005,2024-07-12,pTau217,neuro,0.30,pg/mL
-D005,2024-07-12,AB40,neuro,255,pg/mL
-D005,2024-07-12,AB42,neuro,20,pg/mL
-D005,2024-07-12,AB42/40 Ratio,neuro,0.078,ratio
-D005,2024-07-12,Cortisol,neuro,15.6,ug/dL
-D005,2024-07-12,BDNF,neuro,26,ng/mL
-D005,2024-07-12,Serotonin,neuro,152,ng/mL
-D005,2024-07-12,Glucose,metabolic,88,mg/dL
-D005,2024-07-12,Insulin,metabolic,7.1,uIU/mL
-D005,2024-07-12,HbA1c,metabolic,5.2,%
-D005,2024-07-12,D_dimer,coagulation,0.41,mg/L FEU
-D005,2024-07-12,Fibrinogen,coagulation,320,mg/dL
-D005,2024-07-12,ALT,liver,23,U/L
-D005,2024-07-12,AST,liver,18,U/L
-D006,2024-10-18,CRP,immune,3.6,mg/L
-D006,2024-10-18,IL6,immune,6.8,pg/mL
-D006,2024-10-18,Ferritin,immune,190,ng/mL
-D006,2024-10-18,NEFL,neuro,28,pg/mL
-D006,2024-10-18,GFAP,neuro,150,pg/mL
-D006,2024-10-18,pTau181,neuro,2.2,pg/mL
-D006,2024-10-18,pTau217,neuro,0.49,pg/mL
-D006,2024-10-18,AB40,neuro,270,pg/mL
-D006,2024-10-18,AB42,neuro,15,pg/mL
-D006,2024-10-18,AB42/40 Ratio,neuro,0.056,ratio
-D006,2024-10-18,Cortisol,neuro,10.9,ug/dL
-D006,2024-10-18,BDNF,neuro,17,ng/mL
-D006,2024-10-18,Serotonin,neuro,105,ng/mL
-D006,2024-10-18,Glucose,metabolic,104,mg/dL
-D006,2024-10-18,Insulin,metabolic,14.8,uIU/mL
-D006,2024-10-18,HbA1c,metabolic,5.8,%
-D006,2024-10-18,D_dimer,coagulation,0.79,mg/L FEU
-D006,2024-10-18,Fibrinogen,coagulation,470,mg/dL
-D006,2024-10-18,ALT,liver,55,U/L
-D006,2024-10-18,AST,liver,44,U/L
-D007,2024-12-06,CRP,immune,1.5,mg/L
-D007,2024-12-06,IL6,immune,3.9,pg/mL
-D007,2024-12-06,Ferritin,immune,135,ng/mL
-D007,2024-12-06,NEFL,neuro,20,pg/mL
-D007,2024-12-06,GFAP,neuro,105,pg/mL
-D007,2024-12-06,pTau181,neuro,1.4,pg/mL
-D007,2024-12-06,pTau217,neuro,0.32,pg/mL
-D007,2024-12-06,AB40,neuro,258,pg/mL
-D007,2024-12-06,AB42,neuro,19,pg/mL
-D007,2024-12-06,AB42/40 Ratio,neuro,0.074,ratio
-D007,2024-12-06,Cortisol,neuro,13.9,ug/dL
-D007,2024-12-06,BDNF,neuro,23,ng/mL
-D007,2024-12-06,Serotonin,neuro,138,ng/mL
-D007,2024-12-06,Glucose,metabolic,94,mg/dL
-D007,2024-12-06,Insulin,metabolic,9.3,uIU/mL
-D007,2024-12-06,HbA1c,metabolic,5.4,%
-D007,2024-12-06,D_dimer,coagulation,0.46,mg/L FEU
-D007,2024-12-06,Fibrinogen,coagulation,350,mg/dL
-D007,2024-12-06,ALT,liver,28,U/L
-D007,2024-12-06,AST,liver,21,U/L
+T00,2023-03-21,Abeta38 (aβ38),amyloid_tau,39.672,pg/mL
+T00,2023-03-21,Abeta40 (aβ40),amyloid_tau,187.91828,pg/mL
+T00,2023-03-21,Abeta42 (aβ42),amyloid_tau,35.10377,pg/mL
+T00,2023-03-21,ACHE,amyloid_tau,1.30612,NPQ
+T00,2023-03-21,APOE,amyloid_tau,0.80873,NPQ
+T00,2023-03-21,APOE4,amyloid_tau,1.16716,NPQ
+T00,2023-03-21,BACE1,amyloid_tau,1.04251,NPQ
+T00,2023-03-21,BASP1,amyloid_tau,1.07359,NPQ
+T00,2023-03-21,CD63,amyloid_tau,0.8996,NPQ
+T00,2023-03-21,CST3,amyloid_tau,0.9035,NPQ
+T00,2023-03-21,IGFBP7,amyloid_tau,0.92384,NPQ
+T00,2023-03-21,KLK6,amyloid_tau,1.28757,NPQ
+T00,2023-03-21,PSEN1,amyloid_tau,1.12517,NPQ
+T00,2023-03-21,SFRP1,amyloid_tau,0.99285,NPQ
+T00,2023-03-21,pTau181,amyloid_tau,2.15843,pg/mL
+T00,2023-03-21,pTau181-BD,amyloid_tau,1.36426,pg/mL
+T00,2023-03-21,pTau217,amyloid_tau,2.98011,pg/mL
+T00,2023-03-21,pTau217-BD,amyloid_tau,0.3258,pg/mL
+T00,2023-03-21,pTau231,amyloid_tau,4.56177,pg/mL
+T00,2023-03-21,pTau231-BD,amyloid_tau,3.36243,pg/mL
+T00,2023-03-21,totalTau,amyloid_tau,14.00481,pg/mL
+T00,2023-03-21,totalTau-BD,amyloid_tau,6.7098,pg/mL
+T00,2023-03-21,AGRN,synuclein_synaptic,1.28142,NPQ
+T00,2023-03-21,ARSA,synuclein_synaptic,1.00843,NPQ
+T00,2023-03-21,BDNF,synuclein_synaptic,1.22662,NPQ
+T00,2023-03-21,DDC,synuclein_synaptic,0.89535,NPQ
+T00,2023-03-21,FABP3,synuclein_synaptic,1.10576,NPQ
+T00,2023-03-21,FOLR1,synuclein_synaptic,0.80136,NPQ
+T00,2023-03-21,HTT,synuclein_synaptic,0.86799,NPQ
+T00,2023-03-21,IL6R (IL6Ra),synuclein_synaptic,1.04112,NPQ
+T00,2023-03-21,MDH1,synuclein_synaptic,1.1943,NPQ
+T00,2023-03-21,NGF,synuclein_synaptic,1.19899,NPQ
+T00,2023-03-21,Oligo-SNCA (Oligo-α-Syn),synuclein_synaptic,0.94405,NPQ
+T00,2023-03-21,PARK7,synuclein_synaptic,0.86742,NPQ
+T00,2023-03-21,pSNCA-129,synuclein_synaptic,0.96438,NPQ
+T00,2023-03-21,SNCA (α-Syn),synuclein_synaptic,0.81062,NPQ
+T00,2023-03-21,SNCB (β-Syn),synuclein_synaptic,0.85454,NPQ
+T00,2023-03-21,SOD1,synuclein_synaptic,1.07235,NPQ
+T00,2023-03-21,TDP43,synuclein_synaptic,1.0163,NPQ
+T00,2023-03-21,pTDP43-409,synuclein_synaptic,0.99243,NPQ
+T00,2023-03-21,UCHL1,synuclein_synaptic,1.00018,NPQ
+T00,2023-03-21,VGF,synuclein_synaptic,1.00439,NPQ
+T00,2023-03-21,VSNL1 (VILIP-1),synuclein_synaptic,1.07943,NPQ
+T00,2023-03-21,FLT1 (VEGF R1),vascular_metabolism,1.08541,NPQ
+T00,2023-03-21,HBA1,vascular_metabolism,1.0744,NPQ
+T00,2023-03-21,HBA2,vascular_metabolism,1.03985,NPQ
+T00,2023-03-21,KDR (VEGF R2),vascular_metabolism,1.05946,NPQ
+T00,2023-03-21,MME,vascular_metabolism,0.88749,NPQ
+T00,2023-03-21,PDGFRB,vascular_metabolism,1.04102,NPQ
+T00,2023-03-21,PGF (PLGF),vascular_metabolism,0.85415,NPQ
+T00,2023-03-21,PGK1,vascular_metabolism,0.90311,NPQ
+T00,2023-03-21,POSTN,vascular_metabolism,0.75219,NPQ
+T00,2023-03-21,PTN,vascular_metabolism,0.97422,NPQ
+T00,2023-03-21,SAA1,vascular_metabolism,1.20368,NPQ
+T00,2023-03-21,VEGF-A,vascular_metabolism,0.96206,NPQ
+T00,2023-03-21,VEGF-D,vascular_metabolism,1.11384,NPQ
+T00,2023-03-21,ANXA5,neurodegeneration,0.9097,NPQ
+T00,2023-03-21,CALB2,neurodegeneration,1.08409,NPQ
+T00,2023-03-21,CNTN2,neurodegeneration,0.8651,NPQ
+T00,2023-03-21,ENO2,neurodegeneration,0.78709,NPQ
+T00,2023-03-21,FGF2 (FGF basic),neurodegeneration,1.02813,NPQ
+T00,2023-03-21,GDI1,neurodegeneration,0.94729,NPQ
+T00,2023-03-21,GDNF,neurodegeneration,1.10217,NPQ
+T00,2023-03-21,GOT1,neurodegeneration,1.10988,NPQ
+T00,2023-03-21,MSLN,neurodegeneration,1.04042,NPQ
+T00,2023-03-21,NEFH,neurodegeneration,1.0418,NPQ
+T00,2023-03-21,NFL,neurodegeneration,15.79768,pg/mL
+T00,2023-03-21,NPTX1,neurodegeneration,0.88373,NPQ
+T00,2023-03-21,NPTX2,neurodegeneration,0.94112,NPQ
+T00,2023-03-21,NPTXR,neurodegeneration,1.0187,NPQ
+T00,2023-03-21,NPY,neurodegeneration,0.98222,NPQ
+T00,2023-03-21,NRGN,neurodegeneration,0.88616,NPQ
+T00,2023-03-21,PDLIM5,neurodegeneration,1.12936,NPQ
+T00,2023-03-21,REST,neurodegeneration,0.89867,NPQ
+T00,2023-03-21,SMOC1,neurodegeneration,0.85,NPQ
+T00,2023-03-21,SNAP25,neurodegeneration,1.04441,NPQ
+T00,2023-03-21,SQSTM1,neurodegeneration,0.9203,NPQ
+T00,2023-03-21,UBB,neurodegeneration,1.0734,NPQ
+T00,2023-03-21,YWHAG,neurodegeneration,0.87417,NPQ
+T00,2023-03-21,YWHAZ,neurodegeneration,1.23513,NPQ
+T00,2023-03-21,CCL2 (MCP1),inflammation,1.12181,NPQ
+T00,2023-03-21,CCL3 (MIP1a/CCL3),inflammation,0.96715,NPQ
+T00,2023-03-21,CCL4 (Mip1b/CCL4),inflammation,1.06493,NPQ
+T00,2023-03-21,CCL11 (Eotaxin),inflammation,0.94205,NPQ
+T00,2023-03-21,CCL13 (MCP4),inflammation,0.93752,NPQ
+T00,2023-03-21,CCL17 (TARC/CCL17),inflammation,0.99937,NPQ
+T00,2023-03-21,CCL22 (MDC),inflammation,1.13737,NPQ
+T00,2023-03-21,CCL26 (Eotaxin-3),inflammation,0.99383,NPQ
+T00,2023-03-21,CD40LG (CD40L/TNFSF5),inflammation,0.9695,NPQ
+T00,2023-03-21,CHI3L1 (YKL-40),inflammation,1.06292,NPQ
+T00,2023-03-21,CHIT1,inflammation,0.97962,NPQ
+T00,2023-03-21,CRH,inflammation,1.21313,NPQ
+T00,2023-03-21,CRP,inflammation,0.92257,mg/L
+T00,2023-03-21,CSF2 (GM-CSF),inflammation,0.92432,NPQ
+T00,2023-03-21,CX3CL1 (Fractalkine),inflammation,0.98842,NPQ
+T00,2023-03-21,CXCL1 (GROa),inflammation,0.95482,NPQ
+T00,2023-03-21,CXCL8 (IL8),inflammation,0.86525,NPQ
+T00,2023-03-21,CXCL10 (IP-10),inflammation,0.89817,NPQ
+T00,2023-03-21,FCN2,inflammation,0.92852,NPQ
+T00,2023-03-21,GDF15,inflammation,1.16629,NPQ
+T00,2023-03-21,GFAP,inflammation,73.83166,pg/mL
+T00,2023-03-21,ICAM1,inflammation,1.00979,NPQ
+T00,2023-03-21,IFNG (IFN-gamma),inflammation,0.81212,NPQ
+T00,2023-03-21,IGF1R,inflammation,1.17437,NPQ
+T00,2023-03-21,IL1B (IL-1 beta),inflammation,1.03413,NPQ
+T00,2023-03-21,IL2,inflammation,1.15611,NPQ
+T00,2023-03-21,IL4,inflammation,1.00328,NPQ
+T00,2023-03-21,IL5,inflammation,0.86732,NPQ
+T00,2023-03-21,IL6,inflammation,0.86819,NPQ
+T00,2023-03-21,IL7,inflammation,1.21043,NPQ
+T00,2023-03-21,IL9,inflammation,0.97686,NPQ
+T00,2023-03-21,IL10,inflammation,0.85653,NPQ
+T00,2023-03-21,IL12p70 (IL12A/IL12B),inflammation,0.95703,NPQ
+T00,2023-03-21,IL13,inflammation,1.0247,NPQ
+T00,2023-03-21,IL15,inflammation,0.96493,NPQ
+T00,2023-03-21,IL16,inflammation,1.15606,NPQ
+T00,2023-03-21,IL17A,inflammation,1.05987,NPQ
+T00,2023-03-21,IL18,inflammation,1.20263,NPQ
+T00,2023-03-21,IL33,inflammation,0.98808,NPQ
+T00,2023-03-21,PRDX6,inflammation,0.90512,NPQ
+T00,2023-03-21,RUVBL2,inflammation,0.8939,NPQ
+T00,2023-03-21,S100A12,inflammation,1.08171,NPQ
+T00,2023-03-21,S100B,inflammation,0.89468,NPQ
+T00,2023-03-21,SFTPD,inflammation,0.7946,NPQ
+T00,2023-03-21,SLIT2,inflammation,0.82993,NPQ
+T00,2023-03-21,TAFA5,inflammation,1.05425,NPQ
+T00,2023-03-21,TEK (Tie-2/TEK),inflammation,1.00667,NPQ
+T00,2023-03-21,TIMP3,inflammation,0.93124,NPQ
+T00,2023-03-21,TNF (TNF-a),inflammation,0.86836,NPQ
+T00,2023-03-21,TREM1 (sTREM1),inflammation,1.09366,NPQ
+T00,2023-03-21,TREM2,inflammation,0.93875,NPQ
+T00,2023-03-21,VCAM1 (CD106),inflammation,1.11693,NPQ
+T01,2023-05-08,Abeta38 (aβ38),amyloid_tau,30.1957,pg/mL
+T01,2023-05-08,Abeta40 (aβ40),amyloid_tau,232.90846,pg/mL
+T01,2023-05-08,Abeta42 (aβ42),amyloid_tau,32.03277,pg/mL
+T01,2023-05-08,ACHE,amyloid_tau,1.17155,NPQ
+T01,2023-05-08,APOE,amyloid_tau,0.97354,NPQ
+T01,2023-05-08,APOE4,amyloid_tau,1.06457,NPQ
+T01,2023-05-08,BACE1,amyloid_tau,0.94841,NPQ
+T01,2023-05-08,BASP1,amyloid_tau,1.05673,NPQ
+T01,2023-05-08,CD63,amyloid_tau,1.0079,NPQ
+T01,2023-05-08,CST3,amyloid_tau,1.01371,NPQ
+T01,2023-05-08,IGFBP7,amyloid_tau,0.99745,NPQ
+T01,2023-05-08,KLK6,amyloid_tau,0.96522,NPQ
+T01,2023-05-08,PSEN1,amyloid_tau,0.99139,NPQ
+T01,2023-05-08,SFRP1,amyloid_tau,1.00131,NPQ
+T01,2023-05-08,pTau181,amyloid_tau,2.48783,pg/mL
+T01,2023-05-08,pTau181-BD,amyloid_tau,1.18035,pg/mL
+T01,2023-05-08,pTau217,amyloid_tau,2.88301,pg/mL
+T01,2023-05-08,pTau217-BD,amyloid_tau,0.3395,pg/mL
+T01,2023-05-08,pTau231,amyloid_tau,5.60323,pg/mL
+T01,2023-05-08,pTau231-BD,amyloid_tau,3.85277,pg/mL
+T01,2023-05-08,totalTau,amyloid_tau,13.61372,pg/mL
+T01,2023-05-08,totalTau-BD,amyloid_tau,5.15194,pg/mL
+T01,2023-05-08,AGRN,synuclein_synaptic,0.94901,NPQ
+T01,2023-05-08,ARSA,synuclein_synaptic,1.07616,NPQ
+T01,2023-05-08,BDNF,synuclein_synaptic,1.2542,NPQ
+T01,2023-05-08,DDC,synuclein_synaptic,0.8392,NPQ
+T01,2023-05-08,FABP3,synuclein_synaptic,0.95713,NPQ
+T01,2023-05-08,FOLR1,synuclein_synaptic,0.87717,NPQ
+T01,2023-05-08,HTT,synuclein_synaptic,0.87416,NPQ
+T01,2023-05-08,IL6R (IL6Ra),synuclein_synaptic,0.95856,NPQ
+T01,2023-05-08,MDH1,synuclein_synaptic,1.29705,NPQ
+T01,2023-05-08,NGF,synuclein_synaptic,1.27123,NPQ
+T01,2023-05-08,Oligo-SNCA (Oligo-α-Syn),synuclein_synaptic,0.99166,NPQ
+T01,2023-05-08,PARK7,synuclein_synaptic,0.94631,NPQ
+T01,2023-05-08,pSNCA-129,synuclein_synaptic,1.02303,NPQ
+T01,2023-05-08,SNCA (α-Syn),synuclein_synaptic,0.9574,NPQ
+T01,2023-05-08,SNCB (β-Syn),synuclein_synaptic,0.91446,NPQ
+T01,2023-05-08,SOD1,synuclein_synaptic,1.02806,NPQ
+T01,2023-05-08,TDP43,synuclein_synaptic,0.9829,NPQ
+T01,2023-05-08,pTDP43-409,synuclein_synaptic,1.0179,NPQ
+T01,2023-05-08,UCHL1,synuclein_synaptic,0.86688,NPQ
+T01,2023-05-08,VGF,synuclein_synaptic,1.17674,NPQ
+T01,2023-05-08,VSNL1 (VILIP-1),synuclein_synaptic,0.92541,NPQ
+T01,2023-05-08,FLT1 (VEGF R1),vascular_metabolism,0.90795,NPQ
+T01,2023-05-08,HBA1,vascular_metabolism,1.13652,NPQ
+T01,2023-05-08,HBA2,vascular_metabolism,1.12811,NPQ
+T01,2023-05-08,KDR (VEGF R2),vascular_metabolism,0.94348,NPQ
+T01,2023-05-08,MME,vascular_metabolism,0.93176,NPQ
+T01,2023-05-08,PDGFRB,vascular_metabolism,1.08546,NPQ
+T01,2023-05-08,PGF (PLGF),vascular_metabolism,0.84466,NPQ
+T01,2023-05-08,PGK1,vascular_metabolism,1.02652,NPQ
+T01,2023-05-08,POSTN,vascular_metabolism,0.79432,NPQ
+T01,2023-05-08,PTN,vascular_metabolism,1.07297,NPQ
+T01,2023-05-08,SAA1,vascular_metabolism,1.01583,NPQ
+T01,2023-05-08,VEGF-A,vascular_metabolism,1.07335,NPQ
+T01,2023-05-08,VEGF-D,vascular_metabolism,1.21903,NPQ
+T01,2023-05-08,ANXA5,neurodegeneration,0.91229,NPQ
+T01,2023-05-08,CALB2,neurodegeneration,1.05387,NPQ
+T01,2023-05-08,CNTN2,neurodegeneration,0.93632,NPQ
+T01,2023-05-08,ENO2,neurodegeneration,0.96068,NPQ
+T01,2023-05-08,FGF2 (FGF basic),neurodegeneration,0.98033,NPQ
+T01,2023-05-08,GDI1,neurodegeneration,0.92637,NPQ
+T01,2023-05-08,GDNF,neurodegeneration,1.00436,NPQ
+T01,2023-05-08,GOT1,neurodegeneration,1.06626,NPQ
+T01,2023-05-08,MSLN,neurodegeneration,0.95817,NPQ
+T01,2023-05-08,NEFH,neurodegeneration,1.07084,NPQ
+T01,2023-05-08,NFL,neurodegeneration,18.79613,pg/mL
+T01,2023-05-08,NPTX1,neurodegeneration,0.93396,NPQ
+T01,2023-05-08,NPTX2,neurodegeneration,0.8054,NPQ
+T01,2023-05-08,NPTXR,neurodegeneration,0.88134,NPQ
+T01,2023-05-08,NPY,neurodegeneration,0.90991,NPQ
+T01,2023-05-08,NRGN,neurodegeneration,0.97482,NPQ
+T01,2023-05-08,PDLIM5,neurodegeneration,1.18756,NPQ
+T01,2023-05-08,REST,neurodegeneration,0.90704,NPQ
+T01,2023-05-08,SMOC1,neurodegeneration,0.90593,NPQ
+T01,2023-05-08,SNAP25,neurodegeneration,0.82602,NPQ
+T01,2023-05-08,SQSTM1,neurodegeneration,0.9558,NPQ
+T01,2023-05-08,UBB,neurodegeneration,1.06098,NPQ
+T01,2023-05-08,YWHAG,neurodegeneration,1.12876,NPQ
+T01,2023-05-08,YWHAZ,neurodegeneration,1.06416,NPQ
+T01,2023-05-08,CCL2 (MCP1),inflammation,0.8442,NPQ
+T01,2023-05-08,CCL3 (MIP1a/CCL3),inflammation,0.94667,NPQ
+T01,2023-05-08,CCL4 (Mip1b/CCL4),inflammation,1.16179,NPQ
+T01,2023-05-08,CCL11 (Eotaxin),inflammation,0.81363,NPQ
+T01,2023-05-08,CCL13 (MCP4),inflammation,0.87614,NPQ
+T01,2023-05-08,CCL17 (TARC/CCL17),inflammation,0.79176,NPQ
+T01,2023-05-08,CCL22 (MDC),inflammation,1.21807,NPQ
+T01,2023-05-08,CCL26 (Eotaxin-3),inflammation,0.88628,NPQ
+T01,2023-05-08,CD40LG (CD40L/TNFSF5),inflammation,0.86265,NPQ
+T01,2023-05-08,CHI3L1 (YKL-40),inflammation,1.01555,NPQ
+T01,2023-05-08,CHIT1,inflammation,0.93143,NPQ
+T01,2023-05-08,CRH,inflammation,1.16532,NPQ
+T01,2023-05-08,CRP,inflammation,1.33126,mg/L
+T01,2023-05-08,CSF2 (GM-CSF),inflammation,0.99512,NPQ
+T01,2023-05-08,CX3CL1 (Fractalkine),inflammation,0.97869,NPQ
+T01,2023-05-08,CXCL1 (GROa),inflammation,1.05523,NPQ
+T01,2023-05-08,CXCL8 (IL8),inflammation,0.99099,NPQ
+T01,2023-05-08,CXCL10 (IP-10),inflammation,0.78782,NPQ
+T01,2023-05-08,FCN2,inflammation,0.90126,NPQ
+T01,2023-05-08,GDF15,inflammation,1.26959,NPQ
+T01,2023-05-08,GFAP,inflammation,90.89092,pg/mL
+T01,2023-05-08,ICAM1,inflammation,1.09856,NPQ
+T01,2023-05-08,IFNG (IFN-gamma),inflammation,0.90207,NPQ
+T01,2023-05-08,IGF1R,inflammation,1.03944,NPQ
+T01,2023-05-08,IL1B (IL-1 beta),inflammation,1.22965,NPQ
+T01,2023-05-08,IL2,inflammation,1.02578,NPQ
+T01,2023-05-08,IL4,inflammation,0.9597,NPQ
+T01,2023-05-08,IL5,inflammation,0.91512,NPQ
+T01,2023-05-08,IL6,inflammation,0.92073,NPQ
+T01,2023-05-08,IL7,inflammation,0.9886,NPQ
+T01,2023-05-08,IL9,inflammation,1.14916,NPQ
+T01,2023-05-08,IL10,inflammation,0.88583,NPQ
+T01,2023-05-08,IL12p70 (IL12A/IL12B),inflammation,0.98438,NPQ
+T01,2023-05-08,IL13,inflammation,1.03631,NPQ
+T01,2023-05-08,IL15,inflammation,1.03616,NPQ
+T01,2023-05-08,IL16,inflammation,1.25187,NPQ
+T01,2023-05-08,IL17A,inflammation,1.12897,NPQ
+T01,2023-05-08,IL18,inflammation,0.99217,NPQ
+T01,2023-05-08,IL33,inflammation,1.07392,NPQ
+T01,2023-05-08,PRDX6,inflammation,0.89762,NPQ
+T01,2023-05-08,RUVBL2,inflammation,0.9504,NPQ
+T01,2023-05-08,S100A12,inflammation,1.03402,NPQ
+T01,2023-05-08,S100B,inflammation,0.76317,NPQ
+T01,2023-05-08,SFTPD,inflammation,0.92821,NPQ
+T01,2023-05-08,SLIT2,inflammation,0.91718,NPQ
+T01,2023-05-08,TAFA5,inflammation,0.93816,NPQ
+T01,2023-05-08,TEK (Tie-2/TEK),inflammation,1.01318,NPQ
+T01,2023-05-08,TIMP3,inflammation,1.0645,NPQ
+T01,2023-05-08,TNF (TNF-a),inflammation,0.90801,NPQ
+T01,2023-05-08,TREM1 (sTREM1),inflammation,1.09483,NPQ
+T01,2023-05-08,TREM2,inflammation,0.99034,NPQ
+T01,2023-05-08,VCAM1 (CD106),inflammation,1.08701,NPQ
+T02,2023-06-25,Abeta38 (aβ38),amyloid_tau,35.08767,pg/mL
+T02,2023-06-25,Abeta40 (aβ40),amyloid_tau,207.99723,pg/mL
+T02,2023-06-25,Abeta42 (aβ42),amyloid_tau,25.21482,pg/mL
+T02,2023-06-25,ACHE,amyloid_tau,0.98157,NPQ
+T02,2023-06-25,APOE,amyloid_tau,0.80684,NPQ
+T02,2023-06-25,APOE4,amyloid_tau,1.13017,NPQ
+T02,2023-06-25,BACE1,amyloid_tau,1.05207,NPQ
+T02,2023-06-25,BASP1,amyloid_tau,1.08613,NPQ
+T02,2023-06-25,CD63,amyloid_tau,0.81533,NPQ
+T02,2023-06-25,CST3,amyloid_tau,1.02813,NPQ
+T02,2023-06-25,IGFBP7,amyloid_tau,1.01097,NPQ
+T02,2023-06-25,KLK6,amyloid_tau,1.18596,NPQ
+T02,2023-06-25,PSEN1,amyloid_tau,1.04114,NPQ
+T02,2023-06-25,SFRP1,amyloid_tau,0.98222,NPQ
+T02,2023-06-25,pTau181,amyloid_tau,2.19747,pg/mL
+T02,2023-06-25,pTau181-BD,amyloid_tau,0.94072,pg/mL
+T02,2023-06-25,pTau217,amyloid_tau,3.67545,pg/mL
+T02,2023-06-25,pTau217-BD,amyloid_tau,0.31302,pg/mL
+T02,2023-06-25,pTau231,amyloid_tau,4.72616,pg/mL
+T02,2023-06-25,pTau231-BD,amyloid_tau,3.69093,pg/mL
+T02,2023-06-25,totalTau,amyloid_tau,15.73678,pg/mL
+T02,2023-06-25,totalTau-BD,amyloid_tau,7.42235,pg/mL
+T02,2023-06-25,AGRN,synuclein_synaptic,1.24427,NPQ
+T02,2023-06-25,ARSA,synuclein_synaptic,0.95211,NPQ
+T02,2023-06-25,BDNF,synuclein_synaptic,1.17319,NPQ
+T02,2023-06-25,DDC,synuclein_synaptic,0.94435,NPQ
+T02,2023-06-25,FABP3,synuclein_synaptic,0.91933,NPQ
+T02,2023-06-25,FOLR1,synuclein_synaptic,0.83843,NPQ
+T02,2023-06-25,HTT,synuclein_synaptic,1.05057,NPQ
+T02,2023-06-25,IL6R (IL6Ra),synuclein_synaptic,1.14631,NPQ
+T02,2023-06-25,MDH1,synuclein_synaptic,1.15002,NPQ
+T02,2023-06-25,NGF,synuclein_synaptic,1.1872,NPQ
+T02,2023-06-25,Oligo-SNCA (Oligo-α-Syn),synuclein_synaptic,0.99916,NPQ
+T02,2023-06-25,PARK7,synuclein_synaptic,1.01162,NPQ
+T02,2023-06-25,pSNCA-129,synuclein_synaptic,0.84986,NPQ
+T02,2023-06-25,SNCA (α-Syn),synuclein_synaptic,0.86113,NPQ
+T02,2023-06-25,SNCB (β-Syn),synuclein_synaptic,1.01568,NPQ
+T02,2023-06-25,SOD1,synuclein_synaptic,1.10183,NPQ
+T02,2023-06-25,TDP43,synuclein_synaptic,1.01732,NPQ
+T02,2023-06-25,pTDP43-409,synuclein_synaptic,1.06269,NPQ
+T02,2023-06-25,UCHL1,synuclein_synaptic,1.01258,NPQ
+T02,2023-06-25,VGF,synuclein_synaptic,0.98493,NPQ
+T02,2023-06-25,VSNL1 (VILIP-1),synuclein_synaptic,1.06211,NPQ
+T02,2023-06-25,FLT1 (VEGF R1),vascular_metabolism,1.01127,NPQ
+T02,2023-06-25,HBA1,vascular_metabolism,1.12179,NPQ
+T02,2023-06-25,HBA2,vascular_metabolism,1.06826,NPQ
+T02,2023-06-25,KDR (VEGF R2),vascular_metabolism,0.95124,NPQ
+T02,2023-06-25,MME,vascular_metabolism,0.84503,NPQ
+T02,2023-06-25,PDGFRB,vascular_metabolism,1.07907,NPQ
+T02,2023-06-25,PGF (PLGF),vascular_metabolism,0.88727,NPQ
+T02,2023-06-25,PGK1,vascular_metabolism,0.99139,NPQ
+T02,2023-06-25,POSTN,vascular_metabolism,0.85154,NPQ
+T02,2023-06-25,PTN,vascular_metabolism,0.99365,NPQ
+T02,2023-06-25,SAA1,vascular_metabolism,1.19629,NPQ
+T02,2023-06-25,VEGF-A,vascular_metabolism,1.15432,NPQ
+T02,2023-06-25,VEGF-D,vascular_metabolism,0.9747,NPQ
+T02,2023-06-25,ANXA5,neurodegeneration,1.02801,NPQ
+T02,2023-06-25,CALB2,neurodegeneration,0.99802,NPQ
+T02,2023-06-25,CNTN2,neurodegeneration,0.87388,NPQ
+T02,2023-06-25,ENO2,neurodegeneration,0.92647,NPQ
+T02,2023-06-25,FGF2 (FGF basic),neurodegeneration,1.0981,NPQ
+T02,2023-06-25,GDI1,neurodegeneration,0.92033,NPQ
+T02,2023-06-25,GDNF,neurodegeneration,1.15853,NPQ
+T02,2023-06-25,GOT1,neurodegeneration,0.90873,NPQ
+T02,2023-06-25,MSLN,neurodegeneration,1.06802,NPQ
+T02,2023-06-25,NEFH,neurodegeneration,1.0365,NPQ
+T02,2023-06-25,NFL,neurodegeneration,17.95525,pg/mL
+T02,2023-06-25,NPTX1,neurodegeneration,0.87513,NPQ
+T02,2023-06-25,NPTX2,neurodegeneration,0.82324,NPQ
+T02,2023-06-25,NPTXR,neurodegeneration,0.98496,NPQ
+T02,2023-06-25,NPY,neurodegeneration,1.0725,NPQ
+T02,2023-06-25,NRGN,neurodegeneration,1.14784,NPQ
+T02,2023-06-25,PDLIM5,neurodegeneration,1.29097,NPQ
+T02,2023-06-25,REST,neurodegeneration,0.95373,NPQ
+T02,2023-06-25,SMOC1,neurodegeneration,1.11771,NPQ
+T02,2023-06-25,SNAP25,neurodegeneration,0.90698,NPQ
+T02,2023-06-25,SQSTM1,neurodegeneration,0.93061,NPQ
+T02,2023-06-25,UBB,neurodegeneration,1.15194,NPQ
+T02,2023-06-25,YWHAG,neurodegeneration,1.0648,NPQ
+T02,2023-06-25,YWHAZ,neurodegeneration,1.14331,NPQ
+T02,2023-06-25,CCL2 (MCP1),inflammation,0.91128,NPQ
+T02,2023-06-25,CCL3 (MIP1a/CCL3),inflammation,0.91043,NPQ
+T02,2023-06-25,CCL4 (Mip1b/CCL4),inflammation,1.11567,NPQ
+T02,2023-06-25,CCL11 (Eotaxin),inflammation,0.87409,NPQ
+T02,2023-06-25,CCL13 (MCP4),inflammation,0.78152,NPQ
+T02,2023-06-25,CCL17 (TARC/CCL17),inflammation,0.85585,NPQ
+T02,2023-06-25,CCL22 (MDC),inflammation,1.1116,NPQ
+T02,2023-06-25,CCL26 (Eotaxin-3),inflammation,1.07124,NPQ
+T02,2023-06-25,CD40LG (CD40L/TNFSF5),inflammation,0.77239,NPQ
+T02,2023-06-25,CHI3L1 (YKL-40),inflammation,1.02227,NPQ
+T02,2023-06-25,CHIT1,inflammation,0.90948,NPQ
+T02,2023-06-25,CRH,inflammation,1.10862,NPQ
+T02,2023-06-25,CRP,inflammation,1.26862,mg/L
+T02,2023-06-25,CSF2 (GM-CSF),inflammation,1.01595,NPQ
+T02,2023-06-25,CX3CL1 (Fractalkine),inflammation,0.91867,NPQ
+T02,2023-06-25,CXCL1 (GROa),inflammation,0.91488,NPQ
+T02,2023-06-25,CXCL8 (IL8),inflammation,1.02949,NPQ
+T02,2023-06-25,CXCL10 (IP-10),inflammation,0.98868,NPQ
+T02,2023-06-25,FCN2,inflammation,0.97993,NPQ
+T02,2023-06-25,GDF15,inflammation,1.19685,NPQ
+T02,2023-06-25,GFAP,inflammation,99.51079,pg/mL
+T02,2023-06-25,ICAM1,inflammation,1.0805,NPQ
+T02,2023-06-25,IFNG (IFN-gamma),inflammation,1.00511,NPQ
+T02,2023-06-25,IGF1R,inflammation,1.14018,NPQ
+T02,2023-06-25,IL1B (IL-1 beta),inflammation,1.11033,NPQ
+T02,2023-06-25,IL2,inflammation,1.02704,NPQ
+T02,2023-06-25,IL4,inflammation,1.05037,NPQ
+T02,2023-06-25,IL5,inflammation,1.03449,NPQ
+T02,2023-06-25,IL6,inflammation,1.10619,NPQ
+T02,2023-06-25,IL7,inflammation,1.2629,NPQ
+T02,2023-06-25,IL9,inflammation,0.98067,NPQ
+T02,2023-06-25,IL10,inflammation,0.939,NPQ
+T02,2023-06-25,IL12p70 (IL12A/IL12B),inflammation,0.95995,NPQ
+T02,2023-06-25,IL13,inflammation,1.0361,NPQ
+T02,2023-06-25,IL15,inflammation,0.90785,NPQ
+T02,2023-06-25,IL16,inflammation,1.13644,NPQ
+T02,2023-06-25,IL17A,inflammation,1.21467,NPQ
+T02,2023-06-25,IL18,inflammation,1.12142,NPQ
+T02,2023-06-25,IL33,inflammation,0.91037,NPQ
+T02,2023-06-25,PRDX6,inflammation,1.14733,NPQ
+T02,2023-06-25,RUVBL2,inflammation,1.0719,NPQ
+T02,2023-06-25,S100A12,inflammation,1.11797,NPQ
+T02,2023-06-25,S100B,inflammation,0.91562,NPQ
+T02,2023-06-25,SFTPD,inflammation,1.01145,NPQ
+T02,2023-06-25,SLIT2,inflammation,0.89536,NPQ
+T02,2023-06-25,TAFA5,inflammation,0.88335,NPQ
+T02,2023-06-25,TEK (Tie-2/TEK),inflammation,1.00364,NPQ
+T02,2023-06-25,TIMP3,inflammation,0.86847,NPQ
+T02,2023-06-25,TNF (TNF-a),inflammation,0.96423,NPQ
+T02,2023-06-25,TREM1 (sTREM1),inflammation,1.05274,NPQ
+T02,2023-06-25,TREM2,inflammation,1.04273,NPQ
+T02,2023-06-25,VCAM1 (CD106),inflammation,1.06143,NPQ
+T03,2023-08-03,Abeta38 (aβ38),amyloid_tau,35.38246,pg/mL
+T03,2023-08-03,Abeta40 (aβ40),amyloid_tau,216.2564,pg/mL
+T03,2023-08-03,Abeta42 (aβ42),amyloid_tau,29.05585,pg/mL
+T03,2023-08-03,ACHE,amyloid_tau,1.10415,NPQ
+T03,2023-08-03,APOE,amyloid_tau,0.81179,NPQ
+T03,2023-08-03,APOE4,amyloid_tau,1.09378,NPQ
+T03,2023-08-03,BACE1,amyloid_tau,1.12009,NPQ
+T03,2023-08-03,BASP1,amyloid_tau,0.95458,NPQ
+T03,2023-08-03,CD63,amyloid_tau,0.94302,NPQ
+T03,2023-08-03,CST3,amyloid_tau,1.02534,NPQ
+T03,2023-08-03,IGFBP7,amyloid_tau,0.98468,NPQ
+T03,2023-08-03,KLK6,amyloid_tau,1.09126,NPQ
+T03,2023-08-03,PSEN1,amyloid_tau,1.17957,NPQ
+T03,2023-08-03,SFRP1,amyloid_tau,1.21136,NPQ
+T03,2023-08-03,pTau181,amyloid_tau,2.44197,pg/mL
+T03,2023-08-03,pTau181-BD,amyloid_tau,1.22536,pg/mL
+T03,2023-08-03,pTau217,amyloid_tau,3.21397,pg/mL
+T03,2023-08-03,pTau217-BD,amyloid_tau,0.37314,pg/mL
+T03,2023-08-03,pTau231,amyloid_tau,4.69578,pg/mL
+T03,2023-08-03,pTau231-BD,amyloid_tau,3.24008,pg/mL
+T03,2023-08-03,totalTau,amyloid_tau,11.87492,pg/mL
+T03,2023-08-03,totalTau-BD,amyloid_tau,6.11143,pg/mL
+T03,2023-08-03,AGRN,synuclein_synaptic,1.20047,NPQ
+T03,2023-08-03,ARSA,synuclein_synaptic,1.14937,NPQ
+T03,2023-08-03,BDNF,synuclein_synaptic,1.12111,NPQ
+T03,2023-08-03,DDC,synuclein_synaptic,0.8682,NPQ
+T03,2023-08-03,FABP3,synuclein_synaptic,0.99284,NPQ
+T03,2023-08-03,FOLR1,synuclein_synaptic,0.94243,NPQ
+T03,2023-08-03,HTT,synuclein_synaptic,0.90772,NPQ
+T03,2023-08-03,IL6R (IL6Ra),synuclein_synaptic,1.092,NPQ
+T03,2023-08-03,MDH1,synuclein_synaptic,1.08064,NPQ
+T03,2023-08-03,NGF,synuclein_synaptic,1.09573,NPQ
+T03,2023-08-03,Oligo-SNCA (Oligo-α-Syn),synuclein_synaptic,0.99284,NPQ
+T03,2023-08-03,PARK7,synuclein_synaptic,1.04067,NPQ
+T03,2023-08-03,pSNCA-129,synuclein_synaptic,0.99372,NPQ
+T03,2023-08-03,SNCA (α-Syn),synuclein_synaptic,0.84113,NPQ
+T03,2023-08-03,SNCB (β-Syn),synuclein_synaptic,0.92168,NPQ
+T03,2023-08-03,SOD1,synuclein_synaptic,1.01892,NPQ
+T03,2023-08-03,TDP43,synuclein_synaptic,0.90378,NPQ
+T03,2023-08-03,pTDP43-409,synuclein_synaptic,1.2465,NPQ
+T03,2023-08-03,UCHL1,synuclein_synaptic,1.0977,NPQ
+T03,2023-08-03,VGF,synuclein_synaptic,1.13688,NPQ
+T03,2023-08-03,VSNL1 (VILIP-1),synuclein_synaptic,1.09667,NPQ
+T03,2023-08-03,FLT1 (VEGF R1),vascular_metabolism,1.0505,NPQ
+T03,2023-08-03,HBA1,vascular_metabolism,1.19438,NPQ
+T03,2023-08-03,HBA2,vascular_metabolism,1.07807,NPQ
+T03,2023-08-03,KDR (VEGF R2),vascular_metabolism,1.01108,NPQ
+T03,2023-08-03,MME,vascular_metabolism,0.92943,NPQ
+T03,2023-08-03,PDGFRB,vascular_metabolism,0.95902,NPQ
+T03,2023-08-03,PGF (PLGF),vascular_metabolism,0.77264,NPQ
+T03,2023-08-03,PGK1,vascular_metabolism,0.93479,NPQ
+T03,2023-08-03,POSTN,vascular_metabolism,1.04027,NPQ
+T03,2023-08-03,PTN,vascular_metabolism,1.21262,NPQ
+T03,2023-08-03,SAA1,vascular_metabolism,1.0399,NPQ
+T03,2023-08-03,VEGF-A,vascular_metabolism,1.06762,NPQ
+T03,2023-08-03,VEGF-D,vascular_metabolism,1.03831,NPQ
+T03,2023-08-03,ANXA5,neurodegeneration,0.87017,NPQ
+T03,2023-08-03,CALB2,neurodegeneration,0.99382,NPQ
+T03,2023-08-03,CNTN2,neurodegeneration,0.89745,NPQ
+T03,2023-08-03,ENO2,neurodegeneration,0.8931,NPQ
+T03,2023-08-03,FGF2 (FGF basic),neurodegeneration,1.16507,NPQ
+T03,2023-08-03,GDI1,neurodegeneration,1.03723,NPQ
+T03,2023-08-03,GDNF,neurodegeneration,1.12885,NPQ
+T03,2023-08-03,GOT1,neurodegeneration,1.137,NPQ
+T03,2023-08-03,MSLN,neurodegeneration,1.07576,NPQ
+T03,2023-08-03,NEFH,neurodegeneration,1.0635,NPQ
+T03,2023-08-03,NFL,neurodegeneration,16.75719,pg/mL
+T03,2023-08-03,NPTX1,neurodegeneration,1.05141,NPQ
+T03,2023-08-03,NPTX2,neurodegeneration,0.77861,NPQ
+T03,2023-08-03,NPTXR,neurodegeneration,0.98956,NPQ
+T03,2023-08-03,NPY,neurodegeneration,0.99502,NPQ
+T03,2023-08-03,NRGN,neurodegeneration,0.99329,NPQ
+T03,2023-08-03,PDLIM5,neurodegeneration,1.14589,NPQ
+T03,2023-08-03,REST,neurodegeneration,0.86348,NPQ
+T03,2023-08-03,SMOC1,neurodegeneration,0.85309,NPQ
+T03,2023-08-03,SNAP25,neurodegeneration,1.06619,NPQ
+T03,2023-08-03,SQSTM1,neurodegeneration,0.90615,NPQ
+T03,2023-08-03,UBB,neurodegeneration,0.97165,NPQ
+T03,2023-08-03,YWHAG,neurodegeneration,0.97103,NPQ
+T03,2023-08-03,YWHAZ,neurodegeneration,1.08053,NPQ
+T03,2023-08-03,CCL2 (MCP1),inflammation,1.05474,NPQ
+T03,2023-08-03,CCL3 (MIP1a/CCL3),inflammation,0.96504,NPQ
+T03,2023-08-03,CCL4 (Mip1b/CCL4),inflammation,1.22709,NPQ
+T03,2023-08-03,CCL11 (Eotaxin),inflammation,0.75258,NPQ
+T03,2023-08-03,CCL13 (MCP4),inflammation,0.8619,NPQ
+T03,2023-08-03,CCL17 (TARC/CCL17),inflammation,0.90787,NPQ
+T03,2023-08-03,CCL22 (MDC),inflammation,1.16128,NPQ
+T03,2023-08-03,CCL26 (Eotaxin-3),inflammation,1.00971,NPQ
+T03,2023-08-03,CD40LG (CD40L/TNFSF5),inflammation,0.91448,NPQ
+T03,2023-08-03,CHI3L1 (YKL-40),inflammation,1.05692,NPQ
+T03,2023-08-03,CHIT1,inflammation,0.90492,NPQ
+T03,2023-08-03,CRH,inflammation,0.84089,NPQ
+T03,2023-08-03,CRP,inflammation,1.11271,mg/L
+T03,2023-08-03,CSF2 (GM-CSF),inflammation,0.84145,NPQ
+T03,2023-08-03,CX3CL1 (Fractalkine),inflammation,0.89169,NPQ
+T03,2023-08-03,CXCL1 (GROa),inflammation,1.1859,NPQ
+T03,2023-08-03,CXCL8 (IL8),inflammation,0.92304,NPQ
+T03,2023-08-03,CXCL10 (IP-10),inflammation,0.74182,NPQ
+T03,2023-08-03,FCN2,inflammation,0.8142,NPQ
+T03,2023-08-03,GDF15,inflammation,0.98681,NPQ
+T03,2023-08-03,GFAP,inflammation,103.29131,pg/mL
+T03,2023-08-03,ICAM1,inflammation,0.95422,NPQ
+T03,2023-08-03,IFNG (IFN-gamma),inflammation,0.87431,NPQ
+T03,2023-08-03,IGF1R,inflammation,1.12891,NPQ
+T03,2023-08-03,IL1B (IL-1 beta),inflammation,1.05896,NPQ
+T03,2023-08-03,IL2,inflammation,1.11626,NPQ
+T03,2023-08-03,IL4,inflammation,1.11236,NPQ
+T03,2023-08-03,IL5,inflammation,0.91738,NPQ
+T03,2023-08-03,IL6,inflammation,1.02682,NPQ
+T03,2023-08-03,IL7,inflammation,1.00349,NPQ
+T03,2023-08-03,IL9,inflammation,1.09672,NPQ
+T03,2023-08-03,IL10,inflammation,0.81129,NPQ
+T03,2023-08-03,IL12p70 (IL12A/IL12B),inflammation,0.97278,NPQ
+T03,2023-08-03,IL13,inflammation,0.96571,NPQ
+T03,2023-08-03,IL15,inflammation,0.84607,NPQ
+T03,2023-08-03,IL16,inflammation,1.31132,NPQ
+T03,2023-08-03,IL17A,inflammation,1.15035,NPQ
+T03,2023-08-03,IL18,inflammation,1.04472,NPQ
+T03,2023-08-03,IL33,inflammation,0.76247,NPQ
+T03,2023-08-03,PRDX6,inflammation,0.87164,NPQ
+T03,2023-08-03,RUVBL2,inflammation,0.93659,NPQ
+T03,2023-08-03,S100A12,inflammation,1.05058,NPQ
+T03,2023-08-03,S100B,inflammation,0.90886,NPQ
+T03,2023-08-03,SFTPD,inflammation,0.90803,NPQ
+T03,2023-08-03,SLIT2,inflammation,0.90932,NPQ
+T03,2023-08-03,TAFA5,inflammation,1.04679,NPQ
+T03,2023-08-03,TEK (Tie-2/TEK),inflammation,0.89986,NPQ
+T03,2023-08-03,TIMP3,inflammation,0.80926,NPQ
+T03,2023-08-03,TNF (TNF-a),inflammation,0.89924,NPQ
+T03,2023-08-03,TREM1 (sTREM1),inflammation,1.03253,NPQ
+T03,2023-08-03,TREM2,inflammation,0.95543,NPQ
+T03,2023-08-03,VCAM1 (CD106),inflammation,1.23491,NPQ
+T04,2023-09-20,Abeta38 (aβ38),amyloid_tau,41.30373,pg/mL
+T04,2023-09-20,Abeta40 (aβ40),amyloid_tau,166.76273,pg/mL
+T04,2023-09-20,Abeta42 (aβ42),amyloid_tau,31.19792,pg/mL
+T04,2023-09-20,ACHE,amyloid_tau,1.17995,NPQ
+T04,2023-09-20,APOE,amyloid_tau,0.89359,NPQ
+T04,2023-09-20,APOE4,amyloid_tau,1.0934,NPQ
+T04,2023-09-20,BACE1,amyloid_tau,1.09233,NPQ
+T04,2023-09-20,BASP1,amyloid_tau,1.05395,NPQ
+T04,2023-09-20,CD63,amyloid_tau,0.90188,NPQ
+T04,2023-09-20,CST3,amyloid_tau,0.94942,NPQ
+T04,2023-09-20,IGFBP7,amyloid_tau,0.94494,NPQ
+T04,2023-09-20,KLK6,amyloid_tau,1.19455,NPQ
+T04,2023-09-20,PSEN1,amyloid_tau,1.10749,NPQ
+T04,2023-09-20,SFRP1,amyloid_tau,1.22021,NPQ
+T04,2023-09-20,pTau181,amyloid_tau,2.38736,pg/mL
+T04,2023-09-20,pTau181-BD,amyloid_tau,1.29899,pg/mL
+T04,2023-09-20,pTau217,amyloid_tau,2.2477,pg/mL
+T04,2023-09-20,pTau217-BD,amyloid_tau,0.34965,pg/mL
+T04,2023-09-20,pTau231,amyloid_tau,4.40203,pg/mL
+T04,2023-09-20,pTau231-BD,amyloid_tau,3.5064,pg/mL
+T04,2023-09-20,totalTau,amyloid_tau,10.10938,pg/mL
+T04,2023-09-20,totalTau-BD,amyloid_tau,5.2247,pg/mL
+T04,2023-09-20,AGRN,synuclein_synaptic,1.06863,NPQ
+T04,2023-09-20,ARSA,synuclein_synaptic,1.03215,NPQ
+T04,2023-09-20,BDNF,synuclein_synaptic,0.90898,NPQ
+T04,2023-09-20,DDC,synuclein_synaptic,0.96107,NPQ
+T04,2023-09-20,FABP3,synuclein_synaptic,0.78444,NPQ
+T04,2023-09-20,FOLR1,synuclein_synaptic,0.92614,NPQ
+T04,2023-09-20,HTT,synuclein_synaptic,0.86161,NPQ
+T04,2023-09-20,IL6R (IL6Ra),synuclein_synaptic,1.11624,NPQ
+T04,2023-09-20,MDH1,synuclein_synaptic,1.11372,NPQ
+T04,2023-09-20,NGF,synuclein_synaptic,1.30562,NPQ
+T04,2023-09-20,Oligo-SNCA (Oligo-α-Syn),synuclein_synaptic,0.96327,NPQ
+T04,2023-09-20,PARK7,synuclein_synaptic,1.04592,NPQ
+T04,2023-09-20,pSNCA-129,synuclein_synaptic,0.94621,NPQ
+T04,2023-09-20,SNCA (α-Syn),synuclein_synaptic,0.79537,NPQ
+T04,2023-09-20,SNCB (β-Syn),synuclein_synaptic,0.96018,NPQ
+T04,2023-09-20,SOD1,synuclein_synaptic,0.86539,NPQ
+T04,2023-09-20,TDP43,synuclein_synaptic,0.95666,NPQ
+T04,2023-09-20,pTDP43-409,synuclein_synaptic,0.96909,NPQ
+T04,2023-09-20,UCHL1,synuclein_synaptic,1.00608,NPQ
+T04,2023-09-20,VGF,synuclein_synaptic,1.26817,NPQ
+T04,2023-09-20,VSNL1 (VILIP-1),synuclein_synaptic,1.1424,NPQ
+T04,2023-09-20,FLT1 (VEGF R1),vascular_metabolism,0.92062,NPQ
+T04,2023-09-20,HBA1,vascular_metabolism,1.14177,NPQ
+T04,2023-09-20,HBA2,vascular_metabolism,1.03504,NPQ
+T04,2023-09-20,KDR (VEGF R2),vascular_metabolism,1.14771,NPQ
+T04,2023-09-20,MME,vascular_metabolism,0.88955,NPQ
+T04,2023-09-20,PDGFRB,vascular_metabolism,1.04308,NPQ
+T04,2023-09-20,PGF (PLGF),vascular_metabolism,0.92141,NPQ
+T04,2023-09-20,PGK1,vascular_metabolism,0.95171,NPQ
+T04,2023-09-20,POSTN,vascular_metabolism,0.88103,NPQ
+T04,2023-09-20,PTN,vascular_metabolism,1.0379,NPQ
+T04,2023-09-20,SAA1,vascular_metabolism,1.02447,NPQ
+T04,2023-09-20,VEGF-A,vascular_metabolism,1.12238,NPQ
+T04,2023-09-20,VEGF-D,vascular_metabolism,1.15519,NPQ
+T04,2023-09-20,ANXA5,neurodegeneration,1.00718,NPQ
+T04,2023-09-20,CALB2,neurodegeneration,1.14084,NPQ
+T04,2023-09-20,CNTN2,neurodegeneration,0.94794,NPQ
+T04,2023-09-20,ENO2,neurodegeneration,0.94632,NPQ
+T04,2023-09-20,FGF2 (FGF basic),neurodegeneration,0.91538,NPQ
+T04,2023-09-20,GDI1,neurodegeneration,1.02533,NPQ
+T04,2023-09-20,GDNF,neurodegeneration,1.03677,NPQ
+T04,2023-09-20,GOT1,neurodegeneration,1.21898,NPQ
+T04,2023-09-20,MSLN,neurodegeneration,0.79873,NPQ
+T04,2023-09-20,NEFH,neurodegeneration,0.98626,NPQ
+T04,2023-09-20,NFL,neurodegeneration,13.30396,pg/mL
+T04,2023-09-20,NPTX1,neurodegeneration,0.95856,NPQ
+T04,2023-09-20,NPTX2,neurodegeneration,0.82478,NPQ
+T04,2023-09-20,NPTXR,neurodegeneration,0.94262,NPQ
+T04,2023-09-20,NPY,neurodegeneration,0.79321,NPQ
+T04,2023-09-20,NRGN,neurodegeneration,1.01781,NPQ
+T04,2023-09-20,PDLIM5,neurodegeneration,1.14255,NPQ
+T04,2023-09-20,REST,neurodegeneration,1.00448,NPQ
+T04,2023-09-20,SMOC1,neurodegeneration,0.84939,NPQ
+T04,2023-09-20,SNAP25,neurodegeneration,0.897,NPQ
+T04,2023-09-20,SQSTM1,neurodegeneration,0.96293,NPQ
+T04,2023-09-20,UBB,neurodegeneration,1.0528,NPQ
+T04,2023-09-20,YWHAG,neurodegeneration,1.00396,NPQ
+T04,2023-09-20,YWHAZ,neurodegeneration,0.96168,NPQ
+T04,2023-09-20,CCL2 (MCP1),inflammation,1.15587,NPQ
+T04,2023-09-20,CCL3 (MIP1a/CCL3),inflammation,1.15418,NPQ
+T04,2023-09-20,CCL4 (Mip1b/CCL4),inflammation,1.1795,NPQ
+T04,2023-09-20,CCL11 (Eotaxin),inflammation,0.88271,NPQ
+T04,2023-09-20,CCL13 (MCP4),inflammation,0.89466,NPQ
+T04,2023-09-20,CCL17 (TARC/CCL17),inflammation,0.88236,NPQ
+T04,2023-09-20,CCL22 (MDC),inflammation,1.14613,NPQ
+T04,2023-09-20,CCL26 (Eotaxin-3),inflammation,1.04714,NPQ
+T04,2023-09-20,CD40LG (CD40L/TNFSF5),inflammation,0.87121,NPQ
+T04,2023-09-20,CHI3L1 (YKL-40),inflammation,0.91573,NPQ
+T04,2023-09-20,CHIT1,inflammation,0.91198,NPQ
+T04,2023-09-20,CRH,inflammation,0.99273,NPQ
+T04,2023-09-20,CRP,inflammation,1.04145,mg/L
+T04,2023-09-20,CSF2 (GM-CSF),inflammation,0.97975,NPQ
+T04,2023-09-20,CX3CL1 (Fractalkine),inflammation,1.04745,NPQ
+T04,2023-09-20,CXCL1 (GROa),inflammation,1.0855,NPQ
+T04,2023-09-20,CXCL8 (IL8),inflammation,1.07212,NPQ
+T04,2023-09-20,CXCL10 (IP-10),inflammation,0.83207,NPQ
+T04,2023-09-20,FCN2,inflammation,0.92066,NPQ
+T04,2023-09-20,GDF15,inflammation,1.11799,NPQ
+T04,2023-09-20,GFAP,inflammation,101.27816,pg/mL
+T04,2023-09-20,ICAM1,inflammation,1.21479,NPQ
+T04,2023-09-20,IFNG (IFN-gamma),inflammation,0.99517,NPQ
+T04,2023-09-20,IGF1R,inflammation,1.06768,NPQ
+T04,2023-09-20,IL1B (IL-1 beta),inflammation,1.16973,NPQ
+T04,2023-09-20,IL2,inflammation,0.94209,NPQ
+T04,2023-09-20,IL4,inflammation,0.8563,NPQ
+T04,2023-09-20,IL5,inflammation,0.94951,NPQ
+T04,2023-09-20,IL6,inflammation,0.85964,NPQ
+T04,2023-09-20,IL7,inflammation,1.10199,NPQ
+T04,2023-09-20,IL9,inflammation,1.13892,NPQ
+T04,2023-09-20,IL10,inflammation,0.89659,NPQ
+T04,2023-09-20,IL12p70 (IL12A/IL12B),inflammation,0.98059,NPQ
+T04,2023-09-20,IL13,inflammation,1.03627,NPQ
+T04,2023-09-20,IL15,inflammation,0.95246,NPQ
+T04,2023-09-20,IL16,inflammation,1.17071,NPQ
+T04,2023-09-20,IL17A,inflammation,1.10764,NPQ
+T04,2023-09-20,IL18,inflammation,1.01307,NPQ
+T04,2023-09-20,IL33,inflammation,0.92115,NPQ
+T04,2023-09-20,PRDX6,inflammation,0.99824,NPQ
+T04,2023-09-20,RUVBL2,inflammation,1.04082,NPQ
+T04,2023-09-20,S100A12,inflammation,1.09308,NPQ
+T04,2023-09-20,S100B,inflammation,0.83063,NPQ
+T04,2023-09-20,SFTPD,inflammation,1.08105,NPQ
+T04,2023-09-20,SLIT2,inflammation,0.85185,NPQ
+T04,2023-09-20,TAFA5,inflammation,0.82953,NPQ
+T04,2023-09-20,TEK (Tie-2/TEK),inflammation,1.10176,NPQ
+T04,2023-09-20,TIMP3,inflammation,0.90273,NPQ
+T04,2023-09-20,TNF (TNF-a),inflammation,0.9279,NPQ
+T04,2023-09-20,TREM1 (sTREM1),inflammation,0.89016,NPQ
+T04,2023-09-20,TREM2,inflammation,0.86055,NPQ
+T04,2023-09-20,VCAM1 (CD106),inflammation,1.07897,NPQ
+T05,2023-11-07,Abeta38 (aβ38),amyloid_tau,34.65723,pg/mL
+T05,2023-11-07,Abeta40 (aβ40),amyloid_tau,240.6554,pg/mL
+T05,2023-11-07,Abeta42 (aβ42),amyloid_tau,21.00863,pg/mL
+T05,2023-11-07,ACHE,amyloid_tau,1.1183,NPQ
+T05,2023-11-07,APOE,amyloid_tau,0.90994,NPQ
+T05,2023-11-07,APOE4,amyloid_tau,1.06269,NPQ
+T05,2023-11-07,BACE1,amyloid_tau,1.0049,NPQ
+T05,2023-11-07,BASP1,amyloid_tau,0.92759,NPQ
+T05,2023-11-07,CD63,amyloid_tau,0.99354,NPQ
+T05,2023-11-07,CST3,amyloid_tau,1.054,NPQ
+T05,2023-11-07,IGFBP7,amyloid_tau,0.96829,NPQ
+T05,2023-11-07,KLK6,amyloid_tau,1.0835,NPQ
+T05,2023-11-07,PSEN1,amyloid_tau,0.98276,NPQ
+T05,2023-11-07,SFRP1,amyloid_tau,1.1117,NPQ
+T05,2023-11-07,pTau181,amyloid_tau,2.38247,pg/mL
+T05,2023-11-07,pTau181-BD,amyloid_tau,1.16423,pg/mL
+T05,2023-11-07,pTau217,amyloid_tau,3.11289,pg/mL
+T05,2023-11-07,pTau217-BD,amyloid_tau,0.32635,pg/mL
+T05,2023-11-07,pTau231,amyloid_tau,4.27612,pg/mL
+T05,2023-11-07,pTau231-BD,amyloid_tau,3.89442,pg/mL
+T05,2023-11-07,totalTau,amyloid_tau,13.92729,pg/mL
+T05,2023-11-07,totalTau-BD,amyloid_tau,5.52022,pg/mL
+T05,2023-11-07,AGRN,synuclein_synaptic,1.02634,NPQ
+T05,2023-11-07,ARSA,synuclein_synaptic,1.18138,NPQ
+T05,2023-11-07,BDNF,synuclein_synaptic,1.12836,NPQ
+T05,2023-11-07,DDC,synuclein_synaptic,0.90304,NPQ
+T05,2023-11-07,FABP3,synuclein_synaptic,0.93297,NPQ
+T05,2023-11-07,FOLR1,synuclein_synaptic,0.72787,NPQ
+T05,2023-11-07,HTT,synuclein_synaptic,0.9537,NPQ
+T05,2023-11-07,IL6R (IL6Ra),synuclein_synaptic,0.9996,NPQ
+T05,2023-11-07,MDH1,synuclein_synaptic,0.9502,NPQ
+T05,2023-11-07,NGF,synuclein_synaptic,1.07867,NPQ
+T05,2023-11-07,Oligo-SNCA (Oligo-α-Syn),synuclein_synaptic,0.98557,NPQ
+T05,2023-11-07,PARK7,synuclein_synaptic,0.99698,NPQ
+T05,2023-11-07,pSNCA-129,synuclein_synaptic,0.90561,NPQ
+T05,2023-11-07,SNCA (α-Syn),synuclein_synaptic,1.00225,NPQ
+T05,2023-11-07,SNCB (β-Syn),synuclein_synaptic,0.78466,NPQ
+T05,2023-11-07,SOD1,synuclein_synaptic,1.10639,NPQ
+T05,2023-11-07,TDP43,synuclein_synaptic,0.93011,NPQ
+T05,2023-11-07,pTDP43-409,synuclein_synaptic,1.02217,NPQ
+T05,2023-11-07,UCHL1,synuclein_synaptic,0.96085,NPQ
+T05,2023-11-07,VGF,synuclein_synaptic,1.09811,NPQ
+T05,2023-11-07,VSNL1 (VILIP-1),synuclein_synaptic,1.14085,NPQ
+T05,2023-11-07,FLT1 (VEGF R1),vascular_metabolism,0.81308,NPQ
+T05,2023-11-07,HBA1,vascular_metabolism,1.04013,NPQ
+T05,2023-11-07,HBA2,vascular_metabolism,1.10509,NPQ
+T05,2023-11-07,KDR (VEGF R2),vascular_metabolism,1.05925,NPQ
+T05,2023-11-07,MME,vascular_metabolism,0.99598,NPQ
+T05,2023-11-07,PDGFRB,vascular_metabolism,1.19352,NPQ
+T05,2023-11-07,PGF (PLGF),vascular_metabolism,0.95628,NPQ
+T05,2023-11-07,PGK1,vascular_metabolism,0.85103,NPQ
+T05,2023-11-07,POSTN,vascular_metabolism,0.85383,NPQ
+T05,2023-11-07,PTN,vascular_metabolism,1.15819,NPQ
+T05,2023-11-07,SAA1,vascular_metabolism,1.24445,NPQ
+T05,2023-11-07,VEGF-A,vascular_metabolism,1.02622,NPQ
+T05,2023-11-07,VEGF-D,vascular_metabolism,1.09765,NPQ
+T05,2023-11-07,ANXA5,neurodegeneration,1.04643,NPQ
+T05,2023-11-07,CALB2,neurodegeneration,1.04815,NPQ
+T05,2023-11-07,CNTN2,neurodegeneration,0.99692,NPQ
+T05,2023-11-07,ENO2,neurodegeneration,0.85,NPQ
+T05,2023-11-07,FGF2 (FGF basic),neurodegeneration,1.19193,NPQ
+T05,2023-11-07,GDI1,neurodegeneration,0.98103,NPQ
+T05,2023-11-07,GDNF,neurodegeneration,0.91782,NPQ
+T05,2023-11-07,GOT1,neurodegeneration,0.95937,NPQ
+T05,2023-11-07,MSLN,neurodegeneration,1.10569,NPQ
+T05,2023-11-07,NEFH,neurodegeneration,0.94766,NPQ
+T05,2023-11-07,NFL,neurodegeneration,14.04473,pg/mL
+T05,2023-11-07,NPTX1,neurodegeneration,0.98106,NPQ
+T05,2023-11-07,NPTX2,neurodegeneration,0.89262,NPQ
+T05,2023-11-07,NPTXR,neurodegeneration,0.97886,NPQ
+T05,2023-11-07,NPY,neurodegeneration,0.9513,NPQ
+T05,2023-11-07,NRGN,neurodegeneration,0.95922,NPQ
+T05,2023-11-07,PDLIM5,neurodegeneration,1.2269,NPQ
+T05,2023-11-07,REST,neurodegeneration,0.88449,NPQ
+T05,2023-11-07,SMOC1,neurodegeneration,0.77116,NPQ
+T05,2023-11-07,SNAP25,neurodegeneration,0.92924,NPQ
+T05,2023-11-07,SQSTM1,neurodegeneration,0.91854,NPQ
+T05,2023-11-07,UBB,neurodegeneration,1.03057,NPQ
+T05,2023-11-07,YWHAG,neurodegeneration,1.04023,NPQ
+T05,2023-11-07,YWHAZ,neurodegeneration,1.04351,NPQ
+T05,2023-11-07,CCL2 (MCP1),inflammation,0.94909,NPQ
+T05,2023-11-07,CCL3 (MIP1a/CCL3),inflammation,0.9005,NPQ
+T05,2023-11-07,CCL4 (Mip1b/CCL4),inflammation,1.10942,NPQ
+T05,2023-11-07,CCL11 (Eotaxin),inflammation,0.79573,NPQ
+T05,2023-11-07,CCL13 (MCP4),inflammation,0.79321,NPQ
+T05,2023-11-07,CCL17 (TARC/CCL17),inflammation,0.88413,NPQ
+T05,2023-11-07,CCL22 (MDC),inflammation,1.13699,NPQ
+T05,2023-11-07,CCL26 (Eotaxin-3),inflammation,0.9786,NPQ
+T05,2023-11-07,CD40LG (CD40L/TNFSF5),inflammation,0.99363,NPQ
+T05,2023-11-07,CHI3L1 (YKL-40),inflammation,0.94982,NPQ
+T05,2023-11-07,CHIT1,inflammation,0.96303,NPQ
+T05,2023-11-07,CRH,inflammation,0.99805,NPQ
+T05,2023-11-07,CRP,inflammation,1.754,mg/L
+T05,2023-11-07,CSF2 (GM-CSF),inflammation,0.89366,NPQ
+T05,2023-11-07,CX3CL1 (Fractalkine),inflammation,0.84798,NPQ
+T05,2023-11-07,CXCL1 (GROa),inflammation,1.24155,NPQ
+T05,2023-11-07,CXCL8 (IL8),inflammation,1.07642,NPQ
+T05,2023-11-07,CXCL10 (IP-10),inflammation,0.9461,NPQ
+T05,2023-11-07,FCN2,inflammation,0.90842,NPQ
+T05,2023-11-07,GDF15,inflammation,1.27615,NPQ
+T05,2023-11-07,GFAP,inflammation,108.31179,pg/mL
+T05,2023-11-07,ICAM1,inflammation,0.96417,NPQ
+T05,2023-11-07,IFNG (IFN-gamma),inflammation,0.97995,NPQ
+T05,2023-11-07,IGF1R,inflammation,1.15173,NPQ
+T05,2023-11-07,IL1B (IL-1 beta),inflammation,1.13781,NPQ
+T05,2023-11-07,IL2,inflammation,1.13945,NPQ
+T05,2023-11-07,IL4,inflammation,0.96555,NPQ
+T05,2023-11-07,IL5,inflammation,0.92633,NPQ
+T05,2023-11-07,IL6,inflammation,0.9216,NPQ
+T05,2023-11-07,IL7,inflammation,1.07992,NPQ
+T05,2023-11-07,IL9,inflammation,1.1066,NPQ
+T05,2023-11-07,IL10,inflammation,1.08454,NPQ
+T05,2023-11-07,IL12p70 (IL12A/IL12B),inflammation,0.88565,NPQ
+T05,2023-11-07,IL13,inflammation,0.94029,NPQ
+T05,2023-11-07,IL15,inflammation,0.86681,NPQ
+T05,2023-11-07,IL16,inflammation,1.03628,NPQ
+T05,2023-11-07,IL17A,inflammation,1.00674,NPQ
+T05,2023-11-07,IL18,inflammation,1.04667,NPQ
+T05,2023-11-07,IL33,inflammation,0.96775,NPQ
+T05,2023-11-07,PRDX6,inflammation,0.97387,NPQ
+T05,2023-11-07,RUVBL2,inflammation,1.14745,NPQ
+T05,2023-11-07,S100A12,inflammation,0.95734,NPQ
+T05,2023-11-07,S100B,inflammation,0.83105,NPQ
+T05,2023-11-07,SFTPD,inflammation,1.06385,NPQ
+T05,2023-11-07,SLIT2,inflammation,0.70102,NPQ
+T05,2023-11-07,TAFA5,inflammation,1.0927,NPQ
+T05,2023-11-07,TEK (Tie-2/TEK),inflammation,1.04011,NPQ
+T05,2023-11-07,TIMP3,inflammation,0.94759,NPQ
+T05,2023-11-07,TNF (TNF-a),inflammation,0.86064,NPQ
+T05,2023-11-07,TREM1 (sTREM1),inflammation,1.0703,NPQ
+T05,2023-11-07,TREM2,inflammation,0.7826,NPQ
+T05,2023-11-07,VCAM1 (CD106),inflammation,1.12239,NPQ
+T06,2023-12-16,Abeta38 (aβ38),amyloid_tau,36.46066,pg/mL
+T06,2023-12-16,Abeta40 (aβ40),amyloid_tau,202.5764,pg/mL
+T06,2023-12-16,Abeta42 (aβ42),amyloid_tau,29.18633,pg/mL
+T06,2023-12-16,ACHE,amyloid_tau,1.05974,NPQ
+T06,2023-12-16,APOE,amyloid_tau,0.92201,NPQ
+T06,2023-12-16,APOE4,amyloid_tau,0.96658,NPQ
+T06,2023-12-16,BACE1,amyloid_tau,1.08027,NPQ
+T06,2023-12-16,BASP1,amyloid_tau,1.05566,NPQ
+T06,2023-12-16,CD63,amyloid_tau,0.96067,NPQ
+T06,2023-12-16,CST3,amyloid_tau,0.93581,NPQ
+T06,2023-12-16,IGFBP7,amyloid_tau,1.03665,NPQ
+T06,2023-12-16,KLK6,amyloid_tau,1.17246,NPQ
+T06,2023-12-16,PSEN1,amyloid_tau,1.11182,NPQ
+T06,2023-12-16,SFRP1,amyloid_tau,1.2203,NPQ
+T06,2023-12-16,pTau181,amyloid_tau,2.72799,pg/mL
+T06,2023-12-16,pTau181-BD,amyloid_tau,1.47766,pg/mL
+T06,2023-12-16,pTau217,amyloid_tau,3.2602,pg/mL
+T06,2023-12-16,pTau217-BD,amyloid_tau,0.35395,pg/mL
+T06,2023-12-16,pTau231,amyloid_tau,4.16702,pg/mL
+T06,2023-12-16,pTau231-BD,amyloid_tau,3.72751,pg/mL
+T06,2023-12-16,totalTau,amyloid_tau,16.41462,pg/mL
+T06,2023-12-16,totalTau-BD,amyloid_tau,6.9134,pg/mL
+T06,2023-12-16,AGRN,synuclein_synaptic,1.21008,NPQ
+T06,2023-12-16,ARSA,synuclein_synaptic,1.05344,NPQ
+T06,2023-12-16,BDNF,synuclein_synaptic,1.17989,NPQ
+T06,2023-12-16,DDC,synuclein_synaptic,0.81512,NPQ
+T06,2023-12-16,FABP3,synuclein_synaptic,0.92348,NPQ
+T06,2023-12-16,FOLR1,synuclein_synaptic,0.93732,NPQ
+T06,2023-12-16,HTT,synuclein_synaptic,0.90497,NPQ
+T06,2023-12-16,IL6R (IL6Ra),synuclein_synaptic,1.10676,NPQ
+T06,2023-12-16,MDH1,synuclein_synaptic,1.10662,NPQ
+T06,2023-12-16,NGF,synuclein_synaptic,1.07928,NPQ
+T06,2023-12-16,Oligo-SNCA (Oligo-α-Syn),synuclein_synaptic,0.84322,NPQ
+T06,2023-12-16,PARK7,synuclein_synaptic,0.83026,NPQ
+T06,2023-12-16,pSNCA-129,synuclein_synaptic,1.15381,NPQ
+T06,2023-12-16,SNCA (α-Syn),synuclein_synaptic,0.79797,NPQ
+T06,2023-12-16,SNCB (β-Syn),synuclein_synaptic,0.98449,NPQ
+T06,2023-12-16,SOD1,synuclein_synaptic,0.97317,NPQ
+T06,2023-12-16,TDP43,synuclein_synaptic,0.92414,NPQ
+T06,2023-12-16,pTDP43-409,synuclein_synaptic,1.04501,NPQ
+T06,2023-12-16,UCHL1,synuclein_synaptic,1.03767,NPQ
+T06,2023-12-16,VGF,synuclein_synaptic,1.01358,NPQ
+T06,2023-12-16,VSNL1 (VILIP-1),synuclein_synaptic,0.87332,NPQ
+T06,2023-12-16,FLT1 (VEGF R1),vascular_metabolism,0.87953,NPQ
+T06,2023-12-16,HBA1,vascular_metabolism,1.13268,NPQ
+T06,2023-12-16,HBA2,vascular_metabolism,0.98912,NPQ
+T06,2023-12-16,KDR (VEGF R2),vascular_metabolism,1.05712,NPQ
+T06,2023-12-16,MME,vascular_metabolism,0.93478,NPQ
+T06,2023-12-16,PDGFRB,vascular_metabolism,0.95726,NPQ
+T06,2023-12-16,PGF (PLGF),vascular_metabolism,0.89664,NPQ
+T06,2023-12-16,PGK1,vascular_metabolism,0.93184,NPQ
+T06,2023-12-16,POSTN,vascular_metabolism,0.89348,NPQ
+T06,2023-12-16,PTN,vascular_metabolism,0.85052,NPQ
+T06,2023-12-16,SAA1,vascular_metabolism,0.98079,NPQ
+T06,2023-12-16,VEGF-A,vascular_metabolism,1.14396,NPQ
+T06,2023-12-16,VEGF-D,vascular_metabolism,0.94063,NPQ
+T06,2023-12-16,ANXA5,neurodegeneration,1.10509,NPQ
+T06,2023-12-16,CALB2,neurodegeneration,1.17875,NPQ
+T06,2023-12-16,CNTN2,neurodegeneration,0.84763,NPQ
+T06,2023-12-16,ENO2,neurodegeneration,0.87238,NPQ
+T06,2023-12-16,FGF2 (FGF basic),neurodegeneration,1.15229,NPQ
+T06,2023-12-16,GDI1,neurodegeneration,1.00432,NPQ
+T06,2023-12-16,GDNF,neurodegeneration,1.17238,NPQ
+T06,2023-12-16,GOT1,neurodegeneration,1.2906,NPQ
+T06,2023-12-16,MSLN,neurodegeneration,0.98998,NPQ
+T06,2023-12-16,NEFH,neurodegeneration,0.98896,NPQ
+T06,2023-12-16,NFL,neurodegeneration,10.89143,pg/mL
+T06,2023-12-16,NPTX1,neurodegeneration,0.94245,NPQ
+T06,2023-12-16,NPTX2,neurodegeneration,0.84453,NPQ
+T06,2023-12-16,NPTXR,neurodegeneration,0.99621,NPQ
+T06,2023-12-16,NPY,neurodegeneration,0.9769,NPQ
+T06,2023-12-16,NRGN,neurodegeneration,0.87507,NPQ
+T06,2023-12-16,PDLIM5,neurodegeneration,1.17594,NPQ
+T06,2023-12-16,REST,neurodegeneration,1.03001,NPQ
+T06,2023-12-16,SMOC1,neurodegeneration,0.89101,NPQ
+T06,2023-12-16,SNAP25,neurodegeneration,0.99472,NPQ
+T06,2023-12-16,SQSTM1,neurodegeneration,0.96956,NPQ
+T06,2023-12-16,UBB,neurodegeneration,1.05365,NPQ
+T06,2023-12-16,YWHAG,neurodegeneration,1.09737,NPQ
+T06,2023-12-16,YWHAZ,neurodegeneration,1.12335,NPQ
+T06,2023-12-16,CCL2 (MCP1),inflammation,1.08654,NPQ
+T06,2023-12-16,CCL3 (MIP1a/CCL3),inflammation,1.06306,NPQ
+T06,2023-12-16,CCL4 (Mip1b/CCL4),inflammation,1.04785,NPQ
+T06,2023-12-16,CCL11 (Eotaxin),inflammation,0.81247,NPQ
+T06,2023-12-16,CCL13 (MCP4),inflammation,1.02881,NPQ
+T06,2023-12-16,CCL17 (TARC/CCL17),inflammation,0.93511,NPQ
+T06,2023-12-16,CCL22 (MDC),inflammation,1.12957,NPQ
+T06,2023-12-16,CCL26 (Eotaxin-3),inflammation,0.97778,NPQ
+T06,2023-12-16,CD40LG (CD40L/TNFSF5),inflammation,0.95728,NPQ
+T06,2023-12-16,CHI3L1 (YKL-40),inflammation,0.97197,NPQ
+T06,2023-12-16,CHIT1,inflammation,0.98628,NPQ
+T06,2023-12-16,CRH,inflammation,1.15823,NPQ
+T06,2023-12-16,CRP,inflammation,2.3551,mg/L
+T06,2023-12-16,CSF2 (GM-CSF),inflammation,1.00717,NPQ
+T06,2023-12-16,CX3CL1 (Fractalkine),inflammation,1.16722,NPQ
+T06,2023-12-16,CXCL1 (GROa),inflammation,1.04938,NPQ
+T06,2023-12-16,CXCL8 (IL8),inflammation,1.27096,NPQ
+T06,2023-12-16,CXCL10 (IP-10),inflammation,1.26386,NPQ
+T06,2023-12-16,FCN2,inflammation,0.87056,NPQ
+T06,2023-12-16,GDF15,inflammation,1.5577,NPQ
+T06,2023-12-16,GFAP,inflammation,98.90175,pg/mL
+T06,2023-12-16,ICAM1,inflammation,1.26891,NPQ
+T06,2023-12-16,IFNG (IFN-gamma),inflammation,1.2179,NPQ
+T06,2023-12-16,IGF1R,inflammation,1.27346,NPQ
+T06,2023-12-16,IL1B (IL-1 beta),inflammation,1.13743,NPQ
+T06,2023-12-16,IL2,inflammation,1.13961,NPQ
+T06,2023-12-16,IL4,inflammation,0.91126,NPQ
+T06,2023-12-16,IL5,inflammation,0.99664,NPQ
+T06,2023-12-16,IL6,inflammation,1.17599,NPQ
+T06,2023-12-16,IL7,inflammation,1.30425,NPQ
+T06,2023-12-16,IL9,inflammation,1.09537,NPQ
+T06,2023-12-16,IL10,inflammation,0.98398,NPQ
+T06,2023-12-16,IL12p70 (IL12A/IL12B),inflammation,0.97513,NPQ
+T06,2023-12-16,IL13,inflammation,1.00335,NPQ
+T06,2023-12-16,IL15,inflammation,1.03661,NPQ
+T06,2023-12-16,IL16,inflammation,1.3409,NPQ
+T06,2023-12-16,IL17A,inflammation,1.00046,NPQ
+T06,2023-12-16,IL18,inflammation,1.19727,NPQ
+T06,2023-12-16,IL33,inflammation,1.03075,NPQ
+T06,2023-12-16,PRDX6,inflammation,1.14934,NPQ
+T06,2023-12-16,RUVBL2,inflammation,1.2305,NPQ
+T06,2023-12-16,S100A12,inflammation,1.14907,NPQ
+T06,2023-12-16,S100B,inflammation,0.86801,NPQ
+T06,2023-12-16,SFTPD,inflammation,0.96777,NPQ
+T06,2023-12-16,SLIT2,inflammation,0.8302,NPQ
+T06,2023-12-16,TAFA5,inflammation,1.08675,NPQ
+T06,2023-12-16,TEK (Tie-2/TEK),inflammation,0.97862,NPQ
+T06,2023-12-16,TIMP3,inflammation,1.01961,NPQ
+T06,2023-12-16,TNF (TNF-a),inflammation,1.21375,NPQ
+T06,2023-12-16,TREM1 (sTREM1),inflammation,1.0369,NPQ
+T06,2023-12-16,TREM2,inflammation,0.80065,NPQ
+T06,2023-12-16,VCAM1 (CD106),inflammation,1.17931,NPQ
+T07,2024-02-02,Abeta38 (aβ38),amyloid_tau,27.35735,pg/mL
+T07,2024-02-02,Abeta40 (aβ40),amyloid_tau,225.34557,pg/mL
+T07,2024-02-02,Abeta42 (aβ42),amyloid_tau,31.86529,pg/mL
+T07,2024-02-02,ACHE,amyloid_tau,1.12343,NPQ
+T07,2024-02-02,APOE,amyloid_tau,0.83644,NPQ
+T07,2024-02-02,APOE4,amyloid_tau,1.18905,NPQ
+T07,2024-02-02,BACE1,amyloid_tau,1.13494,NPQ
+T07,2024-02-02,BASP1,amyloid_tau,1.1586,NPQ
+T07,2024-02-02,CD63,amyloid_tau,0.9567,NPQ
+T07,2024-02-02,CST3,amyloid_tau,0.89294,NPQ
+T07,2024-02-02,IGFBP7,amyloid_tau,1.08392,NPQ
+T07,2024-02-02,KLK6,amyloid_tau,0.9603,NPQ
+T07,2024-02-02,PSEN1,amyloid_tau,1.10286,NPQ
+T07,2024-02-02,SFRP1,amyloid_tau,1.07672,NPQ
+T07,2024-02-02,pTau181,amyloid_tau,2.54067,pg/mL
+T07,2024-02-02,pTau181-BD,amyloid_tau,1.43692,pg/mL
+T07,2024-02-02,pTau217,amyloid_tau,3.06569,pg/mL
+T07,2024-02-02,pTau217-BD,amyloid_tau,0.3711,pg/mL
+T07,2024-02-02,pTau231,amyloid_tau,4.75058,pg/mL
+T07,2024-02-02,pTau231-BD,amyloid_tau,3.5666,pg/mL
+T07,2024-02-02,totalTau,amyloid_tau,13.91146,pg/mL
+T07,2024-02-02,totalTau-BD,amyloid_tau,6.88186,pg/mL
+T07,2024-02-02,AGRN,synuclein_synaptic,1.34768,NPQ
+T07,2024-02-02,ARSA,synuclein_synaptic,1.1325,NPQ
+T07,2024-02-02,BDNF,synuclein_synaptic,1.0574,NPQ
+T07,2024-02-02,DDC,synuclein_synaptic,0.97458,NPQ
+T07,2024-02-02,FABP3,synuclein_synaptic,1.08822,NPQ
+T07,2024-02-02,FOLR1,synuclein_synaptic,0.87791,NPQ
+T07,2024-02-02,HTT,synuclein_synaptic,0.91414,NPQ
+T07,2024-02-02,IL6R (IL6Ra),synuclein_synaptic,0.98026,NPQ
+T07,2024-02-02,MDH1,synuclein_synaptic,1.14754,NPQ
+T07,2024-02-02,NGF,synuclein_synaptic,1.1507,NPQ
+T07,2024-02-02,Oligo-SNCA (Oligo-α-Syn),synuclein_synaptic,0.99025,NPQ
+T07,2024-02-02,PARK7,synuclein_synaptic,0.88192,NPQ
+T07,2024-02-02,pSNCA-129,synuclein_synaptic,1.04383,NPQ
+T07,2024-02-02,SNCA (α-Syn),synuclein_synaptic,0.85804,NPQ
+T07,2024-02-02,SNCB (β-Syn),synuclein_synaptic,0.82858,NPQ
+T07,2024-02-02,SOD1,synuclein_synaptic,0.93861,NPQ
+T07,2024-02-02,TDP43,synuclein_synaptic,0.97357,NPQ
+T07,2024-02-02,pTDP43-409,synuclein_synaptic,1.20355,NPQ
+T07,2024-02-02,UCHL1,synuclein_synaptic,0.83528,NPQ
+T07,2024-02-02,VGF,synuclein_synaptic,1.03047,NPQ
+T07,2024-02-02,VSNL1 (VILIP-1),synuclein_synaptic,0.96356,NPQ
+T07,2024-02-02,FLT1 (VEGF R1),vascular_metabolism,0.85697,NPQ
+T07,2024-02-02,HBA1,vascular_metabolism,1.11277,NPQ
+T07,2024-02-02,HBA2,vascular_metabolism,1.14639,NPQ
+T07,2024-02-02,KDR (VEGF R2),vascular_metabolism,0.97049,NPQ
+T07,2024-02-02,MME,vascular_metabolism,0.92589,NPQ
+T07,2024-02-02,PDGFRB,vascular_metabolism,0.94051,NPQ
+T07,2024-02-02,PGF (PLGF),vascular_metabolism,0.89141,NPQ
+T07,2024-02-02,PGK1,vascular_metabolism,0.90543,NPQ
+T07,2024-02-02,POSTN,vascular_metabolism,0.89963,NPQ
+T07,2024-02-02,PTN,vascular_metabolism,0.98765,NPQ
+T07,2024-02-02,SAA1,vascular_metabolism,1.16103,NPQ
+T07,2024-02-02,VEGF-A,vascular_metabolism,0.90081,NPQ
+T07,2024-02-02,VEGF-D,vascular_metabolism,1.08167,NPQ
+T07,2024-02-02,ANXA5,neurodegeneration,0.93675,NPQ
+T07,2024-02-02,CALB2,neurodegeneration,1.03186,NPQ
+T07,2024-02-02,CNTN2,neurodegeneration,0.97348,NPQ
+T07,2024-02-02,ENO2,neurodegeneration,0.87759,NPQ
+T07,2024-02-02,FGF2 (FGF basic),neurodegeneration,1.12401,NPQ
+T07,2024-02-02,GDI1,neurodegeneration,0.99282,NPQ
+T07,2024-02-02,GDNF,neurodegeneration,1.14764,NPQ
+T07,2024-02-02,GOT1,neurodegeneration,1.2472,NPQ
+T07,2024-02-02,MSLN,neurodegeneration,1.06676,NPQ
+T07,2024-02-02,NEFH,neurodegeneration,1.02138,NPQ
+T07,2024-02-02,NFL,neurodegeneration,13.72907,pg/mL
+T07,2024-02-02,NPTX1,neurodegeneration,0.95804,NPQ
+T07,2024-02-02,NPTX2,neurodegeneration,0.80579,NPQ
+T07,2024-02-02,NPTXR,neurodegeneration,1.02609,NPQ
+T07,2024-02-02,NPY,neurodegeneration,1.10425,NPQ
+T07,2024-02-02,NRGN,neurodegeneration,1.01721,NPQ
+T07,2024-02-02,PDLIM5,neurodegeneration,1.04492,NPQ
+T07,2024-02-02,REST,neurodegeneration,0.85676,NPQ
+T07,2024-02-02,SMOC1,neurodegeneration,0.88424,NPQ
+T07,2024-02-02,SNAP25,neurodegeneration,0.88304,NPQ
+T07,2024-02-02,SQSTM1,neurodegeneration,1.04256,NPQ
+T07,2024-02-02,UBB,neurodegeneration,0.97037,NPQ
+T07,2024-02-02,YWHAG,neurodegeneration,1.0721,NPQ
+T07,2024-02-02,YWHAZ,neurodegeneration,0.9572,NPQ
+T07,2024-02-02,CCL2 (MCP1),inflammation,1.09001,NPQ
+T07,2024-02-02,CCL3 (MIP1a/CCL3),inflammation,0.91135,NPQ
+T07,2024-02-02,CCL4 (Mip1b/CCL4),inflammation,1.13788,NPQ
+T07,2024-02-02,CCL11 (Eotaxin),inflammation,0.98032,NPQ
+T07,2024-02-02,CCL13 (MCP4),inflammation,0.90418,NPQ
+T07,2024-02-02,CCL17 (TARC/CCL17),inflammation,0.98398,NPQ
+T07,2024-02-02,CCL22 (MDC),inflammation,0.87072,NPQ
+T07,2024-02-02,CCL26 (Eotaxin-3),inflammation,1.02029,NPQ
+T07,2024-02-02,CD40LG (CD40L/TNFSF5),inflammation,0.96682,NPQ
+T07,2024-02-02,CHI3L1 (YKL-40),inflammation,1.07064,NPQ
+T07,2024-02-02,CHIT1,inflammation,0.77497,NPQ
+T07,2024-02-02,CRH,inflammation,1.10133,NPQ
+T07,2024-02-02,CRP,inflammation,1.64981,mg/L
+T07,2024-02-02,CSF2 (GM-CSF),inflammation,0.72504,NPQ
+T07,2024-02-02,CX3CL1 (Fractalkine),inflammation,1.09984,NPQ
+T07,2024-02-02,CXCL1 (GROa),inflammation,0.91636,NPQ
+T07,2024-02-02,CXCL8 (IL8),inflammation,1.10013,NPQ
+T07,2024-02-02,CXCL10 (IP-10),inflammation,1.01624,NPQ
+T07,2024-02-02,FCN2,inflammation,0.9432,NPQ
+T07,2024-02-02,GDF15,inflammation,1.53626,NPQ
+T07,2024-02-02,GFAP,inflammation,112.2759,pg/mL
+T07,2024-02-02,ICAM1,inflammation,1.1823,NPQ
+T07,2024-02-02,IFNG (IFN-gamma),inflammation,1.16058,NPQ
+T07,2024-02-02,IGF1R,inflammation,1.39438,NPQ
+T07,2024-02-02,IL1B (IL-1 beta),inflammation,1.0591,NPQ
+T07,2024-02-02,IL2,inflammation,1.03218,NPQ
+T07,2024-02-02,IL4,inflammation,0.77848,NPQ
+T07,2024-02-02,IL5,inflammation,0.97462,NPQ
+T07,2024-02-02,IL6,inflammation,1.14351,NPQ
+T07,2024-02-02,IL7,inflammation,1.27106,NPQ
+T07,2024-02-02,IL9,inflammation,1.08177,NPQ
+T07,2024-02-02,IL10,inflammation,1.03553,NPQ
+T07,2024-02-02,IL12p70 (IL12A/IL12B),inflammation,1.00837,NPQ
+T07,2024-02-02,IL13,inflammation,1.03102,NPQ
+T07,2024-02-02,IL15,inflammation,1.08596,NPQ
+T07,2024-02-02,IL16,inflammation,1.19462,NPQ
+T07,2024-02-02,IL17A,inflammation,1.20428,NPQ
+T07,2024-02-02,IL18,inflammation,0.89243,NPQ
+T07,2024-02-02,IL33,inflammation,0.84884,NPQ
+T07,2024-02-02,PRDX6,inflammation,1.09469,NPQ
+T07,2024-02-02,RUVBL2,inflammation,0.94774,NPQ
+T07,2024-02-02,S100A12,inflammation,1.09177,NPQ
+T07,2024-02-02,S100B,inflammation,0.86232,NPQ
+T07,2024-02-02,SFTPD,inflammation,1.23257,NPQ
+T07,2024-02-02,SLIT2,inflammation,0.96938,NPQ
+T07,2024-02-02,TAFA5,inflammation,1.13999,NPQ
+T07,2024-02-02,TEK (Tie-2/TEK),inflammation,0.80904,NPQ
+T07,2024-02-02,TIMP3,inflammation,0.95987,NPQ
+T07,2024-02-02,TNF (TNF-a),inflammation,0.96729,NPQ
+T07,2024-02-02,TREM1 (sTREM1),inflammation,1.18993,NPQ
+T07,2024-02-02,TREM2,inflammation,0.98017,NPQ
+T07,2024-02-02,VCAM1 (CD106),inflammation,1.15484,NPQ
+T08,2024-03-21,Abeta38 (aβ38),amyloid_tau,36.03835,pg/mL
+T08,2024-03-21,Abeta40 (aβ40),amyloid_tau,259.12715,pg/mL
+T08,2024-03-21,Abeta42 (aβ42),amyloid_tau,26.59961,pg/mL
+T08,2024-03-21,ACHE,amyloid_tau,1.14942,NPQ
+T08,2024-03-21,APOE,amyloid_tau,1.0004,NPQ
+T08,2024-03-21,APOE4,amyloid_tau,1.08861,NPQ
+T08,2024-03-21,BACE1,amyloid_tau,1.12449,NPQ
+T08,2024-03-21,BASP1,amyloid_tau,1.06281,NPQ
+T08,2024-03-21,CD63,amyloid_tau,0.99583,NPQ
+T08,2024-03-21,CST3,amyloid_tau,0.80205,NPQ
+T08,2024-03-21,IGFBP7,amyloid_tau,0.90824,NPQ
+T08,2024-03-21,KLK6,amyloid_tau,1.11451,NPQ
+T08,2024-03-21,PSEN1,amyloid_tau,1.0796,NPQ
+T08,2024-03-21,SFRP1,amyloid_tau,1.06531,NPQ
+T08,2024-03-21,pTau181,amyloid_tau,2.51542,pg/mL
+T08,2024-03-21,pTau181-BD,amyloid_tau,0.93733,pg/mL
+T08,2024-03-21,pTau217,amyloid_tau,3.01396,pg/mL
+T08,2024-03-21,pTau217-BD,amyloid_tau,0.31896,pg/mL
+T08,2024-03-21,pTau231,amyloid_tau,4.73178,pg/mL
+T08,2024-03-21,pTau231-BD,amyloid_tau,3.5878,pg/mL
+T08,2024-03-21,totalTau,amyloid_tau,10.72971,pg/mL
+T08,2024-03-21,totalTau-BD,amyloid_tau,4.52312,pg/mL
+T08,2024-03-21,AGRN,synuclein_synaptic,1.07332,NPQ
+T08,2024-03-21,ARSA,synuclein_synaptic,1.22371,NPQ
+T08,2024-03-21,BDNF,synuclein_synaptic,0.98078,NPQ
+T08,2024-03-21,DDC,synuclein_synaptic,0.9945,NPQ
+T08,2024-03-21,FABP3,synuclein_synaptic,0.95122,NPQ
+T08,2024-03-21,FOLR1,synuclein_synaptic,0.67279,NPQ
+T08,2024-03-21,HTT,synuclein_synaptic,0.9018,NPQ
+T08,2024-03-21,IL6R (IL6Ra),synuclein_synaptic,1.02011,NPQ
+T08,2024-03-21,MDH1,synuclein_synaptic,1.21254,NPQ
+T08,2024-03-21,NGF,synuclein_synaptic,1.08728,NPQ
+T08,2024-03-21,Oligo-SNCA (Oligo-α-Syn),synuclein_synaptic,1.05926,NPQ
+T08,2024-03-21,PARK7,synuclein_synaptic,1.02208,NPQ
+T08,2024-03-21,pSNCA-129,synuclein_synaptic,0.99455,NPQ
+T08,2024-03-21,SNCA (α-Syn),synuclein_synaptic,0.82088,NPQ
+T08,2024-03-21,SNCB (β-Syn),synuclein_synaptic,0.92497,NPQ
+T08,2024-03-21,SOD1,synuclein_synaptic,0.98369,NPQ
+T08,2024-03-21,TDP43,synuclein_synaptic,0.94356,NPQ
+T08,2024-03-21,pTDP43-409,synuclein_synaptic,1.12903,NPQ
+T08,2024-03-21,UCHL1,synuclein_synaptic,1.1787,NPQ
+T08,2024-03-21,VGF,synuclein_synaptic,1.07511,NPQ
+T08,2024-03-21,VSNL1 (VILIP-1),synuclein_synaptic,1.11907,NPQ
+T08,2024-03-21,FLT1 (VEGF R1),vascular_metabolism,0.9227,NPQ
+T08,2024-03-21,HBA1,vascular_metabolism,1.01854,NPQ
+T08,2024-03-21,HBA2,vascular_metabolism,1.11932,NPQ
+T08,2024-03-21,KDR (VEGF R2),vascular_metabolism,0.88664,NPQ
+T08,2024-03-21,MME,vascular_metabolism,0.77113,NPQ
+T08,2024-03-21,PDGFRB,vascular_metabolism,0.94093,NPQ
+T08,2024-03-21,PGF (PLGF),vascular_metabolism,0.79552,NPQ
+T08,2024-03-21,PGK1,vascular_metabolism,0.84622,NPQ
+T08,2024-03-21,POSTN,vascular_metabolism,0.95279,NPQ
+T08,2024-03-21,PTN,vascular_metabolism,1.07823,NPQ
+T08,2024-03-21,SAA1,vascular_metabolism,1.01943,NPQ
+T08,2024-03-21,VEGF-A,vascular_metabolism,1.09337,NPQ
+T08,2024-03-21,VEGF-D,vascular_metabolism,1.04672,NPQ
+T08,2024-03-21,ANXA5,neurodegeneration,1.0183,NPQ
+T08,2024-03-21,CALB2,neurodegeneration,1.03198,NPQ
+T08,2024-03-21,CNTN2,neurodegeneration,0.83264,NPQ
+T08,2024-03-21,ENO2,neurodegeneration,0.88019,NPQ
+T08,2024-03-21,FGF2 (FGF basic),neurodegeneration,1.04299,NPQ
+T08,2024-03-21,GDI1,neurodegeneration,1.08379,NPQ
+T08,2024-03-21,GDNF,neurodegeneration,1.03473,NPQ
+T08,2024-03-21,GOT1,neurodegeneration,1.03416,NPQ
+T08,2024-03-21,MSLN,neurodegeneration,0.99794,NPQ
+T08,2024-03-21,NEFH,neurodegeneration,1.19348,NPQ
+T08,2024-03-21,NFL,neurodegeneration,17.17777,pg/mL
+T08,2024-03-21,NPTX1,neurodegeneration,0.98715,NPQ
+T08,2024-03-21,NPTX2,neurodegeneration,0.93627,NPQ
+T08,2024-03-21,NPTXR,neurodegeneration,1.09324,NPQ
+T08,2024-03-21,NPY,neurodegeneration,1.03174,NPQ
+T08,2024-03-21,NRGN,neurodegeneration,1.03748,NPQ
+T08,2024-03-21,PDLIM5,neurodegeneration,1.08765,NPQ
+T08,2024-03-21,REST,neurodegeneration,0.94977,NPQ
+T08,2024-03-21,SMOC1,neurodegeneration,0.86669,NPQ
+T08,2024-03-21,SNAP25,neurodegeneration,0.96001,NPQ
+T08,2024-03-21,SQSTM1,neurodegeneration,0.95011,NPQ
+T08,2024-03-21,UBB,neurodegeneration,1.06502,NPQ
+T08,2024-03-21,YWHAG,neurodegeneration,0.9659,NPQ
+T08,2024-03-21,YWHAZ,neurodegeneration,1.26318,NPQ
+T08,2024-03-21,CCL2 (MCP1),inflammation,1.03622,NPQ
+T08,2024-03-21,CCL3 (MIP1a/CCL3),inflammation,1.04635,NPQ
+T08,2024-03-21,CCL4 (Mip1b/CCL4),inflammation,1.20567,NPQ
+T08,2024-03-21,CCL11 (Eotaxin),inflammation,0.92013,NPQ
+T08,2024-03-21,CCL13 (MCP4),inflammation,0.86136,NPQ
+T08,2024-03-21,CCL17 (TARC/CCL17),inflammation,0.79004,NPQ
+T08,2024-03-21,CCL22 (MDC),inflammation,1.13157,NPQ
+T08,2024-03-21,CCL26 (Eotaxin-3),inflammation,1.03398,NPQ
+T08,2024-03-21,CD40LG (CD40L/TNFSF5),inflammation,0.8884,NPQ
+T08,2024-03-21,CHI3L1 (YKL-40),inflammation,0.98767,NPQ
+T08,2024-03-21,CHIT1,inflammation,0.90676,NPQ
+T08,2024-03-21,CRH,inflammation,0.92169,NPQ
+T08,2024-03-21,CRP,inflammation,1.07564,mg/L
+T08,2024-03-21,CSF2 (GM-CSF),inflammation,0.81038,NPQ
+T08,2024-03-21,CX3CL1 (Fractalkine),inflammation,0.87541,NPQ
+T08,2024-03-21,CXCL1 (GROa),inflammation,1.1364,NPQ
+T08,2024-03-21,CXCL8 (IL8),inflammation,1.07916,NPQ
+T08,2024-03-21,CXCL10 (IP-10),inflammation,0.90101,NPQ
+T08,2024-03-21,FCN2,inflammation,1.0231,NPQ
+T08,2024-03-21,GDF15,inflammation,1.05704,NPQ
+T08,2024-03-21,GFAP,inflammation,100.37528,pg/mL
+T08,2024-03-21,ICAM1,inflammation,1.26517,NPQ
+T08,2024-03-21,IFNG (IFN-gamma),inflammation,1.04249,NPQ
+T08,2024-03-21,IGF1R,inflammation,1.1421,NPQ
+T08,2024-03-21,IL1B (IL-1 beta),inflammation,0.99362,NPQ
+T08,2024-03-21,IL2,inflammation,1.19995,NPQ
+T08,2024-03-21,IL4,inflammation,0.92432,NPQ
+T08,2024-03-21,IL5,inflammation,0.93104,NPQ
+T08,2024-03-21,IL6,inflammation,0.92741,NPQ
+T08,2024-03-21,IL7,inflammation,1.15738,NPQ
+T08,2024-03-21,IL9,inflammation,1.02253,NPQ
+T08,2024-03-21,IL10,inflammation,0.88629,NPQ
+T08,2024-03-21,IL12p70 (IL12A/IL12B),inflammation,0.98958,NPQ
+T08,2024-03-21,IL13,inflammation,0.8765,NPQ
+T08,2024-03-21,IL15,inflammation,0.99724,NPQ
+T08,2024-03-21,IL16,inflammation,0.95872,NPQ
+T08,2024-03-21,IL17A,inflammation,1.05876,NPQ
+T08,2024-03-21,IL18,inflammation,1.06238,NPQ
+T08,2024-03-21,IL33,inflammation,1.05579,NPQ
+T08,2024-03-21,PRDX6,inflammation,0.95197,NPQ
+T08,2024-03-21,RUVBL2,inflammation,1.06788,NPQ
+T08,2024-03-21,S100A12,inflammation,0.9214,NPQ
+T08,2024-03-21,S100B,inflammation,0.82677,NPQ
+T08,2024-03-21,SFTPD,inflammation,0.81773,NPQ
+T08,2024-03-21,SLIT2,inflammation,0.87678,NPQ
+T08,2024-03-21,TAFA5,inflammation,0.96715,NPQ
+T08,2024-03-21,TEK (Tie-2/TEK),inflammation,0.88502,NPQ
+T08,2024-03-21,TIMP3,inflammation,1.00672,NPQ
+T08,2024-03-21,TNF (TNF-a),inflammation,0.83959,NPQ
+T08,2024-03-21,TREM1 (sTREM1),inflammation,1.16517,NPQ
+T08,2024-03-21,TREM2,inflammation,0.84159,NPQ
+T08,2024-03-21,VCAM1 (CD106),inflammation,1.11514,NPQ
+T09,2024-04-29,Abeta38 (aβ38),amyloid_tau,41.9102,pg/mL
+T09,2024-04-29,Abeta40 (aβ40),amyloid_tau,207.04065,pg/mL
+T09,2024-04-29,Abeta42 (aβ42),amyloid_tau,29.9746,pg/mL
+T09,2024-04-29,ACHE,amyloid_tau,1.03044,NPQ
+T09,2024-04-29,APOE,amyloid_tau,0.83742,NPQ
+T09,2024-04-29,APOE4,amyloid_tau,1.16732,NPQ
+T09,2024-04-29,BACE1,amyloid_tau,1.04055,NPQ
+T09,2024-04-29,BASP1,amyloid_tau,1.26981,NPQ
+T09,2024-04-29,CD63,amyloid_tau,0.77729,NPQ
+T09,2024-04-29,CST3,amyloid_tau,0.91953,NPQ
+T09,2024-04-29,IGFBP7,amyloid_tau,0.92154,NPQ
+T09,2024-04-29,KLK6,amyloid_tau,1.03804,NPQ
+T09,2024-04-29,PSEN1,amyloid_tau,1.05885,NPQ
+T09,2024-04-29,SFRP1,amyloid_tau,1.02749,NPQ
+T09,2024-04-29,pTau181,amyloid_tau,2.40756,pg/mL
+T09,2024-04-29,pTau181-BD,amyloid_tau,1.21724,pg/mL
+T09,2024-04-29,pTau217,amyloid_tau,3.55379,pg/mL
+T09,2024-04-29,pTau217-BD,amyloid_tau,0.33818,pg/mL
+T09,2024-04-29,pTau231,amyloid_tau,4.88734,pg/mL
+T09,2024-04-29,pTau231-BD,amyloid_tau,3.94778,pg/mL
+T09,2024-04-29,totalTau,amyloid_tau,12.79771,pg/mL
+T09,2024-04-29,totalTau-BD,amyloid_tau,5.05511,pg/mL
+T09,2024-04-29,AGRN,synuclein_synaptic,1.14982,NPQ
+T09,2024-04-29,ARSA,synuclein_synaptic,0.91743,NPQ
+T09,2024-04-29,BDNF,synuclein_synaptic,0.99263,NPQ
+T09,2024-04-29,DDC,synuclein_synaptic,0.90821,NPQ
+T09,2024-04-29,FABP3,synuclein_synaptic,1.07579,NPQ
+T09,2024-04-29,FOLR1,synuclein_synaptic,0.88025,NPQ
+T09,2024-04-29,HTT,synuclein_synaptic,0.85044,NPQ
+T09,2024-04-29,IL6R (IL6Ra),synuclein_synaptic,0.97937,NPQ
+T09,2024-04-29,MDH1,synuclein_synaptic,1.17999,NPQ
+T09,2024-04-29,NGF,synuclein_synaptic,1.13366,NPQ
+T09,2024-04-29,Oligo-SNCA (Oligo-α-Syn),synuclein_synaptic,0.73674,NPQ
+T09,2024-04-29,PARK7,synuclein_synaptic,0.95141,NPQ
+T09,2024-04-29,pSNCA-129,synuclein_synaptic,1.04533,NPQ
+T09,2024-04-29,SNCA (α-Syn),synuclein_synaptic,0.82146,NPQ
+T09,2024-04-29,SNCB (β-Syn),synuclein_synaptic,0.8959,NPQ
+T09,2024-04-29,SOD1,synuclein_synaptic,1.027,NPQ
+T09,2024-04-29,TDP43,synuclein_synaptic,0.84166,NPQ
+T09,2024-04-29,pTDP43-409,synuclein_synaptic,1.12153,NPQ
+T09,2024-04-29,UCHL1,synuclein_synaptic,0.98332,NPQ
+T09,2024-04-29,VGF,synuclein_synaptic,1.04652,NPQ
+T09,2024-04-29,VSNL1 (VILIP-1),synuclein_synaptic,1.08624,NPQ
+T09,2024-04-29,FLT1 (VEGF R1),vascular_metabolism,0.82533,NPQ
+T09,2024-04-29,HBA1,vascular_metabolism,1.02459,NPQ
+T09,2024-04-29,HBA2,vascular_metabolism,1.05048,NPQ
+T09,2024-04-29,KDR (VEGF R2),vascular_metabolism,0.91616,NPQ
+T09,2024-04-29,MME,vascular_metabolism,0.96669,NPQ
+T09,2024-04-29,PDGFRB,vascular_metabolism,1.15353,NPQ
+T09,2024-04-29,PGF (PLGF),vascular_metabolism,0.92273,NPQ
+T09,2024-04-29,PGK1,vascular_metabolism,0.79992,NPQ
+T09,2024-04-29,POSTN,vascular_metabolism,0.94981,NPQ
+T09,2024-04-29,PTN,vascular_metabolism,1.04149,NPQ
+T09,2024-04-29,SAA1,vascular_metabolism,1.12094,NPQ
+T09,2024-04-29,VEGF-A,vascular_metabolism,0.99242,NPQ
+T09,2024-04-29,VEGF-D,vascular_metabolism,1.11839,NPQ
+T09,2024-04-29,ANXA5,neurodegeneration,0.90615,NPQ
+T09,2024-04-29,CALB2,neurodegeneration,1.06359,NPQ
+T09,2024-04-29,CNTN2,neurodegeneration,0.94129,NPQ
+T09,2024-04-29,ENO2,neurodegeneration,0.76016,NPQ
+T09,2024-04-29,FGF2 (FGF basic),neurodegeneration,1.11342,NPQ
+T09,2024-04-29,GDI1,neurodegeneration,0.89879,NPQ
+T09,2024-04-29,GDNF,neurodegeneration,1.18001,NPQ
+T09,2024-04-29,GOT1,neurodegeneration,1.16768,NPQ
+T09,2024-04-29,MSLN,neurodegeneration,1.08314,NPQ
+T09,2024-04-29,NEFH,neurodegeneration,0.99374,NPQ
+T09,2024-04-29,NFL,neurodegeneration,14.43259,pg/mL
+T09,2024-04-29,NPTX1,neurodegeneration,0.95647,NPQ
+T09,2024-04-29,NPTX2,neurodegeneration,0.95087,NPQ
+T09,2024-04-29,NPTXR,neurodegeneration,1.04206,NPQ
+T09,2024-04-29,NPY,neurodegeneration,0.94432,NPQ
+T09,2024-04-29,NRGN,neurodegeneration,0.97226,NPQ
+T09,2024-04-29,PDLIM5,neurodegeneration,1.04467,NPQ
+T09,2024-04-29,REST,neurodegeneration,1.02703,NPQ
+T09,2024-04-29,SMOC1,neurodegeneration,0.80365,NPQ
+T09,2024-04-29,SNAP25,neurodegeneration,1.02978,NPQ
+T09,2024-04-29,SQSTM1,neurodegeneration,0.97511,NPQ
+T09,2024-04-29,UBB,neurodegeneration,1.08266,NPQ
+T09,2024-04-29,YWHAG,neurodegeneration,1.01647,NPQ
+T09,2024-04-29,YWHAZ,neurodegeneration,1.13894,NPQ
+T09,2024-04-29,CCL2 (MCP1),inflammation,0.97985,NPQ
+T09,2024-04-29,CCL3 (MIP1a/CCL3),inflammation,1.06746,NPQ
+T09,2024-04-29,CCL4 (Mip1b/CCL4),inflammation,1.0873,NPQ
+T09,2024-04-29,CCL11 (Eotaxin),inflammation,0.8476,NPQ
+T09,2024-04-29,CCL13 (MCP4),inflammation,0.81849,NPQ
+T09,2024-04-29,CCL17 (TARC/CCL17),inflammation,0.86777,NPQ
+T09,2024-04-29,CCL22 (MDC),inflammation,0.95918,NPQ
+T09,2024-04-29,CCL26 (Eotaxin-3),inflammation,1.06542,NPQ
+T09,2024-04-29,CD40LG (CD40L/TNFSF5),inflammation,0.79323,NPQ
+T09,2024-04-29,CHI3L1 (YKL-40),inflammation,1.03298,NPQ
+T09,2024-04-29,CHIT1,inflammation,0.89419,NPQ
+T09,2024-04-29,CRH,inflammation,1.25727,NPQ
+T09,2024-04-29,CRP,inflammation,1.03718,mg/L
+T09,2024-04-29,CSF2 (GM-CSF),inflammation,1.0594,NPQ
+T09,2024-04-29,CX3CL1 (Fractalkine),inflammation,0.87518,NPQ
+T09,2024-04-29,CXCL1 (GROa),inflammation,1.04211,NPQ
+T09,2024-04-29,CXCL8 (IL8),inflammation,1.00005,NPQ
+T09,2024-04-29,CXCL10 (IP-10),inflammation,0.87853,NPQ
+T09,2024-04-29,FCN2,inflammation,0.97371,NPQ
+T09,2024-04-29,GDF15,inflammation,1.18951,NPQ
+T09,2024-04-29,GFAP,inflammation,89.65939,pg/mL
+T09,2024-04-29,ICAM1,inflammation,1.14806,NPQ
+T09,2024-04-29,IFNG (IFN-gamma),inflammation,0.94585,NPQ
+T09,2024-04-29,IGF1R,inflammation,1.27141,NPQ
+T09,2024-04-29,IL1B (IL-1 beta),inflammation,1.04783,NPQ
+T09,2024-04-29,IL2,inflammation,1.06266,NPQ
+T09,2024-04-29,IL4,inflammation,0.93985,NPQ
+T09,2024-04-29,IL5,inflammation,0.83446,NPQ
+T09,2024-04-29,IL6,inflammation,0.87968,NPQ
+T09,2024-04-29,IL7,inflammation,0.99413,NPQ
+T09,2024-04-29,IL9,inflammation,1.05834,NPQ
+T09,2024-04-29,IL10,inflammation,0.92624,NPQ
+T09,2024-04-29,IL12p70 (IL12A/IL12B),inflammation,0.78964,NPQ
+T09,2024-04-29,IL13,inflammation,0.89554,NPQ
+T09,2024-04-29,IL15,inflammation,0.86942,NPQ
+T09,2024-04-29,IL16,inflammation,0.97754,NPQ
+T09,2024-04-29,IL17A,inflammation,1.01477,NPQ
+T09,2024-04-29,IL18,inflammation,1.11168,NPQ
+T09,2024-04-29,IL33,inflammation,1.0618,NPQ
+T09,2024-04-29,PRDX6,inflammation,1.04458,NPQ
+T09,2024-04-29,RUVBL2,inflammation,1.0702,NPQ
+T09,2024-04-29,S100A12,inflammation,1.00454,NPQ
+T09,2024-04-29,S100B,inflammation,0.82575,NPQ
+T09,2024-04-29,SFTPD,inflammation,0.95399,NPQ
+T09,2024-04-29,SLIT2,inflammation,0.79511,NPQ
+T09,2024-04-29,TAFA5,inflammation,1.07799,NPQ
+T09,2024-04-29,TEK (Tie-2/TEK),inflammation,0.89939,NPQ
+T09,2024-04-29,TIMP3,inflammation,0.82721,NPQ
+T09,2024-04-29,TNF (TNF-a),inflammation,0.94317,NPQ
+T09,2024-04-29,TREM1 (sTREM1),inflammation,0.9936,NPQ
+T09,2024-04-29,TREM2,inflammation,0.98393,NPQ
+T09,2024-04-29,VCAM1 (CD106),inflammation,1.03211,NPQ
+T10,2024-06-16,Abeta38 (aβ38),amyloid_tau,38.46347,pg/mL
+T10,2024-06-16,Abeta40 (aβ40),amyloid_tau,265.69977,pg/mL
+T10,2024-06-16,Abeta42 (aβ42),amyloid_tau,26.04962,pg/mL
+T10,2024-06-16,ACHE,amyloid_tau,1.11886,NPQ
+T10,2024-06-16,APOE,amyloid_tau,0.86821,NPQ
+T10,2024-06-16,APOE4,amyloid_tau,1.06594,NPQ
+T10,2024-06-16,BACE1,amyloid_tau,1.17578,NPQ
+T10,2024-06-16,BASP1,amyloid_tau,1.07603,NPQ
+T10,2024-06-16,CD63,amyloid_tau,0.85099,NPQ
+T10,2024-06-16,CST3,amyloid_tau,1.08044,NPQ
+T10,2024-06-16,IGFBP7,amyloid_tau,1.02572,NPQ
+T10,2024-06-16,KLK6,amyloid_tau,0.83481,NPQ
+T10,2024-06-16,PSEN1,amyloid_tau,1.15214,NPQ
+T10,2024-06-16,SFRP1,amyloid_tau,1.07253,NPQ
+T10,2024-06-16,pTau181,amyloid_tau,2.42243,pg/mL
+T10,2024-06-16,pTau181-BD,amyloid_tau,1.53965,pg/mL
+T10,2024-06-16,pTau217,amyloid_tau,3.63146,pg/mL
+T10,2024-06-16,pTau217-BD,amyloid_tau,0.35468,pg/mL
+T10,2024-06-16,pTau231,amyloid_tau,3.88147,pg/mL
+T10,2024-06-16,pTau231-BD,amyloid_tau,3.66319,pg/mL
+T10,2024-06-16,totalTau,amyloid_tau,13.83467,pg/mL
+T10,2024-06-16,totalTau-BD,amyloid_tau,6.59688,pg/mL
+T10,2024-06-16,AGRN,synuclein_synaptic,1.03227,NPQ
+T10,2024-06-16,ARSA,synuclein_synaptic,1.10938,NPQ
+T10,2024-06-16,BDNF,synuclein_synaptic,1.10641,NPQ
+T10,2024-06-16,DDC,synuclein_synaptic,0.90387,NPQ
+T10,2024-06-16,FABP3,synuclein_synaptic,0.94648,NPQ
+T10,2024-06-16,FOLR1,synuclein_synaptic,0.86948,NPQ
+T10,2024-06-16,HTT,synuclein_synaptic,0.8747,NPQ
+T10,2024-06-16,IL6R (IL6Ra),synuclein_synaptic,1.24681,NPQ
+T10,2024-06-16,MDH1,synuclein_synaptic,1.20128,NPQ
+T10,2024-06-16,NGF,synuclein_synaptic,1.12914,NPQ
+T10,2024-06-16,Oligo-SNCA (Oligo-α-Syn),synuclein_synaptic,0.91846,NPQ
+T10,2024-06-16,PARK7,synuclein_synaptic,1.08801,NPQ
+T10,2024-06-16,pSNCA-129,synuclein_synaptic,1.1152,NPQ
+T10,2024-06-16,SNCA (α-Syn),synuclein_synaptic,1.02367,NPQ
+T10,2024-06-16,SNCB (β-Syn),synuclein_synaptic,1.04901,NPQ
+T10,2024-06-16,SOD1,synuclein_synaptic,0.90412,NPQ
+T10,2024-06-16,TDP43,synuclein_synaptic,1.10664,NPQ
+T10,2024-06-16,pTDP43-409,synuclein_synaptic,1.05314,NPQ
+T10,2024-06-16,UCHL1,synuclein_synaptic,1.07964,NPQ
+T10,2024-06-16,VGF,synuclein_synaptic,0.95688,NPQ
+T10,2024-06-16,VSNL1 (VILIP-1),synuclein_synaptic,0.97257,NPQ
+T10,2024-06-16,FLT1 (VEGF R1),vascular_metabolism,1.01787,NPQ
+T10,2024-06-16,HBA1,vascular_metabolism,1.22463,NPQ
+T10,2024-06-16,HBA2,vascular_metabolism,1.04998,NPQ
+T10,2024-06-16,KDR (VEGF R2),vascular_metabolism,0.99743,NPQ
+T10,2024-06-16,MME,vascular_metabolism,0.8804,NPQ
+T10,2024-06-16,PDGFRB,vascular_metabolism,1.15317,NPQ
+T10,2024-06-16,PGF (PLGF),vascular_metabolism,0.7208,NPQ
+T10,2024-06-16,PGK1,vascular_metabolism,1.0277,NPQ
+T10,2024-06-16,POSTN,vascular_metabolism,0.79689,NPQ
+T10,2024-06-16,PTN,vascular_metabolism,1.10567,NPQ
+T10,2024-06-16,SAA1,vascular_metabolism,1.00656,NPQ
+T10,2024-06-16,VEGF-A,vascular_metabolism,1.08228,NPQ
+T10,2024-06-16,VEGF-D,vascular_metabolism,1.10306,NPQ
+T10,2024-06-16,ANXA5,neurodegeneration,1.06575,NPQ
+T10,2024-06-16,CALB2,neurodegeneration,1.08918,NPQ
+T10,2024-06-16,CNTN2,neurodegeneration,0.88874,NPQ
+T10,2024-06-16,ENO2,neurodegeneration,0.92669,NPQ
+T10,2024-06-16,FGF2 (FGF basic),neurodegeneration,1.0434,NPQ
+T10,2024-06-16,GDI1,neurodegeneration,0.97985,NPQ
+T10,2024-06-16,GDNF,neurodegeneration,1.02454,NPQ
+T10,2024-06-16,GOT1,neurodegeneration,1.17432,NPQ
+T10,2024-06-16,MSLN,neurodegeneration,1.2112,NPQ
+T10,2024-06-16,NEFH,neurodegeneration,0.941,NPQ
+T10,2024-06-16,NFL,neurodegeneration,12.87893,pg/mL
+T10,2024-06-16,NPTX1,neurodegeneration,0.91916,NPQ
+T10,2024-06-16,NPTX2,neurodegeneration,0.82616,NPQ
+T10,2024-06-16,NPTXR,neurodegeneration,1.10388,NPQ
+T10,2024-06-16,NPY,neurodegeneration,1.12516,NPQ
+T10,2024-06-16,NRGN,neurodegeneration,0.97288,NPQ
+T10,2024-06-16,PDLIM5,neurodegeneration,1.16718,NPQ
+T10,2024-06-16,REST,neurodegeneration,1.08043,NPQ
+T10,2024-06-16,SMOC1,neurodegeneration,0.95362,NPQ
+T10,2024-06-16,SNAP25,neurodegeneration,0.8536,NPQ
+T10,2024-06-16,SQSTM1,neurodegeneration,1.039,NPQ
+T10,2024-06-16,UBB,neurodegeneration,1.03022,NPQ
+T10,2024-06-16,YWHAG,neurodegeneration,0.96182,NPQ
+T10,2024-06-16,YWHAZ,neurodegeneration,1.04132,NPQ
+T10,2024-06-16,CCL2 (MCP1),inflammation,1.08125,NPQ
+T10,2024-06-16,CCL3 (MIP1a/CCL3),inflammation,0.97474,NPQ
+T10,2024-06-16,CCL4 (Mip1b/CCL4),inflammation,0.99292,NPQ
+T10,2024-06-16,CCL11 (Eotaxin),inflammation,0.95367,NPQ
+T10,2024-06-16,CCL13 (MCP4),inflammation,0.95082,NPQ
+T10,2024-06-16,CCL17 (TARC/CCL17),inflammation,0.94916,NPQ
+T10,2024-06-16,CCL22 (MDC),inflammation,1.22331,NPQ
+T10,2024-06-16,CCL26 (Eotaxin-3),inflammation,1.10454,NPQ
+T10,2024-06-16,CD40LG (CD40L/TNFSF5),inflammation,1.08066,NPQ
+T10,2024-06-16,CHI3L1 (YKL-40),inflammation,0.92872,NPQ
+T10,2024-06-16,CHIT1,inflammation,0.99679,NPQ
+T10,2024-06-16,CRH,inflammation,1.07929,NPQ
+T10,2024-06-16,CRP,inflammation,1.22476,mg/L
+T10,2024-06-16,CSF2 (GM-CSF),inflammation,0.92859,NPQ
+T10,2024-06-16,CX3CL1 (Fractalkine),inflammation,1.09258,NPQ
+T10,2024-06-16,CXCL1 (GROa),inflammation,1.13743,NPQ
+T10,2024-06-16,CXCL8 (IL8),inflammation,1.12777,NPQ
+T10,2024-06-16,CXCL10 (IP-10),inflammation,0.95619,NPQ
+T10,2024-06-16,FCN2,inflammation,0.82306,NPQ
+T10,2024-06-16,GDF15,inflammation,1.32187,NPQ
+T10,2024-06-16,GFAP,inflammation,105.23045,pg/mL
+T10,2024-06-16,ICAM1,inflammation,1.09199,NPQ
+T10,2024-06-16,IFNG (IFN-gamma),inflammation,0.99538,NPQ
+T10,2024-06-16,IGF1R,inflammation,1.21254,NPQ
+T10,2024-06-16,IL1B (IL-1 beta),inflammation,1.09826,NPQ
+T10,2024-06-16,IL2,inflammation,1.01638,NPQ
+T10,2024-06-16,IL4,inflammation,1.13536,NPQ
+T10,2024-06-16,IL5,inflammation,1.03847,NPQ
+T10,2024-06-16,IL6,inflammation,1.04429,NPQ
+T10,2024-06-16,IL7,inflammation,1.13355,NPQ
+T10,2024-06-16,IL9,inflammation,0.98694,NPQ
+T10,2024-06-16,IL10,inflammation,0.99246,NPQ
+T10,2024-06-16,IL12p70 (IL12A/IL12B),inflammation,1.10679,NPQ
+T10,2024-06-16,IL13,inflammation,1.04903,NPQ
+T10,2024-06-16,IL15,inflammation,0.9528,NPQ
+T10,2024-06-16,IL16,inflammation,1.05808,NPQ
+T10,2024-06-16,IL17A,inflammation,1.33255,NPQ
+T10,2024-06-16,IL18,inflammation,0.94662,NPQ
+T10,2024-06-16,IL33,inflammation,1.01166,NPQ
+T10,2024-06-16,PRDX6,inflammation,1.12689,NPQ
+T10,2024-06-16,RUVBL2,inflammation,1.00392,NPQ
+T10,2024-06-16,S100A12,inflammation,0.97974,NPQ
+T10,2024-06-16,S100B,inflammation,0.80595,NPQ
+T10,2024-06-16,SFTPD,inflammation,1.09898,NPQ
+T10,2024-06-16,SLIT2,inflammation,0.95299,NPQ
+T10,2024-06-16,TAFA5,inflammation,1.04413,NPQ
+T10,2024-06-16,TEK (Tie-2/TEK),inflammation,1.0428,NPQ
+T10,2024-06-16,TIMP3,inflammation,0.96871,NPQ
+T10,2024-06-16,TNF (TNF-a),inflammation,0.87971,NPQ
+T10,2024-06-16,TREM1 (sTREM1),inflammation,1.00476,NPQ
+T10,2024-06-16,TREM2,inflammation,0.94462,NPQ
+T10,2024-06-16,VCAM1 (CD106),inflammation,1.0447,NPQ
+T11,2024-08-03,Abeta38 (aβ38),amyloid_tau,29.29746,pg/mL
+T11,2024-08-03,Abeta40 (aβ40),amyloid_tau,184.14928,pg/mL
+T11,2024-08-03,Abeta42 (aβ42),amyloid_tau,24.65567,pg/mL
+T11,2024-08-03,ACHE,amyloid_tau,1.06927,NPQ
+T11,2024-08-03,APOE,amyloid_tau,0.83608,NPQ
+T11,2024-08-03,APOE4,amyloid_tau,1.24017,NPQ
+T11,2024-08-03,BACE1,amyloid_tau,1.18537,NPQ
+T11,2024-08-03,BASP1,amyloid_tau,1.06926,NPQ
+T11,2024-08-03,CD63,amyloid_tau,0.93423,NPQ
+T11,2024-08-03,CST3,amyloid_tau,0.94293,NPQ
+T11,2024-08-03,IGFBP7,amyloid_tau,0.97369,NPQ
+T11,2024-08-03,KLK6,amyloid_tau,1.06464,NPQ
+T11,2024-08-03,PSEN1,amyloid_tau,1.0472,NPQ
+T11,2024-08-03,SFRP1,amyloid_tau,1.26505,NPQ
+T11,2024-08-03,pTau181,amyloid_tau,2.56584,pg/mL
+T11,2024-08-03,pTau181-BD,amyloid_tau,1.23618,pg/mL
+T11,2024-08-03,pTau217,amyloid_tau,2.97235,pg/mL
+T11,2024-08-03,pTau217-BD,amyloid_tau,0.32086,pg/mL
+T11,2024-08-03,pTau231,amyloid_tau,4.9292,pg/mL
+T11,2024-08-03,pTau231-BD,amyloid_tau,4.00118,pg/mL
+T11,2024-08-03,totalTau,amyloid_tau,12.3646,pg/mL
+T11,2024-08-03,totalTau-BD,amyloid_tau,6.5967,pg/mL
+T11,2024-08-03,AGRN,synuclein_synaptic,1.17884,NPQ
+T11,2024-08-03,ARSA,synuclein_synaptic,1.12413,NPQ
+T11,2024-08-03,BDNF,synuclein_synaptic,0.9905,NPQ
+T11,2024-08-03,DDC,synuclein_synaptic,0.9484,NPQ
+T11,2024-08-03,FABP3,synuclein_synaptic,0.95116,NPQ
+T11,2024-08-03,FOLR1,synuclein_synaptic,0.92174,NPQ
+T11,2024-08-03,HTT,synuclein_synaptic,0.90608,NPQ
+T11,2024-08-03,IL6R (IL6Ra),synuclein_synaptic,1.17021,NPQ
+T11,2024-08-03,MDH1,synuclein_synaptic,1.04738,NPQ
+T11,2024-08-03,NGF,synuclein_synaptic,1.05019,NPQ
+T11,2024-08-03,Oligo-SNCA (Oligo-α-Syn),synuclein_synaptic,1.05816,NPQ
+T11,2024-08-03,PARK7,synuclein_synaptic,0.92444,NPQ
+T11,2024-08-03,pSNCA-129,synuclein_synaptic,0.97991,NPQ
+T11,2024-08-03,SNCA (α-Syn),synuclein_synaptic,0.87236,NPQ
+T11,2024-08-03,SNCB (β-Syn),synuclein_synaptic,0.86177,NPQ
+T11,2024-08-03,SOD1,synuclein_synaptic,0.91445,NPQ
+T11,2024-08-03,TDP43,synuclein_synaptic,0.85733,NPQ
+T11,2024-08-03,pTDP43-409,synuclein_synaptic,0.85311,NPQ
+T11,2024-08-03,UCHL1,synuclein_synaptic,0.9932,NPQ
+T11,2024-08-03,VGF,synuclein_synaptic,1.15187,NPQ
+T11,2024-08-03,VSNL1 (VILIP-1),synuclein_synaptic,1.15078,NPQ
+T11,2024-08-03,FLT1 (VEGF R1),vascular_metabolism,0.98734,NPQ
+T11,2024-08-03,HBA1,vascular_metabolism,1.18276,NPQ
+T11,2024-08-03,HBA2,vascular_metabolism,0.99561,NPQ
+T11,2024-08-03,KDR (VEGF R2),vascular_metabolism,0.97555,NPQ
+T11,2024-08-03,MME,vascular_metabolism,0.96414,NPQ
+T11,2024-08-03,PDGFRB,vascular_metabolism,1.11894,NPQ
+T11,2024-08-03,PGF (PLGF),vascular_metabolism,0.87759,NPQ
+T11,2024-08-03,PGK1,vascular_metabolism,0.93371,NPQ
+T11,2024-08-03,POSTN,vascular_metabolism,1.0131,NPQ
+T11,2024-08-03,PTN,vascular_metabolism,1.25603,NPQ
+T11,2024-08-03,SAA1,vascular_metabolism,1.16097,NPQ
+T11,2024-08-03,VEGF-A,vascular_metabolism,1.09415,NPQ
+T11,2024-08-03,VEGF-D,vascular_metabolism,1.03178,NPQ
+T11,2024-08-03,ANXA5,neurodegeneration,1.04689,NPQ
+T11,2024-08-03,CALB2,neurodegeneration,1.0728,NPQ
+T11,2024-08-03,CNTN2,neurodegeneration,0.96127,NPQ
+T11,2024-08-03,ENO2,neurodegeneration,0.87279,NPQ
+T11,2024-08-03,FGF2 (FGF basic),neurodegeneration,1.0856,NPQ
+T11,2024-08-03,GDI1,neurodegeneration,0.98231,NPQ
+T11,2024-08-03,GDNF,neurodegeneration,1.11993,NPQ
+T11,2024-08-03,GOT1,neurodegeneration,1.1335,NPQ
+T11,2024-08-03,MSLN,neurodegeneration,1.04029,NPQ
+T11,2024-08-03,NEFH,neurodegeneration,1.00727,NPQ
+T11,2024-08-03,NFL,neurodegeneration,13.65573,pg/mL
+T11,2024-08-03,NPTX1,neurodegeneration,0.94996,NPQ
+T11,2024-08-03,NPTX2,neurodegeneration,0.86316,NPQ
+T11,2024-08-03,NPTXR,neurodegeneration,0.86606,NPQ
+T11,2024-08-03,NPY,neurodegeneration,0.91752,NPQ
+T11,2024-08-03,NRGN,neurodegeneration,1.13665,NPQ
+T11,2024-08-03,PDLIM5,neurodegeneration,0.98122,NPQ
+T11,2024-08-03,REST,neurodegeneration,0.95454,NPQ
+T11,2024-08-03,SMOC1,neurodegeneration,0.89534,NPQ
+T11,2024-08-03,SNAP25,neurodegeneration,0.96063,NPQ
+T11,2024-08-03,SQSTM1,neurodegeneration,0.99263,NPQ
+T11,2024-08-03,UBB,neurodegeneration,0.95902,NPQ
+T11,2024-08-03,YWHAG,neurodegeneration,0.96444,NPQ
+T11,2024-08-03,YWHAZ,neurodegeneration,1.01323,NPQ
+T11,2024-08-03,CCL2 (MCP1),inflammation,0.99623,NPQ
+T11,2024-08-03,CCL3 (MIP1a/CCL3),inflammation,0.97736,NPQ
+T11,2024-08-03,CCL4 (Mip1b/CCL4),inflammation,1.11433,NPQ
+T11,2024-08-03,CCL11 (Eotaxin),inflammation,0.90653,NPQ
+T11,2024-08-03,CCL13 (MCP4),inflammation,0.89087,NPQ
+T11,2024-08-03,CCL17 (TARC/CCL17),inflammation,0.83481,NPQ
+T11,2024-08-03,CCL22 (MDC),inflammation,0.93594,NPQ
+T11,2024-08-03,CCL26 (Eotaxin-3),inflammation,0.98432,NPQ
+T11,2024-08-03,CD40LG (CD40L/TNFSF5),inflammation,0.94819,NPQ
+T11,2024-08-03,CHI3L1 (YKL-40),inflammation,0.92702,NPQ
+T11,2024-08-03,CHIT1,inflammation,0.9303,NPQ
+T11,2024-08-03,CRH,inflammation,1.21444,NPQ
+T11,2024-08-03,CRP,inflammation,1.3888,mg/L
+T11,2024-08-03,CSF2 (GM-CSF),inflammation,0.89842,NPQ
+T11,2024-08-03,CX3CL1 (Fractalkine),inflammation,0.8869,NPQ
+T11,2024-08-03,CXCL1 (GROa),inflammation,0.88506,NPQ
+T11,2024-08-03,CXCL8 (IL8),inflammation,0.94832,NPQ
+T11,2024-08-03,CXCL10 (IP-10),inflammation,0.95456,NPQ
+T11,2024-08-03,FCN2,inflammation,0.83511,NPQ
+T11,2024-08-03,GDF15,inflammation,1.17425,NPQ
+T11,2024-08-03,GFAP,inflammation,108.73639,pg/mL
+T11,2024-08-03,ICAM1,inflammation,0.9086,NPQ
+T11,2024-08-03,IFNG (IFN-gamma),inflammation,1.08596,NPQ
+T11,2024-08-03,IGF1R,inflammation,1.19883,NPQ
+T11,2024-08-03,IL1B (IL-1 beta),inflammation,0.84774,NPQ
+T11,2024-08-03,IL2,inflammation,1.07921,NPQ
+T11,2024-08-03,IL4,inflammation,0.91012,NPQ
+T11,2024-08-03,IL5,inflammation,0.97414,NPQ
+T11,2024-08-03,IL6,inflammation,0.97327,NPQ
+T11,2024-08-03,IL7,inflammation,1.13163,NPQ
+T11,2024-08-03,IL9,inflammation,1.0588,NPQ
+T11,2024-08-03,IL10,inflammation,1.13793,NPQ
+T11,2024-08-03,IL12p70 (IL12A/IL12B),inflammation,0.99483,NPQ
+T11,2024-08-03,IL13,inflammation,1.21248,NPQ
+T11,2024-08-03,IL15,inflammation,0.82908,NPQ
+T11,2024-08-03,IL16,inflammation,1.09276,NPQ
+T11,2024-08-03,IL17A,inflammation,0.99345,NPQ
+T11,2024-08-03,IL18,inflammation,1.02516,NPQ
+T11,2024-08-03,IL33,inflammation,1.0173,NPQ
+T11,2024-08-03,PRDX6,inflammation,1.2185,NPQ
+T11,2024-08-03,RUVBL2,inflammation,1.03301,NPQ
+T11,2024-08-03,S100A12,inflammation,1.14223,NPQ
+T11,2024-08-03,S100B,inflammation,0.87798,NPQ
+T11,2024-08-03,SFTPD,inflammation,0.94301,NPQ
+T11,2024-08-03,SLIT2,inflammation,0.77802,NPQ
+T11,2024-08-03,TAFA5,inflammation,1.18552,NPQ
+T11,2024-08-03,TEK (Tie-2/TEK),inflammation,1.05203,NPQ
+T11,2024-08-03,TIMP3,inflammation,0.89952,NPQ
+T11,2024-08-03,TNF (TNF-a),inflammation,0.93747,NPQ
+T11,2024-08-03,TREM1 (sTREM1),inflammation,1.00983,NPQ
+T11,2024-08-03,TREM2,inflammation,0.78407,NPQ
+T11,2024-08-03,VCAM1 (CD106),inflammation,1.24571,NPQ
+T12,2024-09-11,Abeta38 (aβ38),amyloid_tau,41.2131,pg/mL
+T12,2024-09-11,Abeta40 (aβ40),amyloid_tau,197.05437,pg/mL
+T12,2024-09-11,Abeta42 (aβ42),amyloid_tau,24.30152,pg/mL
+T12,2024-09-11,ACHE,amyloid_tau,1.04827,NPQ
+T12,2024-09-11,APOE,amyloid_tau,0.89027,NPQ
+T12,2024-09-11,APOE4,amyloid_tau,1.12858,NPQ
+T12,2024-09-11,BACE1,amyloid_tau,1.18417,NPQ
+T12,2024-09-11,BASP1,amyloid_tau,1.22591,NPQ
+T12,2024-09-11,CD63,amyloid_tau,0.98332,NPQ
+T12,2024-09-11,CST3,amyloid_tau,1.00848,NPQ
+T12,2024-09-11,IGFBP7,amyloid_tau,0.91072,NPQ
+T12,2024-09-11,KLK6,amyloid_tau,1.03301,NPQ
+T12,2024-09-11,PSEN1,amyloid_tau,1.10493,NPQ
+T12,2024-09-11,SFRP1,amyloid_tau,1.12364,NPQ
+T12,2024-09-11,pTau181,amyloid_tau,2.54996,pg/mL
+T12,2024-09-11,pTau181-BD,amyloid_tau,1.36564,pg/mL
+T12,2024-09-11,pTau217,amyloid_tau,3.60044,pg/mL
+T12,2024-09-11,pTau217-BD,amyloid_tau,0.37146,pg/mL
+T12,2024-09-11,pTau231,amyloid_tau,3.78489,pg/mL
+T12,2024-09-11,pTau231-BD,amyloid_tau,3.65863,pg/mL
+T12,2024-09-11,totalTau,amyloid_tau,13.71589,pg/mL
+T12,2024-09-11,totalTau-BD,amyloid_tau,5.94054,pg/mL
+T12,2024-09-11,AGRN,synuclein_synaptic,1.13502,NPQ
+T12,2024-09-11,ARSA,synuclein_synaptic,0.94763,NPQ
+T12,2024-09-11,BDNF,synuclein_synaptic,1.23099,NPQ
+T12,2024-09-11,DDC,synuclein_synaptic,0.77346,NPQ
+T12,2024-09-11,FABP3,synuclein_synaptic,1.02393,NPQ
+T12,2024-09-11,FOLR1,synuclein_synaptic,0.88149,NPQ
+T12,2024-09-11,HTT,synuclein_synaptic,0.93322,NPQ
+T12,2024-09-11,IL6R (IL6Ra),synuclein_synaptic,0.96958,NPQ
+T12,2024-09-11,MDH1,synuclein_synaptic,1.07032,NPQ
+T12,2024-09-11,NGF,synuclein_synaptic,1.07157,NPQ
+T12,2024-09-11,Oligo-SNCA (Oligo-α-Syn),synuclein_synaptic,0.97039,NPQ
+T12,2024-09-11,PARK7,synuclein_synaptic,0.98515,NPQ
+T12,2024-09-11,pSNCA-129,synuclein_synaptic,0.98347,NPQ
+T12,2024-09-11,SNCA (α-Syn),synuclein_synaptic,0.96383,NPQ
+T12,2024-09-11,SNCB (β-Syn),synuclein_synaptic,0.91112,NPQ
+T12,2024-09-11,SOD1,synuclein_synaptic,0.92705,NPQ
+T12,2024-09-11,TDP43,synuclein_synaptic,0.81648,NPQ
+T12,2024-09-11,pTDP43-409,synuclein_synaptic,1.02354,NPQ
+T12,2024-09-11,UCHL1,synuclein_synaptic,1.0291,NPQ
+T12,2024-09-11,VGF,synuclein_synaptic,1.04896,NPQ
+T12,2024-09-11,VSNL1 (VILIP-1),synuclein_synaptic,1.03282,NPQ
+T12,2024-09-11,FLT1 (VEGF R1),vascular_metabolism,0.96698,NPQ
+T12,2024-09-11,HBA1,vascular_metabolism,1.26902,NPQ
+T12,2024-09-11,HBA2,vascular_metabolism,1.00232,NPQ
+T12,2024-09-11,KDR (VEGF R2),vascular_metabolism,1.05143,NPQ
+T12,2024-09-11,MME,vascular_metabolism,1.00473,NPQ
+T12,2024-09-11,PDGFRB,vascular_metabolism,1.03087,NPQ
+T12,2024-09-11,PGF (PLGF),vascular_metabolism,0.76489,NPQ
+T12,2024-09-11,PGK1,vascular_metabolism,0.93757,NPQ
+T12,2024-09-11,POSTN,vascular_metabolism,0.77624,NPQ
+T12,2024-09-11,PTN,vascular_metabolism,1.26695,NPQ
+T12,2024-09-11,SAA1,vascular_metabolism,1.05326,NPQ
+T12,2024-09-11,VEGF-A,vascular_metabolism,1.20405,NPQ
+T12,2024-09-11,VEGF-D,vascular_metabolism,1.07784,NPQ
+T12,2024-09-11,ANXA5,neurodegeneration,0.9431,NPQ
+T12,2024-09-11,CALB2,neurodegeneration,1.18153,NPQ
+T12,2024-09-11,CNTN2,neurodegeneration,0.91461,NPQ
+T12,2024-09-11,ENO2,neurodegeneration,1.05025,NPQ
+T12,2024-09-11,FGF2 (FGF basic),neurodegeneration,0.95089,NPQ
+T12,2024-09-11,GDI1,neurodegeneration,1.12863,NPQ
+T12,2024-09-11,GDNF,neurodegeneration,1.17755,NPQ
+T12,2024-09-11,GOT1,neurodegeneration,1.20752,NPQ
+T12,2024-09-11,MSLN,neurodegeneration,1.06003,NPQ
+T12,2024-09-11,NEFH,neurodegeneration,1.15754,NPQ
+T12,2024-09-11,NFL,neurodegeneration,13.98138,pg/mL
+T12,2024-09-11,NPTX1,neurodegeneration,0.88548,NPQ
+T12,2024-09-11,NPTX2,neurodegeneration,0.75239,NPQ
+T12,2024-09-11,NPTXR,neurodegeneration,1.05548,NPQ
+T12,2024-09-11,NPY,neurodegeneration,0.93312,NPQ
+T12,2024-09-11,NRGN,neurodegeneration,0.9812,NPQ
+T12,2024-09-11,PDLIM5,neurodegeneration,1.06008,NPQ
+T12,2024-09-11,REST,neurodegeneration,0.96701,NPQ
+T12,2024-09-11,SMOC1,neurodegeneration,0.84846,NPQ
+T12,2024-09-11,SNAP25,neurodegeneration,1.04246,NPQ
+T12,2024-09-11,SQSTM1,neurodegeneration,1.02356,NPQ
+T12,2024-09-11,UBB,neurodegeneration,0.99012,NPQ
+T12,2024-09-11,YWHAG,neurodegeneration,0.9668,NPQ
+T12,2024-09-11,YWHAZ,neurodegeneration,1.10245,NPQ
+T12,2024-09-11,CCL2 (MCP1),inflammation,1.0301,NPQ
+T12,2024-09-11,CCL3 (MIP1a/CCL3),inflammation,0.89575,NPQ
+T12,2024-09-11,CCL4 (Mip1b/CCL4),inflammation,1.06668,NPQ
+T12,2024-09-11,CCL11 (Eotaxin),inflammation,0.84354,NPQ
+T12,2024-09-11,CCL13 (MCP4),inflammation,0.94503,NPQ
+T12,2024-09-11,CCL17 (TARC/CCL17),inflammation,0.97421,NPQ
+T12,2024-09-11,CCL22 (MDC),inflammation,1.19628,NPQ
+T12,2024-09-11,CCL26 (Eotaxin-3),inflammation,1.07573,NPQ
+T12,2024-09-11,CD40LG (CD40L/TNFSF5),inflammation,0.95183,NPQ
+T12,2024-09-11,CHI3L1 (YKL-40),inflammation,1.03474,NPQ
+T12,2024-09-11,CHIT1,inflammation,0.83081,NPQ
+T12,2024-09-11,CRH,inflammation,1.07196,NPQ
+T12,2024-09-11,CRP,inflammation,1.14389,mg/L
+T12,2024-09-11,CSF2 (GM-CSF),inflammation,0.84252,NPQ
+T12,2024-09-11,CX3CL1 (Fractalkine),inflammation,0.81248,NPQ
+T12,2024-09-11,CXCL1 (GROa),inflammation,1.0645,NPQ
+T12,2024-09-11,CXCL8 (IL8),inflammation,1.01399,NPQ
+T12,2024-09-11,CXCL10 (IP-10),inflammation,0.70779,NPQ
+T12,2024-09-11,FCN2,inflammation,0.99951,NPQ
+T12,2024-09-11,GDF15,inflammation,1.17255,NPQ
+T12,2024-09-11,GFAP,inflammation,103.0182,pg/mL
+T12,2024-09-11,ICAM1,inflammation,1.05835,NPQ
+T12,2024-09-11,IFNG (IFN-gamma),inflammation,0.85854,NPQ
+T12,2024-09-11,IGF1R,inflammation,1.04358,NPQ
+T12,2024-09-11,IL1B (IL-1 beta),inflammation,1.35183,NPQ
+T12,2024-09-11,IL2,inflammation,1.12375,NPQ
+T12,2024-09-11,IL4,inflammation,0.796,NPQ
+T12,2024-09-11,IL5,inflammation,1.00691,NPQ
+T12,2024-09-11,IL6,inflammation,0.82572,NPQ
+T12,2024-09-11,IL7,inflammation,0.98748,NPQ
+T12,2024-09-11,IL9,inflammation,0.95839,NPQ
+T12,2024-09-11,IL10,inflammation,0.83702,NPQ
+T12,2024-09-11,IL12p70 (IL12A/IL12B),inflammation,0.97509,NPQ
+T12,2024-09-11,IL13,inflammation,1.02606,NPQ
+T12,2024-09-11,IL15,inflammation,0.88581,NPQ
+T12,2024-09-11,IL16,inflammation,1.16913,NPQ
+T12,2024-09-11,IL17A,inflammation,1.06728,NPQ
+T12,2024-09-11,IL18,inflammation,0.97377,NPQ
+T12,2024-09-11,IL33,inflammation,1.05198,NPQ
+T12,2024-09-11,PRDX6,inflammation,1.08408,NPQ
+T12,2024-09-11,RUVBL2,inflammation,1.04879,NPQ
+T12,2024-09-11,S100A12,inflammation,1.14949,NPQ
+T12,2024-09-11,S100B,inflammation,0.9019,NPQ
+T12,2024-09-11,SFTPD,inflammation,1.00963,NPQ
+T12,2024-09-11,SLIT2,inflammation,0.88785,NPQ
+T12,2024-09-11,TAFA5,inflammation,0.95883,NPQ
+T12,2024-09-11,TEK (Tie-2/TEK),inflammation,1.15511,NPQ
+T12,2024-09-11,TIMP3,inflammation,0.88739,NPQ
+T12,2024-09-11,TNF (TNF-a),inflammation,0.88431,NPQ
+T12,2024-09-11,TREM1 (sTREM1),inflammation,0.95757,NPQ
+T12,2024-09-11,TREM2,inflammation,0.76782,NPQ
+T12,2024-09-11,VCAM1 (CD106),inflammation,0.99316,NPQ
+T13,2024-10-29,Abeta38 (aβ38),amyloid_tau,29.08403,pg/mL
+T13,2024-10-29,Abeta40 (aβ40),amyloid_tau,242.69824,pg/mL
+T13,2024-10-29,Abeta42 (aβ42),amyloid_tau,27.17695,pg/mL
+T13,2024-10-29,ACHE,amyloid_tau,1.1162,NPQ
+T13,2024-10-29,APOE,amyloid_tau,0.83811,NPQ
+T13,2024-10-29,APOE4,amyloid_tau,1.04003,NPQ
+T13,2024-10-29,BACE1,amyloid_tau,0.90984,NPQ
+T13,2024-10-29,BASP1,amyloid_tau,1.16166,NPQ
+T13,2024-10-29,CD63,amyloid_tau,0.92866,NPQ
+T13,2024-10-29,CST3,amyloid_tau,1.10463,NPQ
+T13,2024-10-29,IGFBP7,amyloid_tau,1.0223,NPQ
+T13,2024-10-29,KLK6,amyloid_tau,1.18088,NPQ
+T13,2024-10-29,PSEN1,amyloid_tau,0.94416,NPQ
+T13,2024-10-29,SFRP1,amyloid_tau,1.18063,NPQ
+T13,2024-10-29,pTau181,amyloid_tau,2.46147,pg/mL
+T13,2024-10-29,pTau181-BD,amyloid_tau,1.2129,pg/mL
+T13,2024-10-29,pTau217,amyloid_tau,3.39559,pg/mL
+T13,2024-10-29,pTau217-BD,amyloid_tau,0.31842,pg/mL
+T13,2024-10-29,pTau231,amyloid_tau,4.4437,pg/mL
+T13,2024-10-29,pTau231-BD,amyloid_tau,3.41606,pg/mL
+T13,2024-10-29,totalTau,amyloid_tau,12.7605,pg/mL
+T13,2024-10-29,totalTau-BD,amyloid_tau,6.82205,pg/mL
+T13,2024-10-29,AGRN,synuclein_synaptic,1.12573,NPQ
+T13,2024-10-29,ARSA,synuclein_synaptic,1.04357,NPQ
+T13,2024-10-29,BDNF,synuclein_synaptic,1.14157,NPQ
+T13,2024-10-29,DDC,synuclein_synaptic,0.69495,NPQ
+T13,2024-10-29,FABP3,synuclein_synaptic,0.99968,NPQ
+T13,2024-10-29,FOLR1,synuclein_synaptic,0.89792,NPQ
+T13,2024-10-29,HTT,synuclein_synaptic,0.86026,NPQ
+T13,2024-10-29,IL6R (IL6Ra),synuclein_synaptic,1.07055,NPQ
+T13,2024-10-29,MDH1,synuclein_synaptic,1.00855,NPQ
+T13,2024-10-29,NGF,synuclein_synaptic,1.21035,NPQ
+T13,2024-10-29,Oligo-SNCA (Oligo-α-Syn),synuclein_synaptic,0.95224,NPQ
+T13,2024-10-29,PARK7,synuclein_synaptic,1.05403,NPQ
+T13,2024-10-29,pSNCA-129,synuclein_synaptic,0.96438,NPQ
+T13,2024-10-29,SNCA (α-Syn),synuclein_synaptic,0.91152,NPQ
+T13,2024-10-29,SNCB (β-Syn),synuclein_synaptic,0.91168,NPQ
+T13,2024-10-29,SOD1,synuclein_synaptic,0.87454,NPQ
+T13,2024-10-29,TDP43,synuclein_synaptic,1.0706,NPQ
+T13,2024-10-29,pTDP43-409,synuclein_synaptic,1.03092,NPQ
+T13,2024-10-29,UCHL1,synuclein_synaptic,1.02028,NPQ
+T13,2024-10-29,VGF,synuclein_synaptic,1.07714,NPQ
+T13,2024-10-29,VSNL1 (VILIP-1),synuclein_synaptic,1.00172,NPQ
+T13,2024-10-29,FLT1 (VEGF R1),vascular_metabolism,0.94545,NPQ
+T13,2024-10-29,HBA1,vascular_metabolism,1.26531,NPQ
+T13,2024-10-29,HBA2,vascular_metabolism,0.88454,NPQ
+T13,2024-10-29,KDR (VEGF R2),vascular_metabolism,1.20312,NPQ
+T13,2024-10-29,MME,vascular_metabolism,0.89235,NPQ
+T13,2024-10-29,PDGFRB,vascular_metabolism,0.9493,NPQ
+T13,2024-10-29,PGF (PLGF),vascular_metabolism,0.86952,NPQ
+T13,2024-10-29,PGK1,vascular_metabolism,0.74231,NPQ
+T13,2024-10-29,POSTN,vascular_metabolism,0.84248,NPQ
+T13,2024-10-29,PTN,vascular_metabolism,1.0808,NPQ
+T13,2024-10-29,SAA1,vascular_metabolism,1.07214,NPQ
+T13,2024-10-29,VEGF-A,vascular_metabolism,1.14642,NPQ
+T13,2024-10-29,VEGF-D,vascular_metabolism,1.00303,NPQ
+T13,2024-10-29,ANXA5,neurodegeneration,1.12851,NPQ
+T13,2024-10-29,CALB2,neurodegeneration,1.06712,NPQ
+T13,2024-10-29,CNTN2,neurodegeneration,0.80559,NPQ
+T13,2024-10-29,ENO2,neurodegeneration,0.76469,NPQ
+T13,2024-10-29,FGF2 (FGF basic),neurodegeneration,1.04889,NPQ
+T13,2024-10-29,GDI1,neurodegeneration,0.97796,NPQ
+T13,2024-10-29,GDNF,neurodegeneration,1.0288,NPQ
+T13,2024-10-29,GOT1,neurodegeneration,1.21146,NPQ
+T13,2024-10-29,MSLN,neurodegeneration,1.11969,NPQ
+T13,2024-10-29,NEFH,neurodegeneration,0.99073,NPQ
+T13,2024-10-29,NFL,neurodegeneration,13.66474,pg/mL
+T13,2024-10-29,NPTX1,neurodegeneration,0.80975,NPQ
+T13,2024-10-29,NPTX2,neurodegeneration,0.67118,NPQ
+T13,2024-10-29,NPTXR,neurodegeneration,0.98322,NPQ
+T13,2024-10-29,NPY,neurodegeneration,0.86342,NPQ
+T13,2024-10-29,NRGN,neurodegeneration,0.9324,NPQ
+T13,2024-10-29,PDLIM5,neurodegeneration,1.18484,NPQ
+T13,2024-10-29,REST,neurodegeneration,0.80174,NPQ
+T13,2024-10-29,SMOC1,neurodegeneration,0.81885,NPQ
+T13,2024-10-29,SNAP25,neurodegeneration,0.78582,NPQ
+T13,2024-10-29,SQSTM1,neurodegeneration,0.81787,NPQ
+T13,2024-10-29,UBB,neurodegeneration,1.23824,NPQ
+T13,2024-10-29,YWHAG,neurodegeneration,0.93811,NPQ
+T13,2024-10-29,YWHAZ,neurodegeneration,0.88303,NPQ
+T13,2024-10-29,CCL2 (MCP1),inflammation,1.00224,NPQ
+T13,2024-10-29,CCL3 (MIP1a/CCL3),inflammation,1.00065,NPQ
+T13,2024-10-29,CCL4 (Mip1b/CCL4),inflammation,1.11211,NPQ
+T13,2024-10-29,CCL11 (Eotaxin),inflammation,0.83875,NPQ
+T13,2024-10-29,CCL13 (MCP4),inflammation,0.88051,NPQ
+T13,2024-10-29,CCL17 (TARC/CCL17),inflammation,0.89504,NPQ
+T13,2024-10-29,CCL22 (MDC),inflammation,0.92014,NPQ
+T13,2024-10-29,CCL26 (Eotaxin-3),inflammation,0.92743,NPQ
+T13,2024-10-29,CD40LG (CD40L/TNFSF5),inflammation,0.95325,NPQ
+T13,2024-10-29,CHI3L1 (YKL-40),inflammation,1.0383,NPQ
+T13,2024-10-29,CHIT1,inflammation,0.99428,NPQ
+T13,2024-10-29,CRH,inflammation,1.11169,NPQ
+T13,2024-10-29,CRP,inflammation,0.98223,mg/L
+T13,2024-10-29,CSF2 (GM-CSF),inflammation,1.05433,NPQ
+T13,2024-10-29,CX3CL1 (Fractalkine),inflammation,0.97355,NPQ
+T13,2024-10-29,CXCL1 (GROa),inflammation,0.8736,NPQ
+T13,2024-10-29,CXCL8 (IL8),inflammation,0.93456,NPQ
+T13,2024-10-29,CXCL10 (IP-10),inflammation,1.04167,NPQ
+T13,2024-10-29,FCN2,inflammation,0.85721,NPQ
+T13,2024-10-29,GDF15,inflammation,0.93019,NPQ
+T13,2024-10-29,GFAP,inflammation,86.51505,pg/mL
+T13,2024-10-29,ICAM1,inflammation,1.21357,NPQ
+T13,2024-10-29,IFNG (IFN-gamma),inflammation,0.95552,NPQ
+T13,2024-10-29,IGF1R,inflammation,1.09138,NPQ
+T13,2024-10-29,IL1B (IL-1 beta),inflammation,0.96344,NPQ
+T13,2024-10-29,IL2,inflammation,0.97934,NPQ
+T13,2024-10-29,IL4,inflammation,0.86809,NPQ
+T13,2024-10-29,IL5,inflammation,0.9967,NPQ
+T13,2024-10-29,IL6,inflammation,0.83973,NPQ
+T13,2024-10-29,IL7,inflammation,1.14028,NPQ
+T13,2024-10-29,IL9,inflammation,1.06844,NPQ
+T13,2024-10-29,IL10,inflammation,0.92758,NPQ
+T13,2024-10-29,IL12p70 (IL12A/IL12B),inflammation,0.87621,NPQ
+T13,2024-10-29,IL13,inflammation,0.93866,NPQ
+T13,2024-10-29,IL15,inflammation,0.83375,NPQ
+T13,2024-10-29,IL16,inflammation,1.1828,NPQ
+T13,2024-10-29,IL17A,inflammation,1.06856,NPQ
+T13,2024-10-29,IL18,inflammation,1.01777,NPQ
+T13,2024-10-29,IL33,inflammation,1.00685,NPQ
+T13,2024-10-29,PRDX6,inflammation,1.11456,NPQ
+T13,2024-10-29,RUVBL2,inflammation,0.9334,NPQ
+T13,2024-10-29,S100A12,inflammation,1.09418,NPQ
+T13,2024-10-29,S100B,inflammation,0.95326,NPQ
+T13,2024-10-29,SFTPD,inflammation,1.07724,NPQ
+T13,2024-10-29,SLIT2,inflammation,0.85269,NPQ
+T13,2024-10-29,TAFA5,inflammation,0.9662,NPQ
+T13,2024-10-29,TEK (Tie-2/TEK),inflammation,0.98371,NPQ
+T13,2024-10-29,TIMP3,inflammation,0.98863,NPQ
+T13,2024-10-29,TNF (TNF-a),inflammation,0.89008,NPQ
+T13,2024-10-29,TREM1 (sTREM1),inflammation,1.17995,NPQ
+T13,2024-10-29,TREM2,inflammation,0.87818,NPQ
+T13,2024-10-29,VCAM1 (CD106),inflammation,1.1574,NPQ
