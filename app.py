@@ -329,6 +329,11 @@ with st.sidebar:
     hide_legend_over = st.number_input("Hide legend if > this many lines", value=80, min_value=0, step=5)
 
 # ----------------------------
+# Tabs (Explorer + Event Lens)
+# ----------------------------
+tab_explorer, tab_event_lens = st.tabs(["📈 Explorer", "🎯 Event Lens"])
+
+# ----------------------------
 # 8) Date Window + Range Helpers
 # ----------------------------
 start_win = pd.Timestamp(date_range[0])
@@ -378,272 +383,417 @@ if show_out_of_range:
 filtered_labs["date_str"] = filtered_labs["date"].dt.strftime("%Y-%m-%d")
 filtered_labs["value_str"] = filtered_labs["value"].map(lambda x: f"{x:.4g}")
 
-# ----------------------------
-# 10) Events Timeline (Symptoms/Infections/Medications)
-# ----------------------------
-st.subheader("🩺 Symptoms / Infections Timeline")
-
-events_clean = events_df.copy()
-events_clean["start_date"] = pd.to_datetime(events_clean["start_date"], errors="coerce")
-events_clean["end_date"] = pd.to_datetime(events_clean["end_date"], errors="coerce")
-events_clean["end_date"] = events_clean["end_date"].fillna(events_clean["start_date"])
-
-# keep the original type values visible in hover
-events_clean["type_norm"] = events_clean["type"].astype(str).str.strip().str.lower()
-
-def label_event_type(t: str):
-    t = (t or "").lower()
-    if "infection" in t or "covid" in t or "flu" in t or "uri" in t or "viral" in t:
-        return "Infection"
-    if "med" in t or "taper" in t or "vaccine" in t or "antiviral" in t:
-        return "Medication"
-    return "Symptom"
-
-events_clean["type_label"] = events_clean["type_norm"].apply(label_event_type)
-
-events_filtered = events_clean[
-    (events_clean["end_date"] >= start_win)
-    & (events_clean["start_date"] <= end_win)
-].dropna(subset=["start_date", "end_date"]).copy()
-
-if events_filtered.empty:
-    st.info("No events in the selected date window.")
-else:
-    fig_evt = px.timeline(
-        events_filtered,
-        x_start="start_date",
-        x_end="end_date",
-        y="name",
-        color="type_label",
-        color_discrete_map={
-            "Symptom": brand_colors["secondary"],
-            "Infection": brand_colors["accent"],
-            "Medication": brand_colors["primary"],
-        },
-        hover_data={"type": True, "start_date": True, "end_date": True},
-    )
-    fig_evt.update_yaxes(autorange="reversed", title=None)
-    fig_evt.update_xaxes(range=[start_win, end_win])
-    fig_evt.update_layout(height=max(420, 40 * len(events_filtered)))
-    fig_evt = style_plotly(
-        fig_evt,
-        title_text="Clinical Events (hover for details)",
-        max_top_legend_items=int(max_top_legend_items),
-        hide_legend_over=int(hide_legend_over),
-    )
-    st.plotly_chart(fig_evt, use_container_width=True)
-
-# ----------------------------
-# 11) Biomarker Overlay — unit split
-# ----------------------------
-st.subheader("🧪 Biomarker Trends (Overlay — split by unit)")
-
-if filtered_labs.empty:
-    st.warning("No lab data in the selected window / filters.")
-else:
-    plot_df = filtered_labs.sort_values(["date", "biomarker"]).copy()
-
-    for u in sorted(plot_df["unit"].unique()):
-        df_u = plot_df[plot_df["unit"] == u].copy()
-        if df_u.empty:
-            continue
-
-        fig_bio = px.line(
-            df_u,
-            x="date",
-            y="value",
-            color="biomarker",  # IMPORTANT: one line per biomarker
-            line_group="biomarker",
-            markers=True,
-            hover_data={
-                "biomarker": True,
-                "category": True,
-                "unit": True,
-                "draw_id": True,
-                "date_str": True,
-                "value_str": True,
-                "out_of_range": True,
-            },
-        )
-
-        fig_bio.update_xaxes(range=[start_win, end_win])
-        fig_bio.update_layout(height=560, yaxis_title=f"Value ({u})")
-
-        # Mark out-of-range points
-        oor = df_u[df_u["out_of_range"]].copy()
-        if not oor.empty:
-            fig_bio.add_trace(
-                go.Scatter(
-                    x=oor["date"],
-                    y=oor["value"],
-                    mode="markers",
-                    name="Out of range",
-                    marker=dict(symbol="x", size=10, color=brand_colors["accent"]),
-                    hovertemplate="Out of range<br>%{x|%Y-%m-%d}<br>%{y}<extra></extra>",
-                )
-            )
-
-        fig_bio = style_plotly(
-            fig_bio,
-            title_text=f"Overlay — Unit: {u}",
-            max_top_legend_items=int(max_top_legend_items),
-            hide_legend_over=int(hide_legend_over),
-        )
-        st.plotly_chart(fig_bio, use_container_width=True)
-
-# ----------------------------
-# 12) Category Plots — unit split
-# ----------------------------
-if show_category_plots:
-    st.subheader("🧩 Category Plots (Unit-split)")
-
-    cat_df_all = labs_df[
-        (labs_df["date"] >= start_win)
-        & (labs_df["date"] <= end_win)
-        & (labs_df["category"].isin(selected_categories))
-        & (labs_df["unit"].isin(selected_units))
-    ].copy()
-
-    cat_df_all["value"] = pd.to_numeric(cat_df_all["value"], errors="coerce")
-    cat_df_all = cat_df_all.dropna(subset=["value"])
-    cat_df_all["date_str"] = cat_df_all["date"].dt.strftime("%Y-%m-%d")
-    cat_df_all["value_str"] = cat_df_all["value"].map(lambda x: f"{x:.4g}")
-    cat_df_all["out_of_range"] = cat_df_all.apply(is_out_of_range, axis=1)
-
-    if show_out_of_range:
-        cat_df_all = cat_df_all[cat_df_all["out_of_range"]].copy()
-
-    if cat_df_all.empty:
-        st.info("No category data in the selected window / filters.")
-    else:
-        for cat in selected_categories:
-            cat_df = cat_df_all[cat_df_all["category"] == cat].copy()
-            if cat_df.empty:
-                continue
-
-            st.markdown(f"### {cat}")
-
-            for u in sorted(cat_df["unit"].unique()):
-                df_u = cat_df[cat_df["unit"] == u].copy()
-                if df_u.empty:
-                    continue
-
-                fig_cat = px.line(
-                    df_u.sort_values(["date", "biomarker"]),
-                    x="date",
-                    y="value",
-                    color="biomarker",  # IMPORTANT: one line per biomarker
-                    line_group="biomarker",
-                    markers=True,
-                    hover_data={
-                        "biomarker": True,
-                        "category": True,
-                        "unit": True,
-                        "draw_id": True,
-                        "date_str": True,
-                        "value_str": True,
-                        "out_of_range": True,
-                    },
-                )
-                fig_cat.update_xaxes(range=[start_win, end_win])
-                fig_cat.update_layout(height=480, yaxis_title=f"Value ({u})")
-
-                oor = df_u[df_u["out_of_range"]].copy()
-                if not oor.empty:
-                    fig_cat.add_trace(
-                        go.Scatter(
-                            x=oor["date"],
-                            y=oor["value"],
-                            mode="markers",
-                            name="Out of range",
-                            marker=dict(symbol="x", size=10, color=brand_colors["accent"]),
-                            hovertemplate="Out of range<br>%{x|%Y-%m-%d}<br>%{y}<extra></extra>",
-                        )
+with tab_explorer:
+                # ----------------------------
+                # 10) Events Timeline (Symptoms/Infections/Medications)
+                # ----------------------------
+                st.subheader("🩺 Symptoms / Infections Timeline")
+                
+                events_clean = events_df.copy()
+                events_clean["start_date"] = pd.to_datetime(events_clean["start_date"], errors="coerce")
+                events_clean["end_date"] = pd.to_datetime(events_clean["end_date"], errors="coerce")
+                events_clean["end_date"] = events_clean["end_date"].fillna(events_clean["start_date"])
+                
+                # keep the original type values visible in hover
+                events_clean["type_norm"] = events_clean["type"].astype(str).str.strip().str.lower()
+                
+                def label_event_type(t: str):
+                    t = (t or "").lower()
+                    if "infection" in t or "covid" in t or "flu" in t or "uri" in t or "viral" in t:
+                        return "Infection"
+                    if "med" in t or "taper" in t or "vaccine" in t or "antiviral" in t:
+                        return "Medication"
+                    return "Symptom"
+                
+                events_clean["type_label"] = events_clean["type_norm"].apply(label_event_type)
+                
+                events_filtered = events_clean[
+                    (events_clean["end_date"] >= start_win)
+                    & (events_clean["start_date"] <= end_win)
+                ].dropna(subset=["start_date", "end_date"]).copy()
+                
+                if events_filtered.empty:
+                    st.info("No events in the selected date window.")
+                else:
+                    fig_evt = px.timeline(
+                        events_filtered,
+                        x_start="start_date",
+                        x_end="end_date",
+                        y="name",
+                        color="type_label",
+                        color_discrete_map={
+                            "Symptom": brand_colors["secondary"],
+                            "Infection": brand_colors["accent"],
+                            "Medication": brand_colors["primary"],
+                        },
+                        hover_data={"type": True, "start_date": True, "end_date": True},
                     )
+                    fig_evt.update_yaxes(autorange="reversed", title=None)
+                    fig_evt.update_xaxes(range=[start_win, end_win])
+                    fig_evt.update_layout(height=max(420, 40 * len(events_filtered)))
+                    fig_evt = style_plotly(
+                        fig_evt,
+                        title_text="Clinical Events (hover for details)",
+                        max_top_legend_items=int(max_top_legend_items),
+                        hide_legend_over=int(hide_legend_over),
+                    )
+                    st.plotly_chart(fig_evt, use_container_width=True)
+                
+                # ----------------------------
+                # 11) Biomarker Overlay — unit split
+                # ----------------------------
+                st.subheader("🧪 Biomarker Trends (Overlay — split by unit)")
+                
+                if filtered_labs.empty:
+                    st.warning("No lab data in the selected window / filters.")
+                else:
+                    plot_df = filtered_labs.sort_values(["date", "biomarker"]).copy()
+                
+                    for u in sorted(plot_df["unit"].unique()):
+                        df_u = plot_df[plot_df["unit"] == u].copy()
+                        if df_u.empty:
+                            continue
+                
+                        fig_bio = px.line(
+                            df_u,
+                            x="date",
+                            y="value",
+                            color="biomarker",  # IMPORTANT: one line per biomarker
+                            line_group="biomarker",
+                            markers=True,
+                            hover_data={
+                                "biomarker": True,
+                                "category": True,
+                                "unit": True,
+                                "draw_id": True,
+                                "date_str": True,
+                                "value_str": True,
+                                "out_of_range": True,
+                            },
+                        )
+                
+                        fig_bio.update_xaxes(range=[start_win, end_win])
+                        fig_bio.update_layout(height=560, yaxis_title=f"Value ({u})")
+                
+                        # Mark out-of-range points
+                        oor = df_u[df_u["out_of_range"]].copy()
+                        if not oor.empty:
+                            fig_bio.add_trace(
+                                go.Scatter(
+                                    x=oor["date"],
+                                    y=oor["value"],
+                                    mode="markers",
+                                    name="Out of range",
+                                    marker=dict(symbol="x", size=10, color=brand_colors["accent"]),
+                                    hovertemplate="Out of range<br>%{x|%Y-%m-%d}<br>%{y}<extra></extra>",
+                                )
+                            )
+                
+                        fig_bio = style_plotly(
+                            fig_bio,
+                            title_text=f"Overlay — Unit: {u}",
+                            max_top_legend_items=int(max_top_legend_items),
+                            hide_legend_over=int(hide_legend_over),
+                        )
+                        st.plotly_chart(fig_bio, use_container_width=True)
+                
+                # ----------------------------
+                # 12) Category Plots — unit split
+                # ----------------------------
+                if show_category_plots:
+                    st.subheader("🧩 Category Plots (Unit-split)")
+                
+                    cat_df_all = labs_df[
+                        (labs_df["date"] >= start_win)
+                        & (labs_df["date"] <= end_win)
+                        & (labs_df["category"].isin(selected_categories))
+                        & (labs_df["unit"].isin(selected_units))
+                    ].copy()
+                
+                    cat_df_all["value"] = pd.to_numeric(cat_df_all["value"], errors="coerce")
+                    cat_df_all = cat_df_all.dropna(subset=["value"])
+                    cat_df_all["date_str"] = cat_df_all["date"].dt.strftime("%Y-%m-%d")
+                    cat_df_all["value_str"] = cat_df_all["value"].map(lambda x: f"{x:.4g}")
+                    cat_df_all["out_of_range"] = cat_df_all.apply(is_out_of_range, axis=1)
+                
+                    if show_out_of_range:
+                        cat_df_all = cat_df_all[cat_df_all["out_of_range"]].copy()
+                
+                    if cat_df_all.empty:
+                        st.info("No category data in the selected window / filters.")
+                    else:
+                        for cat in selected_categories:
+                            cat_df = cat_df_all[cat_df_all["category"] == cat].copy()
+                            if cat_df.empty:
+                                continue
+                
+                            st.markdown(f"### {cat}")
+                
+                            for u in sorted(cat_df["unit"].unique()):
+                                df_u = cat_df[cat_df["unit"] == u].copy()
+                                if df_u.empty:
+                                    continue
+                
+                                fig_cat = px.line(
+                                    df_u.sort_values(["date", "biomarker"]),
+                                    x="date",
+                                    y="value",
+                                    color="biomarker",  # IMPORTANT: one line per biomarker
+                                    line_group="biomarker",
+                                    markers=True,
+                                    hover_data={
+                                        "biomarker": True,
+                                        "category": True,
+                                        "unit": True,
+                                        "draw_id": True,
+                                        "date_str": True,
+                                        "value_str": True,
+                                        "out_of_range": True,
+                                    },
+                                )
+                                fig_cat.update_xaxes(range=[start_win, end_win])
+                                fig_cat.update_layout(height=480, yaxis_title=f"Value ({u})")
+                
+                                oor = df_u[df_u["out_of_range"]].copy()
+                                if not oor.empty:
+                                    fig_cat.add_trace(
+                                        go.Scatter(
+                                            x=oor["date"],
+                                            y=oor["value"],
+                                            mode="markers",
+                                            name="Out of range",
+                                            marker=dict(symbol="x", size=10, color=brand_colors["accent"]),
+                                            hovertemplate="Out of range<br>%{x|%Y-%m-%d}<br>%{y}<extra></extra>",
+                                        )
+                                    )
+                
+                                fig_cat = style_plotly(
+                                    fig_cat,
+                                    title_text=f"{cat} — Unit: {u}",
+                                    max_top_legend_items=int(max_top_legend_items),
+                                    hide_legend_over=int(hide_legend_over),
+                                )
+                                st.plotly_chart(fig_cat, use_container_width=True)
+                
+                # ----------------------------
+                # 13) Individual Biomarker Plots
+                # ----------------------------
+                if individual_bio_selected:
+                    st.subheader("📊 Individual Biomarker Plots")
+                
+                    for bm in individual_bio_selected:
+                        bm_df = labs_df[
+                            (labs_df["biomarker"] == bm)
+                            & (labs_df["category"].isin(selected_categories))
+                            & (labs_df["date"] >= start_win)
+                            & (labs_df["date"] <= end_win)
+                            & (labs_df["unit"].isin(selected_units))
+                        ].copy()
+                
+                        bm_df["value"] = pd.to_numeric(bm_df["value"], errors="coerce")
+                        bm_df = bm_df.dropna(subset=["value"])
+                        if bm_df.empty:
+                            continue
+                
+                        bm_df = bm_df.sort_values("date")
+                        bm_df["date_str"] = bm_df["date"].dt.strftime("%Y-%m-%d")
+                        bm_df["value_str"] = bm_df["value"].map(lambda x: f"{x:.4g}")
+                        bm_df["out_of_range"] = bm_df.apply(is_out_of_range, axis=1)
+                
+                        unit_here = bm_df["unit"].iloc[0] if "unit" in bm_df.columns else "Unknown"
+                
+                        fig_one = px.line(
+                            bm_df,
+                            x="date",
+                            y="value",
+                            markers=True,
+                            hover_data={
+                                "biomarker": True,
+                                "category": True,
+                                "unit": True,
+                                "draw_id": True,
+                                "date_str": True,
+                                "value_str": True,
+                                "out_of_range": True,
+                            },
+                        )
+                        fig_one.update_xaxes(range=[start_win, end_win])
+                        fig_one.update_layout(height=360, showlegend=False, yaxis_title=f"Value ({unit_here})")
+                
+                        # Reference band
+                        low, high = range_for_biomarker(bm)
+                        if low is not None and high is not None:
+                            fig_one.add_hrect(
+                                y0=low,
+                                y1=high,
+                                fillcolor=brand_colors["secondary"],
+                                opacity=0.12,
+                                line_width=0,
+                            )
+                
+                        # Out-of-range markers
+                        oor_one = bm_df[bm_df["out_of_range"]]
+                        if not oor_one.empty:
+                            fig_one.add_trace(
+                                go.Scatter(
+                                    x=oor_one["date"],
+                                    y=oor_one["value"],
+                                    mode="markers",
+                                    marker=dict(symbol="x", size=10, color=brand_colors["accent"]),
+                                    name="Out of range",
+                                    hovertemplate="Out of range<br>%{x|%Y-%m-%d}<br>%{y}<extra></extra>",
+                                )
+                            )
+                
+                        fig_one = style_plotly(
+                            fig_one,
+                            title_text=f"{bm} ({unit_here})",
+                            max_top_legend_items=int(max_top_legend_items),
+                            hide_legend_over=int(hide_legend_over),
+                        )
+                        st.plotly_chart(fig_one, use_container_width=True)
 
-                fig_cat = style_plotly(
-                    fig_cat,
-                    title_text=f"{cat} — Unit: {u}",
-                    max_top_legend_items=int(max_top_legend_items),
-                    hide_legend_over=int(hide_legend_over),
-                )
-                st.plotly_chart(fig_cat, use_container_width=True)
 
-# ----------------------------
-# 13) Individual Biomarker Plots
-# ----------------------------
-if individual_bio_selected:
-    st.subheader("📊 Individual Biomarker Plots")
 
-    for bm in individual_bio_selected:
-        bm_df = labs_df[
-            (labs_df["biomarker"] == bm)
-            & (labs_df["category"].isin(selected_categories))
-            & (labs_df["date"] >= start_win)
-            & (labs_df["date"] <= end_win)
-            & (labs_df["unit"].isin(selected_units))
-        ].copy()
+with tab_event_lens:
+    st.subheader("🎯 Event Lens — trends around a clinical event")
+    st.caption("Descriptive trends only (no clinical interpretation). Compare biomarker values during an event vs a baseline window.")
 
-        bm_df["value"] = pd.to_numeric(bm_df["value"], errors="coerce")
-        bm_df = bm_df.dropna(subset=["value"])
-        if bm_df.empty:
-            continue
+    # Clean events
+    events_clean2 = events_df.copy()
+    events_clean2["start_date"] = pd.to_datetime(events_clean2["start_date"], errors="coerce")
+    events_clean2["end_date"] = pd.to_datetime(events_clean2["end_date"], errors="coerce")
+    events_clean2["end_date"] = events_clean2["end_date"].fillna(events_clean2["start_date"])
+    events_clean2 = events_clean2.dropna(subset=["start_date", "end_date"])
 
-        bm_df = bm_df.sort_values("date")
-        bm_df["date_str"] = bm_df["date"].dt.strftime("%Y-%m-%d")
-        bm_df["value_str"] = bm_df["value"].map(lambda x: f"{x:.4g}")
-        bm_df["out_of_range"] = bm_df.apply(is_out_of_range, axis=1)
+    if events_clean2.empty:
+        st.info("No events available.")
+    else:
+        # 1) Choose event
+        event_names = events_clean2["name"].astype(str).tolist()
+        chosen_event = st.selectbox("Choose an event", options=event_names)
 
-        unit_here = bm_df["unit"].iloc[0] if "unit" in bm_df.columns else "Unknown"
+        # 2) Define baseline window
+        baseline_days = st.slider("Baseline window length (days before event start)", 14, 180, 60, 7)
+        baseline_gap_days = st.slider("Gap before event start (days)", 0, 30, 7, 1)
+        agg_method = st.radio("Summary statistic", options=["Median", "Mean"], index=0, horizontal=True)
 
-        fig_one = px.line(
-            bm_df,
-            x="date",
-            y="value",
-            markers=True,
-            hover_data={
-                "biomarker": True,
-                "category": True,
-                "unit": True,
-                "draw_id": True,
-                "date_str": True,
-                "value_str": True,
-                "out_of_range": True,
-            },
-        )
-        fig_one.update_xaxes(range=[start_win, end_win])
-        fig_one.update_layout(height=360, showlegend=False, yaxis_title=f"Value ({unit_here})")
+        # Optional: restrict by categories/units
+        all_cats = sorted(labs_df["category"].dropna().unique())
+        cats_for_event = st.multiselect("Categories to include", all_cats, default=all_cats)
 
-        # Reference band
-        low, high = range_for_biomarker(bm)
-        if low is not None and high is not None:
-            fig_one.add_hrect(
-                y0=low,
-                y1=high,
-                fillcolor=brand_colors["secondary"],
-                opacity=0.12,
-                line_width=0,
+        units_for_event = sorted(labs_df["unit"].dropna().unique())
+        units_selected_event = st.multiselect("Units to include", units_for_event, default=units_for_event)
+
+        # Get selected event row
+        ev = events_clean2[events_clean2["name"].astype(str) == str(chosen_event)].iloc[0]
+        ev_start = pd.Timestamp(ev["start_date"])
+        ev_end = pd.Timestamp(ev["end_date"])
+
+        baseline_end = ev_start - pd.Timedelta(days=baseline_gap_days)
+        baseline_start = baseline_end - pd.Timedelta(days=baseline_days)
+
+        # Show window info
+        c1, c2, c3 = st.columns(3)
+        c1.metric("Event start", ev_start.date().isoformat())
+        c2.metric("Event end", ev_end.date().isoformat())
+        c3.metric("Baseline window", f"{baseline_start.date().isoformat()} → {baseline_end.date().isoformat()}")
+
+        # Pull lab rows
+        df = labs_df.copy()
+        df["value"] = pd.to_numeric(df["value"], errors="coerce")
+        df = df.dropna(subset=["value"])
+        df = df[(df["category"].isin(cats_for_event)) & (df["unit"].isin(units_selected_event))].copy()
+
+        baseline_df = df[(df["date"] >= baseline_start) & (df["date"] <= baseline_end)].copy()
+        event_df = df[(df["date"] >= ev_start) & (df["date"] <= ev_end)].copy()
+
+        if baseline_df.empty or event_df.empty:
+            st.warning("Not enough lab data in baseline and/or event window to compute changes.")
+        else:
+            agg_fn = np.median if agg_method == "Median" else np.mean
+
+            def summarize(window_df, label):
+                g = window_df.groupby(["biomarker", "unit", "category"])["value"]
+                out = g.apply(agg_fn).reset_index().rename(columns={"value": f"{label}_{agg_method.lower()}"})
+                out[f"n_{label}"] = g.size().values
+                return out
+
+            base_sum = summarize(baseline_df, "baseline")
+            ev_sum = summarize(event_df, "event")
+
+            merged = pd.merge(base_sum, ev_sum, on=["biomarker", "unit", "category"], how="inner")
+
+            bcol = f"baseline_{agg_method.lower()}"
+            ecol = f"event_{agg_method.lower()}"
+
+            merged["abs_change"] = merged[ecol] - merged[bcol]
+            merged["pct_change"] = np.where(
+                merged[bcol].abs() > 1e-12,
+                100.0 * (merged["abs_change"] / merged[bcol]),
+                np.nan
             )
 
-        # Out-of-range markers
-        oor_one = bm_df[bm_df["out_of_range"]]
-        if not oor_one.empty:
-            fig_one.add_trace(
-                go.Scatter(
-                    x=oor_one["date"],
-                    y=oor_one["value"],
-                    mode="markers",
-                    marker=dict(symbol="x", size=10, color=brand_colors["accent"]),
-                    name="Out of range",
-                    hovertemplate="Out of range<br>%{x|%Y-%m-%d}<br>%{y}<extra></extra>",
-                )
+            sort_mode = st.selectbox(
+                "Rank by",
+                options=["Largest % increase", "Largest % decrease", "Largest absolute change"],
+                index=0
             )
 
-        fig_one = style_plotly(
-            fig_one,
-            title_text=f"{bm} ({unit_here})",
-            max_top_legend_items=int(max_top_legend_items),
-            hide_legend_over=int(hide_legend_over),
-        )
-        st.plotly_chart(fig_one, use_container_width=True)
+            if sort_mode == "Largest % increase":
+                merged_view = merged.sort_values("pct_change", ascending=False)
+            elif sort_mode == "Largest % decrease":
+                merged_view = merged.sort_values("pct_change", ascending=True)
+            else:
+                merged_view = merged.sort_values("abs_change", key=lambda s: s.abs(), ascending=False)
+
+            top_n = st.slider("Show top N biomarkers", 5, 50, 20, 5)
+            merged_view = merged_view.head(top_n)
+
+            st.markdown("#### Observed changes (event vs baseline)")
+            display_cols = [
+                "biomarker", "category", "unit",
+                bcol, ecol, "abs_change", "pct_change",
+                "n_baseline", "n_event"
+            ]
+            st.dataframe(
+                merged_view[display_cols].style.format({
+                    bcol: "{:.4g}",
+                    ecol: "{:.4g}",
+                    "abs_change": "{:.4g}",
+                    "pct_change": "{:.2f}",
+                }),
+                use_container_width=True
+            )
+
+            st.markdown("#### Visualize top biomarkers (time series)")
+            plot_top = st.checkbox("Plot top biomarkers", value=True)
+
+            if plot_top:
+                biomarker_list = merged_view["biomarker"].unique().tolist()
+                plot_df = df[df["biomarker"].isin(biomarker_list)].copy().sort_values(["unit", "biomarker", "date"])
+
+                for u in sorted(plot_df["unit"].unique()):
+                    df_u = plot_df[plot_df["unit"] == u].copy()
+                    if df_u.empty:
+                        continue
+
+                    fig = px.line(
+                        df_u,
+                        x="date",
+                        y="value",
+                        color="biomarker",
+                        markers=True,
+                        hover_data={"biomarker": True, "category": True, "unit": True, "value": True, "date": True},
+                    )
+                    fig.add_vrect(
+                        x0=ev_start, x1=ev_end,
+                        fillcolor=brand_colors["accent"],
+                        opacity=0.12,
+                        line_width=0
+                    )
+                    fig.update_layout(height=520, yaxis_title=f"Value ({u})")
+                    fig = style_plotly(fig, title_text=f"Top changes — Unit: {u}", max_top_legend_items=10, hide_legend_over=80)
+                    st.plotly_chart(fig, use_container_width=True)
+
 
