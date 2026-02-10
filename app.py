@@ -91,59 +91,63 @@ st.markdown(
 # 3) Plotly Styling Helper (NO OVERLAP + NO CRASH)
 # ----------------------------
 def style_plotly(fig, title_text=None):
-    """
-    - legend is placed above plot area (legend.y > 1 allowed)
-    - title stays within [0,1] (required by Plotly)
-    - big top margin gives both space so they don't overlap
-    """
+
     if title_text is not None:
-        fig.update_layout(title=dict(text=title_text))
+        fig.update_layout(title_text=title_text)
 
     fig.update_layout(
         template="plotly_white",
+
+        # colors
         paper_bgcolor=brand_colors["background"],
         plot_bgcolor=brand_colors["background"],
         font=dict(color=brand_colors["primary"]),
-        # Legend above plot
+
+        # TITLE — fixed top anchor
+        title=dict(
+            x=0,
+            xanchor="left",
+            y=0.98,
+            yanchor="top",
+            font=dict(size=16, color=brand_colors["primary"])
+        ),
+
+        # LEGEND — forced below title
         legend=dict(
             orientation="h",
-            yanchor="bottom",
-            y=1.22,  # allowed to be > 1
-            xanchor="left",
-            x=0,
-            font=dict(color=brand_colors["primary"]),
-            title_text="",
-            tracegroupgap=6,
-        ),
-        # Title below legend BUT within 0..1
-        title=dict(
-            font=dict(color=brand_colors["primary"], size=16),
-            x=0,
-            xanchor="left",
-            y=0.98,         # MUST be between 0 and 1
             yanchor="top",
-            pad=dict(t=10, b=0, l=0, r=0),
+            y=0.90,          # sits below title
+            xanchor="left",
+            x=0,
+            bgcolor="rgba(0,0,0,0)",
+            font=dict(color=brand_colors["primary"])
         ),
+
+        # BIG top margin = breathing room
+        margin=dict(
+            l=40,
+            r=20,
+            t=170,           # ← key line
+            b=60
+        ),
+
         hoverlabel=dict(
             bgcolor=brand_colors["background"],
             font=dict(color=brand_colors["primary"]),
-            bordercolor=brand_colors["secondary"],
-        ),
-        margin=dict(l=30, r=20, t=150, b=60),  # extra top space for legend + title
+            bordercolor=brand_colors["secondary"]
+        )
     )
 
     fig.update_xaxes(
         tickfont=dict(color=brand_colors["primary"]),
-        title_font=dict(color=brand_colors["primary"]),
-        gridcolor="rgba(64,90,81,0.12)",
-        zerolinecolor="rgba(64,90,81,0.12)",
+        gridcolor="rgba(64,90,81,0.12)"
     )
+
     fig.update_yaxes(
         tickfont=dict(color=brand_colors["primary"]),
-        title_font=dict(color=brand_colors["primary"]),
-        gridcolor="rgba(64,90,81,0.12)",
-        zerolinecolor="rgba(64,90,81,0.12)",
+        gridcolor="rgba(64,90,81,0.12)"
     )
+
     return fig
 
 # ----------------------------
