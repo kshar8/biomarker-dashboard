@@ -815,45 +815,45 @@ with tab_event_lens:
         ycol = "pct_change" if metric == "Percent change" else "delta"
         ytitle = "% change (A vs B)" if metric == "Percent change" else "Delta (A - B)"
             
-            fig_delta = px.bar(
-                plot_df,
-                x="biomarker",
-                y=ycol,
-                color="category",
-                hover_data={"unit": True, Bcol: True, Acol: True, "delta": True, "pct_change": True, "n_B": True, "n_A": True},
+        fig_delta = px.bar(
+            plot_df,
+            x="biomarker",
+            y=ycol,
+            color="category",
+            hover_data={"unit": True, Bcol: True, Acol: True, "delta": True, "pct_change": True, "n_B": True, "n_A": True},
             )
-            fig_delta.update_layout(height=450, yaxis_title=ytitle)
-            fig_delta = style_plotly(fig_delta, title_text=f"Top changes — {metric}", max_top_legend_items=10, hide_legend_over=80)
-            st.plotly_chart(fig_delta, use_container_width=True)
+        fig_delta.update_layout(height=450, yaxis_title=ytitle)
+        fig_delta = style_plotly(fig_delta, title_text=f"Top changes — {metric}", max_top_legend_items=10, hide_legend_over=80)
+        st.plotly_chart(fig_delta, use_container_width=True)
 
-            st.markdown("#### Visualize top biomarkers (time series)")
-            plot_top = st.checkbox("Plot top biomarkers", value=True)
+        st.markdown("#### Visualize top biomarkers (time series)")
+        plot_top = st.checkbox("Plot top biomarkers", value=True)
 
-            if plot_top:
-                biomarker_list = merged_view["biomarker"].unique().tolist()
-                plot_df = df[df["biomarker"].isin(biomarker_list)].copy().sort_values(["unit", "biomarker", "date"])
+        if plot_top:
+            biomarker_list = merged_view["biomarker"].unique().tolist()
+            plot_df = df[df["biomarker"].isin(biomarker_list)].copy().sort_values(["unit", "biomarker", "date"])
 
-                for u in sorted(plot_df["unit"].unique()):
-                    df_u = plot_df[plot_df["unit"] == u].copy()
-                    if df_u.empty:
-                        continue
+            for u in sorted(plot_df["unit"].unique()):
+                df_u = plot_df[plot_df["unit"] == u].copy()
+                if df_u.empty:
+                    continue
 
-                    fig = px.line(
-                        df_u,
-                        x="date",
-                        y="value",
-                        color="biomarker",
-                        markers=True,
-                        hover_data={"biomarker": True, "category": True, "unit": True, "value": True, "date": True},
-                    )
-                   fig.add_vrect(
-                        x0=A_start, x1=A_end,
-                        fillcolor=brand_colors["accent"],
-                        opacity=0.12,
-                        line_width=0
-                    )
-                    fig.update_layout(height=520, yaxis_title=f"Value ({u})")
-                    fig = style_plotly(fig, title_text=f"Top changes — Unit: {u}", max_top_legend_items=10, hide_legend_over=80)
-                    st.plotly_chart(fig, use_container_width=True)
+                fig = px.line(
+                    df_u,
+                    x="date",
+                    y="value",
+                    color="biomarker",
+                    markers=True,
+                    hover_data={"biomarker": True, "category": True, "unit": True, "value": True, "date": True},
+                )
+                fig.add_vrect(
+                    x0=A_start, x1=A_end,
+                    fillcolor=brand_colors["accent"],
+                    opacity=0.12,
+                    line_width=0
+                )
+                fig.update_layout(height=520, yaxis_title=f"Value ({u})")
+                fig = style_plotly(fig, title_text=f"Top changes — Unit: {u}", max_top_legend_items=10, hide_legend_over=80)
+                st.plotly_chart(fig, use_container_width=True)
 
 
