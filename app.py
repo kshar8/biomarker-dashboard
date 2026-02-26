@@ -808,8 +808,8 @@ with tab_event_lens:
             )     
 
         st.markdown("#### Plot of changes (top biomarkers)")
-            metric = st.selectbox("Plot metric", ["Percent change", "Delta"], index=0)
-            plot_n = st.slider("How many biomarkers to plot", 5, 40, 15, 5)
+        metric = st.selectbox("Plot metric", ["Percent change", "Delta"], index=0)
+        plot_n = st.slider("How many biomarkers to plot", 5, 40, 15, 5)
             
             plot_df = merged_view.head(plot_n).copy()
             ycol = "pct_change" if metric == "Percent change" else "delta"
