@@ -807,7 +807,7 @@ with tab_event_lens:
                 use_container_width=True
             )     
 
-            st.markdown("#### Plot of changes (top biomarkers)")
+        st.markdown("#### Plot of changes (top biomarkers)")
             metric = st.selectbox("Plot metric", ["Percent change", "Delta"], index=0)
             plot_n = st.slider("How many biomarkers to plot", 5, 40, 15, 5)
             
