@@ -736,66 +736,67 @@ with tab_event_lens:
         df_A = df[(df["date"] >= A_start) & (df["date"] <= A_end)].copy()
         df_B = df[(df["date"] >= B_start) & (df["date"] <= B_end)].copy()
         
-        if df_A.empty or df_B.empty:
+    if df_A.empty or df_B.empty:
+    st.warning("Not enough lab data in one or both windows to compute changes.")
+    else:
+        agg_fn = np.median if agg_method == "Median" else np.mean
     
-            st.warning("Not enough lab data in baseline and/or event window to compute changes.")
+        def summarize(window_df, label):
+            g = window_df.groupby(["biomarker", "unit", "category"])["value"]
+            out = g.apply(agg_fn).reset_index().rename(columns={"value": f"{label}_{agg_method.lower()}"})
+            out[f"n_{label}"] = g.size().values
+            return out
+    
+        sumA = summarize(df_A, "A")
+        sumB = summarize(df_B, "B")
+    
+        merged = pd.merge(sumA, sumB, on=["biomarker", "unit", "category"], how="inner")
+    
+        Acol = f"A_{agg_method.lower()}"
+        Bcol = f"B_{agg_method.lower()}"
+    
+        merged["delta"] = merged[Acol] - merged[Bcol]
+        merged["pct_change"] = np.where(
+            merged[Bcol].abs() > 1e-12,
+            100.0 * (merged["delta"] / merged[Bcol]),
+            np.nan
+        )
+        merged["abs_delta"] = merged["delta"].abs()
+    
+        st.markdown("#### Observed changes (A vs B)")
+    
+        sort_mode = st.selectbox(
+            "Rank by",
+            ["Largest % increase", "Largest % decrease", "Largest absolute delta"],
+            index=0
+        )
+    
+        if sort_mode == "Largest % increase":
+            merged_view = merged.sort_values("pct_change", ascending=False)
+        elif sort_mode == "Largest % decrease":
+            merged_view = merged.sort_values("pct_change", ascending=True)
         else:
-            agg_fn = np.median if agg_method == "Median" else np.mean
-
-            def summarize(window_df, label):
-                g = window_df.groupby(["biomarker", "unit", "category"])["value"]
-                out = g.apply(agg_fn).reset_index().rename(columns={"value": f"{label}_{agg_method.lower()}"})
-                out[f"n_{label}"] = g.size().values
-                return out
-
-            sumA = summarize(df_A, "A")
-            sumB = summarize(df_B, "B")
-            merged = pd.merge(sumA, sumB, on=["biomarker", "unit", "category"], how="inner")
+            merged_view = merged.sort_values("abs_delta", ascending=False)
+    
+        top_n = st.slider("Show top N biomarkers", 5, 80, 25, 5)
+        merged_view = merged_view.head(top_n)
+    
+        display_cols = [
+            "biomarker", "category", "unit",
+            Bcol, Acol, "delta", "pct_change",
+            "n_B", "n_A"
+        ]
+    
+        st.dataframe(
+            merged_view[display_cols].style.format({
+                Bcol: "{:.4g}",
+                Acol: "{:.4g}",
+                "delta": "{:.4g}",
+                "pct_change": "{:.2f}",
+            }),
+            use_container_width=True
+        )
             
-            Acol = f"A_{agg_method.lower()}"
-            Bcol = f"B_{agg_method.lower()}"
-            
-            merged["delta"] = merged[Acol] - merged[Bcol]
-            merged["pct_change"] = np.where(
-                merged[Bcol].abs() > 1e-12,
-                100.0 * (merged["delta"] / merged[Bcol]),
-                np.nan
-            )
-            merged["abs_delta"] = merged["delta"].abs()
-            
-            st.markdown("#### Observed changes (A vs B)")
-            display_cols = [
-                "biomarker", "category", "unit",
-                Bcol, Acol, "delta", "pct_change",
-                "n_B", "n_A"
-            ]
-            
-            sort_mode = st.selectbox(
-                "Rank by",
-                options=["Largest % increase", "Largest % decrease", "Largest absolute delta"],
-                index=0
-            )
-            
-            if sort_mode == "Largest % increase":
-                merged_view = merged.sort_values("pct_change", ascending=False)
-            elif sort_mode == "Largest % decrease":
-                merged_view = merged.sort_values("pct_change", ascending=True)
-            else:
-                merged_view = merged.sort_values("abs_delta", ascending=False)
-            
-            top_n = st.slider("Show top N biomarkers", 5, 80, 25, 5)
-            merged_view = merged_view.head(top_n)
-            
-            st.dataframe(
-                merged_view[display_cols].style.format({
-                    Bcol: "{:.4g}",
-                    Acol: "{:.4g}",
-                    "delta": "{:.4g}",
-                    "pct_change": "{:.2f}",
-                }),
-                use_container_width=True
-            )
-            ]
             st.dataframe(
                 merged_view[display_cols].style.format({
                     bcol: "{:.4g}",
