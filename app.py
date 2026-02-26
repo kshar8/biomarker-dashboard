@@ -619,8 +619,7 @@ with tab_explorer:
                         )
                         fig_one.update_xaxes(range=[start_win, end_win])
                         fig_one.update_layout(height=360, showlegend=False, yaxis_title=f"Value ({unit_here})")
-
-                        fig.add_vrect(x0=B_start, x1=B_end, fillcolor=brand_colors["secondary"], opacity=0.10, line_width=0)
+                
                         # Reference band
                         low, high = range_for_biomarker(bm)
                         if low is not None and high is not None:
@@ -670,32 +669,15 @@ with tab_event_lens:
     if events_clean2.empty:
         st.info("No events available.")
     else:
-        # 1) Comparison mode + choose Event A (and optionally Event B)
+        # 1) Choose event
         event_names = events_clean2["name"].astype(str).tolist()
-        
-        compare_mode = st.radio(
-            "Comparison mode",
-            ["Event vs Baseline (30 days before)", "Event A vs Event B"],
-            index=0,
-            horizontal=True,
-        )
-        
-        colA, colB = st.columns(2)
-        with colA:
-            event_A_name = st.selectbox("Event A", options=event_names, index=0)
-        
-        with colB:
-            if compare_mode == "Event A vs Event B":
-                default_idx = 1 if len(event_names) > 1 else 0
-                event_B_name = st.selectbox("Event B", options=event_names, index=default_idx)
-            else:
-                event_B_name = None
+        chosen_event = st.selectbox("Choose an event", options=event_names)
 
-        # 2) Define windows
-        baseline_days = 30  # fixed per your request
-        baseline_gap_days = st.slider("Gap before Event A start (days)", 0, 30, 7, 1)
+        # 2) Define baseline window
+        baseline_days = st.slider("Baseline window length (days before event start)", 14, 180, 60, 7)
+        baseline_gap_days = st.slider("Gap before event start (days)", 0, 30, 7, 1)
         agg_method = st.radio("Summary statistic", options=["Median", "Mean"], index=0, horizontal=True)
-        
+
         # Optional: restrict by categories/units
         all_cats = sorted(labs_df["category"].dropna().unique())
         cats_for_event = st.multiselect("Categories to include", all_cats, default=all_cats)
@@ -703,157 +685,114 @@ with tab_event_lens:
         units_for_event = sorted(labs_df["unit"].dropna().unique())
         units_selected_event = st.multiselect("Units to include", units_for_event, default=units_for_event)
 
-       # Get Event A window
-        evA = events_clean2[events_clean2["name"].astype(str) == str(event_A_name)].iloc[0]
-        A_start = pd.Timestamp(evA["start_date"])
-        A_end = pd.Timestamp(evA["end_date"])
-        
-        # Define Window B: either baseline-before-A OR Event B window
-        if compare_mode == "Event A vs Event B" and event_B_name:
-            evB = events_clean2[events_clean2["name"].astype(str) == str(event_B_name)].iloc[0]
-            B_start = pd.Timestamp(evB["start_date"])
-            B_end = pd.Timestamp(evB["end_date"])
-        else:
-            B_end = A_start - pd.Timedelta(days=baseline_gap_days)
-            B_start = B_end - pd.Timedelta(days=baseline_days)
+        # Get selected event row
+        ev = events_clean2[events_clean2["name"].astype(str) == str(chosen_event)].iloc[0]
+        ev_start = pd.Timestamp(ev["start_date"])
+        ev_end = pd.Timestamp(ev["end_date"])
+
+        baseline_end = ev_start - pd.Timedelta(days=baseline_gap_days)
+        baseline_start = baseline_end - pd.Timedelta(days=baseline_days)
 
         # Show window info
         c1, c2, c3 = st.columns(3)
-        c1.metric("Window A", f"{A_start.date()} → {A_end.date()}")
-        if compare_mode == "Event A vs Event B":
-            c2.metric("Window B", f"{B_start.date()} → {B_end.date()}")
-            c3.metric("Mode", "Event vs Event")
-        else:
-            c2.metric("Baseline (30d)", f"{B_start.date()} → {B_end.date()}")
-            c3.metric("Mode", "Event vs Baseline")
-            
+        c1.metric("Event start", ev_start.date().isoformat())
+        c2.metric("Event end", ev_end.date().isoformat())
+        c3.metric("Baseline window", f"{baseline_start.date().isoformat()} → {baseline_end.date().isoformat()}")
+
         # Pull lab rows
         df = labs_df.copy()
         df["value"] = pd.to_numeric(df["value"], errors="coerce")
         df = df.dropna(subset=["value"])
         df = df[(df["category"].isin(cats_for_event)) & (df["unit"].isin(units_selected_event))].copy()
 
-        df_A = df[(df["date"] >= A_start) & (df["date"] <= A_end)].copy()
-        df_B = df[(df["date"] >= B_start) & (df["date"] <= B_end)].copy()
-        
-    if df_A.empty or df_B.empty:
-        st.warning("Not enough lab data in one or both windows to compute changes.")
-    else:
-        agg_fn = np.median if agg_method == "Median" else np.mean
-    
-        def summarize(window_df, label):
-            g = window_df.groupby(["biomarker", "unit", "category"])["value"]
-            out = g.apply(agg_fn).reset_index().rename(columns={"value": f"{label}_{agg_method.lower()}"})
-            out[f"n_{label}"] = g.size().values
-            return out
-    
-        sumA = summarize(df_A, "A")
-        sumB = summarize(df_B, "B")
-    
-        merged = pd.merge(sumA, sumB, on=["biomarker", "unit", "category"], how="inner")
-    
-        Acol = f"A_{agg_method.lower()}"
-        Bcol = f"B_{agg_method.lower()}"
-    
-        merged["delta"] = merged[Acol] - merged[Bcol]
-        merged["pct_change"] = np.where(
-            merged[Bcol].abs() > 1e-12,
-            100.0 * (merged["delta"] / merged[Bcol]),
-            np.nan
-        )
-        merged["abs_delta"] = merged["delta"].abs()
-    
-        st.markdown("#### Observed changes (A vs B)")
-    
-        sort_mode = st.selectbox(
-            "Rank by",
-            ["Largest % increase", "Largest % decrease", "Largest absolute delta"],
-            index=0
-        )
-    
-        if sort_mode == "Largest % increase":
-            merged_view = merged.sort_values("pct_change", ascending=False)
-        elif sort_mode == "Largest % decrease":
-            merged_view = merged.sort_values("pct_change", ascending=True)
+        baseline_df = df[(df["date"] >= baseline_start) & (df["date"] <= baseline_end)].copy()
+        event_df = df[(df["date"] >= ev_start) & (df["date"] <= ev_end)].copy()
+
+        if baseline_df.empty or event_df.empty:
+            st.warning("Not enough lab data in baseline and/or event window to compute changes.")
         else:
-            merged_view = merged.sort_values("abs_delta", ascending=False)
-    
-        top_n = st.slider("Show top N biomarkers", 5, 80, 25, 5)
-        merged_view = merged_view.head(top_n)
-    
-        display_cols = [
-            "biomarker", "category", "unit",
-            Bcol, Acol, "delta", "pct_change",
-            "n_B", "n_A"
-        ]
-    
-        st.dataframe(
-            merged_view[display_cols].style.format({
-                Bcol: "{:.4g}",
-                Acol: "{:.4g}",
-                "delta": "{:.4g}",
-                "pct_change": "{:.2f}",
-            }),
-            use_container_width=True
-        )
-            
-        st.dataframe(
-           merged_view[display_cols].style.format({
+            agg_fn = np.median if agg_method == "Median" else np.mean
+
+            def summarize(window_df, label):
+                g = window_df.groupby(["biomarker", "unit", "category"])["value"]
+                out = g.apply(agg_fn).reset_index().rename(columns={"value": f"{label}_{agg_method.lower()}"})
+                out[f"n_{label}"] = g.size().values
+                return out
+
+            base_sum = summarize(baseline_df, "baseline")
+            ev_sum = summarize(event_df, "event")
+
+            merged = pd.merge(base_sum, ev_sum, on=["biomarker", "unit", "category"], how="inner")
+
+            bcol = f"baseline_{agg_method.lower()}"
+            ecol = f"event_{agg_method.lower()}"
+
+            merged["abs_change"] = merged[ecol] - merged[bcol]
+            merged["pct_change"] = np.where(
+                merged[bcol].abs() > 1e-12,
+                100.0 * (merged["abs_change"] / merged[bcol]),
+                np.nan
+            )
+
+            sort_mode = st.selectbox(
+                "Rank by",
+                options=["Largest % increase", "Largest % decrease", "Largest absolute change"],
+                index=0
+            )
+
+            if sort_mode == "Largest % increase":
+                merged_view = merged.sort_values("pct_change", ascending=False)
+            elif sort_mode == "Largest % decrease":
+                merged_view = merged.sort_values("pct_change", ascending=True)
+            else:
+                merged_view = merged.sort_values("abs_change", key=lambda s: s.abs(), ascending=False)
+
+            top_n = st.slider("Show top N biomarkers", 5, 50, 20, 5)
+            merged_view = merged_view.head(top_n)
+
+            st.markdown("#### Observed changes (event vs baseline)")
+            display_cols = [
+                "biomarker", "category", "unit",
+                bcol, ecol, "abs_change", "pct_change",
+                "n_baseline", "n_event"
+            ]
+            st.dataframe(
+                merged_view[display_cols].style.format({
                     bcol: "{:.4g}",
                     ecol: "{:.4g}",
                     "abs_change": "{:.4g}",
                     "pct_change": "{:.2f}",
                 }),
                 use_container_width=True
-            )     
-
-        st.markdown("#### Plot of changes (top biomarkers)")
-        metric = st.selectbox("Plot metric", ["Percent change", "Delta"], index=0)
-        plot_n = st.slider("How many biomarkers to plot", 5, 40, 15, 5)
-            
-        plot_df = merged_view.head(plot_n).copy()
-        ycol = "pct_change" if metric == "Percent change" else "delta"
-        ytitle = "% change (A vs B)" if metric == "Percent change" else "Delta (A - B)"
-            
-        fig_delta = px.bar(
-            plot_df,
-            x="biomarker",
-            y=ycol,
-            color="category",
-            hover_data={"unit": True, Bcol: True, Acol: True, "delta": True, "pct_change": True, "n_B": True, "n_A": True},
             )
-        fig_delta.update_layout(height=450, yaxis_title=ytitle)
-        fig_delta = style_plotly(fig_delta, title_text=f"Top changes — {metric}", max_top_legend_items=10, hide_legend_over=80)
-        st.plotly_chart(fig_delta, use_container_width=True)
 
-        st.markdown("#### Visualize top biomarkers (time series)")
-        plot_top = st.checkbox("Plot top biomarkers", value=True)
+            st.markdown("#### Visualize top biomarkers (time series)")
+            plot_top = st.checkbox("Plot top biomarkers", value=True)
 
-        if plot_top:
-            biomarker_list = merged_view["biomarker"].unique().tolist()
-            plot_df = df[df["biomarker"].isin(biomarker_list)].copy().sort_values(["unit", "biomarker", "date"])
+            if plot_top:
+                biomarker_list = merged_view["biomarker"].unique().tolist()
+                plot_df = df[df["biomarker"].isin(biomarker_list)].copy().sort_values(["unit", "biomarker", "date"])
 
-            for u in sorted(plot_df["unit"].unique()):
-                df_u = plot_df[plot_df["unit"] == u].copy()
-                if df_u.empty:
-                    continue
+                for u in sorted(plot_df["unit"].unique()):
+                    df_u = plot_df[plot_df["unit"] == u].copy()
+                    if df_u.empty:
+                        continue
 
-                fig = px.line(
-                    df_u,
-                    x="date",
-                    y="value",
-                    color="biomarker",
-                    markers=True,
-                    hover_data={"biomarker": True, "category": True, "unit": True, "value": True, "date": True},
-                )
-                fig.add_vrect(
-                    x0=A_start, x1=A_end,
-                    fillcolor=brand_colors["accent"],
-                    opacity=0.12,
-                    line_width=0
-                )
-                fig.update_layout(height=520, yaxis_title=f"Value ({u})")
-                fig = style_plotly(fig, title_text=f"Top changes — Unit: {u}", max_top_legend_items=10, hide_legend_over=80)
-                st.plotly_chart(fig, use_container_width=True)
-
+                    fig = px.line(
+                        df_u,
+                        x="date",
+                        y="value",
+                        color="biomarker",
+                        markers=True,
+                        hover_data={"biomarker": True, "category": True, "unit": True, "value": True, "date": True},
+                    )
+                    fig.add_vrect(
+                        x0=ev_start, x1=ev_end,
+                        fillcolor=brand_colors["accent"],
+                        opacity=0.12,
+                        line_width=0
+                    )
+                    fig.update_layout(height=520, yaxis_title=f"Value ({u})")
+                    fig = style_plotly(fig, title_text=f"Top changes — Unit: {u}", max_top_legend_items=10, hide_legend_over=80)
+                    st.plotly_chart(fig, use_container_width=True)
 
