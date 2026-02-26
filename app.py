@@ -787,7 +787,7 @@ with tab_event_lens:
             "n_B", "n_A"
         ]
     
-       st.dataframe(
+        st.dataframe(
             merged_view[display_cols].style.format({
                 Bcol: "{:.4g}",
                 Acol: "{:.4g}",
