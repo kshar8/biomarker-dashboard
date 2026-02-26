@@ -748,7 +748,7 @@ with tab_event_lens:
                 out[f"n_{label}"] = g.size().values
                 return out
 
-          sumA = summarize(df_A, "A")
+            sumA = summarize(df_A, "A")
             sumB = summarize(df_B, "B")
             merged = pd.merge(sumA, sumB, on=["biomarker", "unit", "category"], how="inner")
             
