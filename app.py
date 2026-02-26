@@ -811,9 +811,9 @@ with tab_event_lens:
         metric = st.selectbox("Plot metric", ["Percent change", "Delta"], index=0)
         plot_n = st.slider("How many biomarkers to plot", 5, 40, 15, 5)
             
-            plot_df = merged_view.head(plot_n).copy()
-            ycol = "pct_change" if metric == "Percent change" else "delta"
-            ytitle = "% change (A vs B)" if metric == "Percent change" else "Delta (A - B)"
+        plot_df = merged_view.head(plot_n).copy()
+        ycol = "pct_change" if metric == "Percent change" else "delta"
+        ytitle = "% change (A vs B)" if metric == "Percent change" else "Delta (A - B)"
             
             fig_delta = px.bar(
                 plot_df,
