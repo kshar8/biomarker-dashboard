@@ -737,7 +737,7 @@ with tab_event_lens:
         df_B = df[(df["date"] >= B_start) & (df["date"] <= B_end)].copy()
         
     if df_A.empty or df_B.empty:
-    st.warning("Not enough lab data in one or both windows to compute changes.")
+        st.warning("Not enough lab data in one or both windows to compute changes.")
     else:
         agg_fn = np.median if agg_method == "Median" else np.mean
     
