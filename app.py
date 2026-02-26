@@ -797,15 +797,15 @@ with tab_event_lens:
             use_container_width=True
         )
             
-            st.dataframe(
-                merged_view[display_cols].style.format({
+        st.dataframe(
+           merged_view[display_cols].style.format({
                     bcol: "{:.4g}",
                     ecol: "{:.4g}",
                     "abs_change": "{:.4g}",
                     "pct_change": "{:.2f}",
                 }),
                 use_container_width=True
-            )
+            )     
 
             st.markdown("#### Plot of changes (top biomarkers)")
             metric = st.selectbox("Plot metric", ["Percent change", "Delta"], index=0)
